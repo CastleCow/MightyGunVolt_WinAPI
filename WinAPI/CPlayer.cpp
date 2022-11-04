@@ -2,16 +2,15 @@
 #include "CPlayer.h"
 
 #include "WinAPI.h"
-#include "CInputManager.h"
-#include "CTimeManager.h"
-#include "CRenderManager.h"
-#include "CEventManager.h"
-#include "CResourceManager.h"
+
 #include "CCollider.h"
 #include "CImage.h"
 #include "CAnimator.h"
 
 #include "CMissile.h"
+
+#define RVFIRST 785
+#define NEXTSLICE 49
 
 CPlayer::CPlayer()
 {
@@ -20,8 +19,9 @@ CPlayer::CPlayer()
 	m_layer = Layer::Player;
 	m_strName = L"플레이어";
 
-	m_pIdleImage = nullptr;
-	m_pMoveImage = nullptr;
+	m_pImage = nullptr;
+	m_pImageRV = nullptr;
+	State = PlayerState::Idle;
 
 	m_vecMoveDir = Vector(0, 0);
 	m_vecLookDir = Vector(0, -1);
@@ -34,27 +34,58 @@ CPlayer::~CPlayer()
 
 void CPlayer::Init()
 {
-	m_pIdleImage = RESOURCE->LoadImg(L"PlayerIdle", L"Image\\PlayerIdle.png");
-	m_pMoveImage = RESOURCE->LoadImg(L"PlayerMove", L"Image\\PlayerMove.png");
+	m_pImage = RESOURCE->LoadImg(L"Player", L"Image\\Player\\Player-GV transpBG.png");
+	m_pImageRV = RESOURCE->LoadImg(L"PlayerRV", L"Image\\Player\\Player-GV transpBG_RV.png");
 
 	m_pAnimator = new CAnimator;
-	m_pAnimator->CreateAnimation(L"IdleUp", m_pIdleImage, Vector(8.f, 0.f), Vector(80.f, 70.f), Vector(80.f, 0.f), 0.1f, 7);
-	m_pAnimator->CreateAnimation(L"IdleRightUp", m_pIdleImage, Vector(8.f, 70.f), Vector(80.f, 70.f), Vector(80.f, 0.f), 0.1f, 7);
-	m_pAnimator->CreateAnimation(L"IdleRight", m_pIdleImage, Vector(8.f, 140.f), Vector(80.f, 70.f), Vector(80.f, 0.f), 0.1f, 7);
-	m_pAnimator->CreateAnimation(L"IdleRightDown", m_pIdleImage, Vector(8.f, 210.f), Vector(80.f, 70.f), Vector(80.f, 0.f), 0.1f, 7);
-	m_pAnimator->CreateAnimation(L"IdleDown", m_pIdleImage, Vector(8.f, 280.f), Vector(80.f, 70.f), Vector(80.f, 0.f), 0.1f, 7);
-	m_pAnimator->CreateAnimation(L"IdleLeftDown", m_pIdleImage, Vector(8.f, 350.f), Vector(80.f, 70.f), Vector(80.f, 0.f), 0.1f, 7);
-	m_pAnimator->CreateAnimation(L"IdleLeft", m_pIdleImage, Vector(8.f, 420.f), Vector(80.f, 70.f), Vector(80.f, 0.f), 0.1f, 7);
-	m_pAnimator->CreateAnimation(L"IdleLeftUp", m_pIdleImage, Vector(8.f, 490.f), Vector(80.f, 70.f), Vector(80.f, 0.f), 0.1f, 7);
-
-	m_pAnimator->CreateAnimation(L"MoveUp", m_pMoveImage, Vector(0.f, 0.f), Vector(80.f, 75.f), Vector(84.f, 0.f), 0.05f, 16);
-	m_pAnimator->CreateAnimation(L"MoveRightUp", m_pMoveImage, Vector(0.f, 79.f), Vector(80.f, 75.f), Vector(84.f, 0.f), 0.05f, 16);
-	m_pAnimator->CreateAnimation(L"MoveRight", m_pMoveImage, Vector(0.f, 158.f), Vector(80.f, 75.f), Vector(84.f, 0.f), 0.05f, 16);
-	m_pAnimator->CreateAnimation(L"MoveRightDown", m_pMoveImage, Vector(0.f, 237.f), Vector(80.f, 75.f), Vector(84.f, 0.f), 0.05f, 16);
-	m_pAnimator->CreateAnimation(L"MoveDown", m_pMoveImage, Vector(0.f, 316.f), Vector(80.f, 75.f), Vector(84.f, 0.f), 0.05f, 16);
-	m_pAnimator->CreateAnimation(L"MoveLeftDown", m_pMoveImage, Vector(0.f, 395.f), Vector(80.f, 75.f), Vector(84.f, 0.f), 0.05f, 16);
-	m_pAnimator->CreateAnimation(L"MoveLeft", m_pMoveImage, Vector(0.f, 474.f), Vector(80.f, 75.f), Vector(84.f, 0.f), 0.05f, 16);
-	m_pAnimator->CreateAnimation(L"MoveLeftUp", m_pMoveImage, Vector(0.f, 553.f), Vector(80.f, 75.f), Vector(84.f, 0.f), 0.05f, 16);
+	//INTRO		2
+	m_pAnimator->CreateAnimation(L"IntroLeft ", m_pImage,		Vector(1.f,	10.f),		Vector(47.f, 47.f), Vector(49.f, 0.f), 0.1f, 2);
+	m_pAnimator->CreateAnimation(L"IntroRight", m_pImageRV,		Vector(785.f, 10.f),	Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 2);
+	//INTROIDLE	2
+	m_pAnimator->CreateAnimation(L"IntroIdleLeft ", m_pImage, Vector(99.f, 10.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.1f, 2);
+	m_pAnimator->CreateAnimation(L"IntroIdleRight", m_pImageRV,  Vector(687.f, 10.f),	Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 2);
+	//IDLE		2
+	m_pAnimator->CreateAnimation(L"IdleLeft ", m_pImage, Vector(197.f, 10.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.1f, 2);
+	m_pAnimator->CreateAnimation(L"IdleRight", m_pImageRV,	Vector(589.f, 10.f),	Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 2);
+	//WEAKIDLE	3
+	m_pAnimator->CreateAnimation(L"WeakIdleLeft ", m_pImage, Vector(295.f, 10.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.1f, 3);
+	m_pAnimator->CreateAnimation(L"WeakIdleRight", m_pImageRV, Vector(491.f, 10.f), Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 3);
+	//SHOT		2
+	m_pAnimator->CreateAnimation(L"ShotLeft ", m_pImage, Vector(442.f, 10.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.1f, 2);
+	m_pAnimator->CreateAnimation(L"ShotRight", m_pImageRV, Vector(344.f, 10.f), Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 2);
+	//WALK		6
+	m_pAnimator->CreateAnimation(L"WalkLeft ", m_pImage, Vector(540.f, 10.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.1f, 6);
+	m_pAnimator->CreateAnimation(L"walkRight", m_pImageRV, Vector(246.f, 10.f), Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 6);
+	//WALKSHOT	6
+	m_pAnimator->CreateAnimation(L"WalkShotLeft ", m_pImage, Vector(1.f, 117.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.1f, 6);
+	m_pAnimator->CreateAnimation(L"WalkShotRight", m_pImageRV, Vector(785.f, 117.f), Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 6);
+	//JUMP		1
+	m_pAnimator->CreateAnimation(L"JumpLeft ", m_pImage, Vector(1.f, 226.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.1f, 1);
+	m_pAnimator->CreateAnimation(L"JumpRight", m_pImageRV, Vector(785.f, 226.f), Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 1);
+	//JUMPLOOP	1
+	m_pAnimator->CreateAnimation(L"JumpLoopLeft ", m_pImage, Vector(50.f, 226.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.1f, 1);
+	m_pAnimator->CreateAnimation(L"JumpLoopRight", m_pImageRV, Vector(736.f, 226.f), Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 1);
+	//JUMPSHOT	2
+	m_pAnimator->CreateAnimation(L"JumpShotLeft ", m_pImage, Vector(99.f, 226.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.1f, 2);
+	m_pAnimator->CreateAnimation(L"JumpShotRight", m_pImageRV, Vector(736.f, 226.f), Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 2);
+	//FALL		1
+	m_pAnimator->CreateAnimation(L"FallLeft ", m_pImage, Vector(197.f, 226.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.1f, 1);
+	m_pAnimator->CreateAnimation(L"FallRight", m_pImageRV, Vector(589.f, 226.f), Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 1);
+	//FALLLOOP	1 ※이하 미수정
+	m_pAnimator->CreateAnimation(L"FallLoopLeft ", m_pImage, Vector(99.f, 226.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.1f, 1);
+	m_pAnimator->CreateAnimation(L"FallLoopRight", m_pImageRV, Vector(736.f, 226.f), Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 1);
+	//FALLSHOT	2
+	m_pAnimator->CreateAnimation(L"FallShotLeft ", m_pImage, Vector(99.f, 226.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.1f, 2);
+	m_pAnimator->CreateAnimation(L"FallShotRight", m_pImageRV, Vector(736.f, 226.f), Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 2);
+	//HURT		3
+	//
+	//DIE		6 
+	//
+	m_pAnimator->CreateAnimation(L"IdleUp", m_pImage,	Vector(8.f, 0.f), Vector(80.f, 70.f), Vector(80.f, 0.f), 0.1f, 7);
+	
+	m_pAnimator->CreateAnimation(L"MoveUp", m_pImageRV, Vector(0.f, 0.f), Vector(80.f, 75.f), Vector(84.f, 0.f), 0.05f, 16);
+	
+	
 	m_pAnimator->Play(L"IdleDown", false);
 	AddComponent(m_pAnimator);
 

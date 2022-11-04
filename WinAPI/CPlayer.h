@@ -3,7 +3,15 @@
 
 class CImage;
 class CAnimator;
-
+enum class PlayerState {
+	Dead,
+	Idle,
+	Move,
+	Attack,
+	Jump,
+	Jump2,
+	Fall,
+};
 class CPlayer : public CGameObject
 {
 public:
@@ -12,11 +20,12 @@ public:
 
 private:
 	CAnimator* m_pAnimator;
-	CImage* m_pIdleImage;
-	CImage* m_pMoveImage;
+	CImage* m_pImage;
+	CImage* m_pImageRV;
 
 	Vector m_vecMoveDir;
 	Vector m_vecLookDir;
+	PlayerState State;
 	bool m_bIsMove;
 
 	float m_fSpeed = 200.0f;

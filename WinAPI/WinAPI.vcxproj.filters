@@ -52,6 +52,9 @@
     <Filter Include="GameObject\Stage01">
       <UniqueIdentifier>{f2ad0501-d505-4b88-af0d-880a4673ef5b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Stage01\Player_GV">
+      <UniqueIdentifier>{27c88747-582e-4dc3-b5ef-133dc301613d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -162,13 +165,7 @@
     <ClInclude Include="CCameraController.h">
       <Filter>GameObject\Common</Filter>
     </ClInclude>
-    <ClInclude Include="CMissile.h">
-      <Filter>GameObject\Stage01</Filter>
-    </ClInclude>
     <ClInclude Include="CMonster.h">
-      <Filter>GameObject\Stage01</Filter>
-    </ClInclude>
-    <ClInclude Include="CPlayer.h">
       <Filter>GameObject\Stage01</Filter>
     </ClInclude>
     <ClInclude Include="CTilePanel.h">
@@ -182,6 +179,12 @@
     </ClInclude>
     <ClInclude Include="CSoundManager.h">
       <Filter>Engine\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="CMissile.h">
+      <Filter>GameObject\Stage01\Player_GV</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayer.h">
+      <Filter>GameObject\Stage01\Player_GV</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -275,13 +278,7 @@
     <ClCompile Include="CCameraController.cpp">
       <Filter>GameObject\Common</Filter>
     </ClCompile>
-    <ClCompile Include="CMissile.cpp">
-      <Filter>GameObject\Stage01</Filter>
-    </ClCompile>
     <ClCompile Include="CMonster.cpp">
-      <Filter>GameObject\Stage01</Filter>
-    </ClCompile>
-    <ClCompile Include="CPlayer.cpp">
       <Filter>GameObject\Stage01</Filter>
     </ClCompile>
     <ClCompile Include="CTileButton.cpp">
@@ -295,6 +292,12 @@
     </ClCompile>
     <ClCompile Include="CSoundManager.cpp">
       <Filter>Engine\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="CMissile.cpp">
+      <Filter>GameObject\Stage01\Player_GV</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayer.cpp">
+      <Filter>GameObject\Stage01\Player_GV</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
