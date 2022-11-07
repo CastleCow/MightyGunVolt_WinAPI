@@ -12,12 +12,16 @@
 #include "CPlayer.h"
 #include "CMonster.h"
 #include "CCameraController.h"
+#include"CMaps.h"
+
 #include "CButton.h"
 #include "CPanel.h"
 
 CSceneStage01::CSceneStage01()
 {
 	pPlayer = nullptr;
+	map = nullptr;
+	
 }
 
 CSceneStage01::~CSceneStage01()
@@ -35,13 +39,20 @@ void CSceneStage01::Init()
 	AddGameObject(pMonster);
 
 	CCameraController* pCamController = new CCameraController;
+	
 	AddGameObject(pCamController);
+
+	map = new CMaps();
+	map->SetImage(RESOURCE->LoadImg(L"map_part1", L"Image\\MAP\\Map_part1.png"));
+	AddGameObject(map);
 }
 
 void CSceneStage01::Enter()
 {
 	CAMERA->FadeIn(0.25f);
 	LoadTile(GETPATH + L"Tile\\Stage01.tile");
+
+	RESOURCE->LoadImg(L"map_part1", L"Image\\MAP\\Map_part1.png");
 }
 
 void CSceneStage01::Update()
@@ -55,6 +66,9 @@ void CSceneStage01::Update()
 
 void CSceneStage01::Render()
 {
+	
+	//RENDER->Image(map,0,0,map->GetWidth(),map->GetHeight());
+	
 }
 
 void CSceneStage01::Exit()

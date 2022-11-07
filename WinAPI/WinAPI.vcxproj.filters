@@ -192,6 +192,9 @@
     <ClInclude Include="CWallTile.h">
       <Filter>Engine\Asset\Tile</Filter>
     </ClInclude>
+    <ClInclude Include="CMaps.h">
+      <Filter>GameObject\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinAPI.cpp">
@@ -307,6 +310,9 @@
     </ClCompile>
     <ClCompile Include="CWallTile.cpp">
       <Filter>Engine\Asset\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="CMaps.cpp">
+      <Filter>GameObject\Common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

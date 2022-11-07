@@ -2,6 +2,8 @@
 #include "CScene.h"
 
 class CPlayer;
+class CMaps;
+class CImage;
 
 class CSceneStage01 : public CScene
 {
@@ -11,7 +13,8 @@ public:
 
 private:
 	CPlayer* pPlayer;
-
+	CMaps* map;
+	CImage* mapimg;
 private:
 	void Init()		override;
 	void Enter()	override;

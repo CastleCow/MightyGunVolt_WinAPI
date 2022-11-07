@@ -116,14 +116,14 @@ void CPlayer::Update()
 	if (BUTTONSTAY(VK_UP))
 	{
 		m_vecPos.y -= m_fSpeed * DT;
-		m_bIsMove = true;
-		m_vecMoveDir.y = +1;
+		//m_bIsMove = true;
+		//m_vecMoveDir.y = +1;
 	}
 	else if (BUTTONSTAY(VK_DOWN))
 	{
 		m_vecPos.y += m_fSpeed * DT;
-		m_bIsMove = true;
-		m_vecMoveDir.y = -1;
+		//m_bIsMove = true;
+		//m_vecMoveDir.y = -1;
 	}
 	else
 	{
@@ -154,7 +154,13 @@ void CPlayer::AnimatorUpdate()
 	wstring str = L"";
 
 	if (m_bIsMove)	str += L"Move";
-	else			str += L"Idle";
+	else { 
+		if (m_HP < 5)
+			str += L"Weak";
+		str += L"Idle"; 
+	}
+
+	
 
 	if (m_vecLookDir.x > 0) str += L"Right";
 	else if (m_vecLookDir.x < 0) str += L"Left";
@@ -179,6 +185,12 @@ void CPlayer::CreateMissile()
 
 void CPlayer::OnCollisionEnter(CCollider* pOtherCollider)
 {
+	//ÀûÀÇ ÅºÈ¯°ú ºÎ‹HÃÆÀ»¶§
+	
+	//Àû°ú ºÎ‹HÃÆÀ»¶§
+
+
+	
 }
 
 void CPlayer::OnCollisionStay(CCollider* pOtherCollider)
