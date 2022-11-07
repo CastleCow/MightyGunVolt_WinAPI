@@ -55,6 +55,9 @@
     <Filter Include="GameObject\Stage01\Player_GV">
       <UniqueIdentifier>{27c88747-582e-4dc3-b5ef-133dc301613d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Stage01\Monster">
+      <UniqueIdentifier>{ffba5cea-6303-4f0e-ab38-7d3267eb9ba3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -165,9 +168,6 @@
     <ClInclude Include="CCameraController.h">
       <Filter>GameObject\Common</Filter>
     </ClInclude>
-    <ClInclude Include="CMonster.h">
-      <Filter>GameObject\Stage01</Filter>
-    </ClInclude>
     <ClInclude Include="CTilePanel.h">
       <Filter>Engine\Asset\UI</Filter>
     </ClInclude>
@@ -185,6 +185,12 @@
     </ClInclude>
     <ClInclude Include="CPlayer.h">
       <Filter>GameObject\Stage01\Player_GV</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonster.h">
+      <Filter>GameObject\Stage01\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="CWallTile.h">
+      <Filter>Engine\Asset\Tile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -278,9 +284,6 @@
     <ClCompile Include="CCameraController.cpp">
       <Filter>GameObject\Common</Filter>
     </ClCompile>
-    <ClCompile Include="CMonster.cpp">
-      <Filter>GameObject\Stage01</Filter>
-    </ClCompile>
     <ClCompile Include="CTileButton.cpp">
       <Filter>Engine\Asset\UI</Filter>
     </ClCompile>
@@ -298,6 +301,12 @@
     </ClCompile>
     <ClCompile Include="CPlayer.cpp">
       <Filter>GameObject\Stage01\Player_GV</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonster.cpp">
+      <Filter>GameObject\Stage01\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="CWallTile.cpp">
+      <Filter>Engine\Asset\Tile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

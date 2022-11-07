@@ -18,6 +18,8 @@ public:
 	CPlayer();
 	virtual ~CPlayer();
 
+	float GetHP() { return m_HP; }
+	void SetHP(int a) { m_HP = a; }
 private:
 	CAnimator* m_pAnimator;
 	CImage* m_pImage;
@@ -29,7 +31,7 @@ private:
 	bool m_bIsMove;
 
 	float m_fSpeed = 200.0f;
-
+	float m_HP=20;
 private:
 	void Init() override;
 	void Update() override;

@@ -28,7 +28,7 @@ CTilePanel::~CTilePanel()
 
 void CTilePanel::CreateTilePalette()
 {
-	m_pImage = RESOURCE->LoadImg(L"Time", L"Image\\Tile.png");
+	m_pImage = RESOURCE->LoadImg(L"Time", L"Image\\MGV_Tile.png");
 	m_uiTileCountX = m_pImage->GetWidth() / CTile::TILESIZE;
 	m_uiTileCountY = m_pImage->GetHeight() / CTile::TILESIZE;
 
@@ -45,6 +45,7 @@ void CTilePanel::CreateTilePalette()
 			pTileButton->SetImage(m_pImage);
 			pTileButton->SetPos(Vector((float)x * CTile::TILESIZE, (float)y * CTile::TILESIZE));
 			pTileButton->SetPos(Vector(pTileButton->GetPos() + Vector((float)marginX, (float)marginY)));
+			pTileButton->SetScale(CTile::TILESIZE*2, CTile::TILESIZE * 2);
 			AddChildUI(pTileButton);
 			m_vecTileButton.push_back(pTileButton);
 		}
@@ -93,18 +94,25 @@ void CTilePanel::CreateTileTypeButton()
 	CSceneTileTool* pTileToolScene = (CSceneTileTool*)pScene;
 
 	CButton* pNoneTypeButton = new CButton;
-	pNoneTypeButton->SetScale(100.f, 50.f);
+	pNoneTypeButton->SetScale(75.f, 50.f);
 	pNoneTypeButton->SetPos(Vector(10.f, m_vecScale.y - 100.f));
 	pNoneTypeButton->SetText(L"None");
 	pNoneTypeButton->SetClickedCallback(click, (DWORD_PTR)pTileToolScene, (DWORD_PTR)TypeTile::None);
 	AddChildUI(pNoneTypeButton);
 
 	CButton* pGroundTypeButton = new CButton;
-	pGroundTypeButton->SetScale(100.f, 50.f);
-	pGroundTypeButton->SetPos(Vector(150.f, m_vecScale.y - 100.f));
+	pGroundTypeButton->SetScale(80.f, 50.f);
+	pGroundTypeButton->SetPos(Vector(75.f, m_vecScale.y - 100.f));
 	pGroundTypeButton->SetText(L"Ground");
 	pGroundTypeButton->SetClickedCallback(click, (DWORD_PTR)pTileToolScene, (DWORD_PTR)TypeTile::Ground);
 	AddChildUI(pGroundTypeButton);
+	
+	CButton* pWallTypeButton = new CButton;
+	pWallTypeButton->SetScale(75.f, 50.f);
+	pWallTypeButton->SetPos(Vector(160.f, m_vecScale.y - 100.f));
+	pWallTypeButton->SetText(L"Wall");
+	pWallTypeButton->SetClickedCallback(click, (DWORD_PTR)pTileToolScene, (DWORD_PTR)TypeTile::Wall);
+	AddChildUI(pWallTypeButton);
 }
 
 void CTilePanel::SetPage(UINT page)
