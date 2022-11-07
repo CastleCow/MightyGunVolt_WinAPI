@@ -5,9 +5,11 @@
 
 #include "CImage.h"
 
+
 CMaps::CMaps()
 {
 	m_pImage = nullptr;
+	
 	m_vecPos = Vector(0, 0);
 	m_layer = Layer::Map;
 	m_strName = L"¸Ê";

@@ -31,7 +31,7 @@ CSceneStage01::~CSceneStage01()
 void CSceneStage01::Init()
 {
 	pPlayer = new CPlayer();
-	pPlayer->SetPos(200, WINSIZEY * 0.5f);
+	pPlayer->SetPos(70, 188);
 	AddGameObject(pPlayer);
 
 	CMonster* pMonster = new CMonster();
@@ -39,20 +39,22 @@ void CSceneStage01::Init()
 	AddGameObject(pMonster);
 
 	CCameraController* pCamController = new CCameraController;
-	
+	CAMERA->SetTargetPos(pPlayer->GetPos(), 1);
 	AddGameObject(pCamController);
 
 	map = new CMaps();
 	map->SetImage(RESOURCE->LoadImg(L"map_part1", L"Image\\MAP\\Map_part1.png"));
+	
 	AddGameObject(map);
 }
 
 void CSceneStage01::Enter()
 {
 	CAMERA->FadeIn(0.25f);
-	LoadTile(GETPATH + L"Tile\\Stage01.tile");
+	
+	LoadTileMapPos(GETPATH + L"Tile\\Stage01.tile", Vector(0, WINSIZEY * 0.5f));
 
-	RESOURCE->LoadImg(L"map_part1", L"Image\\MAP\\Map_part1.png");
+	
 }
 
 void CSceneStage01::Update()
@@ -62,6 +64,8 @@ void CSceneStage01::Update()
 		CAMERA->FadeOut(0.25f);
 		DELAYCHANGESCENE(GroupScene::Title, 0.25f);
 	}
+	CAMERA->SetTargetPos(pPlayer->GetPos(), 0.5f);
+	CAMERA->ZoomInOut(2);
 }
 
 void CSceneStage01::Render()

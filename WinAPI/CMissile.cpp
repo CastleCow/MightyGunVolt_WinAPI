@@ -11,6 +11,7 @@ CMissile::CMissile()
 	m_vecScale = Vector(10, 10);
 	m_vecDir = Vector(0, 0);
 	m_fVelocity = 300;
+	bulDelTime = 0;
 	m_layer = Layer::Missile;
 	m_strName = L"미사일";
 }
@@ -28,12 +29,14 @@ void CMissile::Update()
 {
 	m_vecPos += m_vecDir * m_fVelocity * DT;
 
+	bulDelTime += DT;
+	if(bulDelTime>2.0f)DELETEOBJECT(this);
 	// 화면밖으로 나갈경우 삭제
-	if (m_vecPos.x < 0 ||
+	/*if (m_vecPos.x < 0 ||
 		m_vecPos.x > WINSIZEX ||
 		m_vecPos.y < 0 ||
 		m_vecPos.y > WINSIZEY)
-		DELETEOBJECT(this);
+		DELETEOBJECT(this);*/
 }
 
 void CMissile::Render()

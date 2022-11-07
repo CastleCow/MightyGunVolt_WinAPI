@@ -1,6 +1,11 @@
 #include "framework.h"
 #include "CWallTile.h"
 
+#include "CResourceManager.h"
+#include "CRenderManager.h"
+#include "CCollider.h"
+
+
 CWallTile::CWallTile()
 {
 }

@@ -5,6 +5,7 @@
 #include "CGameObject.h"
 #include "CTile.h"
 #include "CGroundTile.h"
+#include "CWallTile.h"
 
 CScene::CScene()
 {
@@ -182,6 +183,70 @@ void CScene::LoadTile(const wstring& strPath)
 		else if (TypeTile::Ground == loadTile.GetType())
 		{
 			CGroundTile* newTile = new CGroundTile;
+			newTile->SetTilePos(loadTile.GetTilePosX(), loadTile.GetTilePosY());
+			newTile->SetTileIndex(loadTile.GetTileIndex());
+
+			AddGameObject(newTile);
+		}
+		else if (TypeTile::Wall == loadTile.GetType())
+		{
+			CWallTile* newTile = new CWallTile;
+			newTile->SetTilePos(loadTile.GetTilePosX(), loadTile.GetTilePosY());
+			newTile->SetTileIndex(loadTile.GetTileIndex());
+
+			AddGameObject(newTile);
+		}
+	}
+
+	fclose(pFile);
+}
+
+void CScene::LoadTileMapPos(const wstring& strPath, Vector mapPos)
+{
+	DeleteLayerObject(Layer::Tile);
+
+	FILE* pFile = nullptr;
+
+	_wfopen_s(&pFile, strPath.c_str(), L"rb");      // w : write, b : binary
+	assert(pFile);
+
+	UINT xCount = 0;
+	UINT yCount = 0;
+	UINT tileCount = 0;
+
+	fread(&xCount, sizeof(UINT), 1, pFile);
+	fread(&yCount, sizeof(UINT), 1, pFile);
+	fread(&tileCount, sizeof(UINT), 1, pFile);
+
+	CTile loadTile;
+	for (UINT i = 0; i < tileCount; i++)
+	{
+		loadTile.Load(pFile);
+
+		// TODO : 타일 타입에 따른 생성
+		if (TypeTile::None == loadTile.GetType())
+		{
+			CTile* newTile = new CTile;
+			//newTile->SetTilePos(loadTile.GetTilePosX()+mapPos.x, loadTile.GetTilePosY() + mapPos.y);
+			newTile->SetTilePos(loadTile.GetTilePosX(), loadTile.GetTilePosY() );
+			newTile->SetTileIndex(loadTile.GetTileIndex());
+
+			AddGameObject(newTile);
+		}
+		else if (TypeTile::Ground == loadTile.GetType())
+		{
+			CGroundTile* newTile = new CGroundTile;
+			//newTile->SetTilePos(loadTile.GetTilePosX()+mapPos.x, loadTile.GetTilePosY() + mapPos.y);
+			newTile->SetTilePos(loadTile.GetTilePosX() , loadTile.GetTilePosY() );
+			newTile->SetTileIndex(loadTile.GetTileIndex());
+
+			AddGameObject(newTile);
+		}
+		else if (TypeTile::Wall == loadTile.GetType())
+		{
+			
+			CWallTile* newTile = new CWallTile;
+			//newTile->SetTilePos(loadTile.GetTilePosX()+mapPos.x, loadTile.GetTilePosY() + mapPos.y);
 			newTile->SetTilePos(loadTile.GetTilePosX(), loadTile.GetTilePosY());
 			newTile->SetTileIndex(loadTile.GetTileIndex());
 

@@ -9,7 +9,7 @@ public:
 private:
 	Vector m_vecDir;
 	float m_fVelocity;
-
+	float bulDelTime;
 private:
 	void Init() override;
 	void Update() override;

@@ -11,12 +11,14 @@ public:
 
 private:
 	CImage* m_pImage;
+	
 	Vector m_vecPos;
 public:
 	CImage* GetIamge();
 	void SetImage(CImage* pImage);
+	
 	void SetVecPos(Vector a) { m_vecPos = a; }
-
+	Vector GetVecPos() { return m_vecPos; }
 private:
 	void Init() override;
 	void Update() override;

@@ -105,8 +105,13 @@ void CRenderManager::Init()
 void CRenderManager::BeginDraw()
 {
 	m_pRenderTarget->BeginDraw();
+	float scale = CAMERA->GetScale();
+	CAMERA->SetScale(1);
+
+	
 	Vector screenPos = CAMERA->ScreenToWorldPoint(Vector(0, 0));
 	FillRect(screenPos.x, screenPos.y, screenPos.x + WINSIZEX, screenPos.y + WINSIZEY, Color(255, 255, 255, 1.f));
+	CAMERA->SetScale(scale);
 }
 
 void CRenderManager::EndDraw()

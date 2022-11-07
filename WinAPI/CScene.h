@@ -49,6 +49,7 @@ private:
 
 public:
 	void LoadTile(const wstring& strPath);
+	void LoadTileMapPos(const wstring& strPath,Vector mapPos);
 
 protected:
 	list<CGameObject*>& GetLayerObject(Layer layer);

@@ -22,6 +22,12 @@ private:
 	float			m_fCurBright;		// 카메라의 현재 밝기
 	float			m_fTimeToBright;	// 카메라의 밝기 변화 남은시간
 
+	float			m_fCameraScale;		//카메라 확대율
+
+	float			m_fTimeToZoom;		//카메라가 줌 하는데 남은시간
+	float			m_fTargetScale;		//카메라의 목표 스케일
+
+
 public:
 	Vector			GetLookAt();
 	Vector			GetTargetPos();
@@ -39,6 +45,10 @@ public:
 	void FadeIn(float duration);		// 씬 진입 효과
 	void FadeOut(float duration);		// 씬 탈출 효과
 
+	float GetScale() { return m_fCameraScale; }
+	void SetScale(float scale) {m_fCameraScale = scale;}
+	void ZoomInOut(float scale, float duration = 0);
+
 private:
 	void Init();
 	void Update();
@@ -48,6 +58,9 @@ private:
 private:
 	void MoveToTarget();
 	void RenderEffect();
+
+	void RenderZoom();
+	void Zoom(Vector& Point);
 };
 
 #define CAMERA	CCameraManager::GetInstance()
