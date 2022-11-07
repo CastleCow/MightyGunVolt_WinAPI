@@ -26,6 +26,7 @@ CPlayer::CPlayer()
 	m_vecMoveDir = Vector(0, 0);
 	m_vecLookDir = Vector(1, 0);
 	m_bIsMove = false;
+	gState = Ground::Air;
 }
 
 CPlayer::~CPlayer()
@@ -115,26 +116,31 @@ void CPlayer::Update()
 
 	if (BUTTONSTAY(VK_UP))
 	{
+		if (gState != Ground::Ceiling)
 		m_vecPos.y -= m_fSpeed * DT;
 		//m_bIsMove = true;
 		//m_vecMoveDir.y = +1;
 	}
-	else if (BUTTONSTAY(VK_DOWN))
+	if (BUTTONSTAY(VK_DOWN))
 	{
+		if(gState!=Ground::Ground)
 		m_vecPos.y += m_fSpeed * DT;
 		//m_bIsMove = true;
 		//m_vecMoveDir.y = -1;
 	}
 	else
 	{
-		m_vecMoveDir.y = 0;
+		//m_vecMoveDir.y = 0;
 	}
 
-	if (BUTTONDOWN(VK_SPACE))
+	if (BUTTONDOWN('Z'))
 	{
 		CreateMissile();
 	}
+	/*if (State == PlayerState::Dead)
+	{
 
+	}*/
 	AnimatorUpdate();
 }
 
@@ -188,15 +194,65 @@ void CPlayer::OnCollisionEnter(CCollider* pOtherCollider)
 	//적의 탄환과 부딫쳤을때
 	
 	//적과 부딫쳤을때
+	if (pOtherCollider->GetObjName() == L"Monster")
+	{
+		if (m_HP <= 0)
+		{
+			State = PlayerState::Dead;
+		}
+		m_HP--;
 
+	}
 
+	gState = Ground::Air;
+	if (pOtherCollider->GetObjName() == L"땅")
+	{
+		Logger::Debug(L"땅과 플레이어와 충돌중");
+		if (pOtherCollider->GetPos().y < m_vecPos.y)
+			gState = Ground::Ceiling;
+		else if (pOtherCollider->GetPos().y > m_vecPos.y)
+			gState = Ground::Ground;
+		
+	}
+	if (pOtherCollider->GetObjName() == L"벽")
+	{
+		Logger::Debug(L"벽과 플레이어와 충돌중");
+		if (pOtherCollider->GetPos().x < m_vecPos.x)
+			m_vecPos.x++;
+		else if (pOtherCollider->GetPos().x > m_vecPos.x)
+			m_vecPos.x--;
+	}
 	
 }
 
 void CPlayer::OnCollisionStay(CCollider* pOtherCollider)
 {
+	gState = Ground::Air;
+	if (pOtherCollider->GetObjName() == L"땅")
+	{
+		Logger::Debug(L"땅과 플레이어와 충돌중");
+		if (pOtherCollider->GetPos().y < m_vecPos.y)
+			gState = Ground::Ceiling;
+		else if (pOtherCollider->GetPos().y > m_vecPos.y)
+			gState = Ground::Ground;
+	}
+	if (pOtherCollider->GetObjName() == L"벽")
+	{
+		Logger::Debug(L"벽과 플레이어와 충돌중");
+		//if(pOtherCollider->GetPos().x)
+	}
 }
 
 void CPlayer::OnCollisionExit(CCollider* pOtherCollider)
 {
+	
+	if (pOtherCollider->GetObjName() == L"땅")
+	{
+		Logger::Debug(L"땅과 플레이어와 충돌");
+		if (pOtherCollider->GetPos().y < m_vecPos.y)
+			gState = Ground::Air;
+		else if (pOtherCollider->GetPos().y > m_vecPos.y)
+			gState = Ground::Air;
+	}
+	
 }

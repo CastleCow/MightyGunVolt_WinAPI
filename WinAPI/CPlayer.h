@@ -12,6 +12,11 @@ enum class PlayerState {
 	Jump2,
 	Fall,
 };
+enum class Ground {
+	Ceiling,
+	Air,
+	Ground
+};
 class CPlayer : public CGameObject
 {
 public:
@@ -28,6 +33,7 @@ private:
 	Vector m_vecMoveDir;
 	Vector m_vecLookDir;
 	PlayerState State;
+	Ground gState;
 	bool m_bIsMove;
 
 	float m_fSpeed = 200.0f;

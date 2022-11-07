@@ -65,7 +65,7 @@ void CSceneStage01::Update()
 		DELAYCHANGESCENE(GroupScene::Title, 0.25f);
 	}
 	CAMERA->SetTargetPos(pPlayer->GetPos(), 0.5f);
-	CAMERA->ZoomInOut(2);
+	CAMERA->ZoomInOut(2.5f);
 }
 
 void CSceneStage01::Render()

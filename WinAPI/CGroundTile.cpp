@@ -7,6 +7,7 @@
 
 CGroundTile::CGroundTile()
 {
+	m_strName = L"¶¥";
 }
 
 CGroundTile::~CGroundTile()

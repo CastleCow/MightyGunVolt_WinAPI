@@ -8,6 +8,7 @@
 
 CWallTile::CWallTile()
 {
+	m_strName = L"º®";
 }
 
 CWallTile::~CWallTile()

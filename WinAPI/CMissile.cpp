@@ -5,15 +5,16 @@
 #include "CTimeManager.h"
 #include "CEventManager.h"
 #include "CCollider.h"
-
+#include"CImage.h"
 CMissile::CMissile()
 {
 	m_vecScale = Vector(10, 10);
 	m_vecDir = Vector(0, 0);
-	m_fVelocity = 300;
+	m_fVelocity = 250;
 	bulDelTime = 0;
 	m_layer = Layer::Missile;
 	m_strName = L"미사일";
+	m_Image = nullptr;
 }
 
 CMissile::~CMissile()
@@ -23,6 +24,9 @@ CMissile::~CMissile()
 void CMissile::Init()
 {
 	AddCollider(ColliderType::Circle, Vector(8, 8), Vector(0, 0));
+	m_Image = RESOURCE->LoadImg(L"Bullet", L"Image\\Player\\GV_BULLET.png");
+	m_ImageRV = RESOURCE->LoadImg(L"Bullet", L"Image\\Player\\GV_BULLETRV.png");
+
 }
 
 void CMissile::Update()
@@ -45,6 +49,13 @@ void CMissile::Render()
 		m_vecPos.x,
 		m_vecPos.y,
 		m_vecScale.x);
+	if(m_vecDir.x>0)
+	RENDER->Image(m_Image, m_vecPos.x , m_vecPos.y , (m_vecPos.x) + m_Image->GetWidth(), (m_vecPos.y) + m_Image->GetHeight());
+	else
+	{
+	RENDER->Image(m_ImageRV, m_vecPos.x , m_vecPos.y , (m_vecPos.x) + m_ImageRV->GetWidth(), (m_vecPos.y) + m_ImageRV->GetHeight());
+
+	}
 }
 
 void CMissile::Release()
@@ -53,6 +64,7 @@ void CMissile::Release()
 
 void CMissile::OnCollisionEnter(CCollider* pOtherCollider)
 {
+
 	Logger::Debug(L"미사일이 충돌체와 부딪혀 사라집니다.");
 	DELETEOBJECT(this);
 }
