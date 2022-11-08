@@ -24,7 +24,8 @@ public:
 	virtual ~CPlayer();
 
 	float GetHP() { return m_HP; }
-	void SetHP(int a) { m_HP = a; }
+	void SetHP(float a) { m_HP = a; }
+	void SetState(PlayerState State) { this->State = State; }
 private:
 	CAnimator* m_pAnimator;
 	CImage* m_pImage;
@@ -35,9 +36,11 @@ private:
 	PlayerState State;
 	Ground gState;
 	bool m_bIsMove;
-
+	bool m_bIsAttack;
 	float m_fSpeed = 200.0f;
 	float m_HP=20;
+	float Timer = 0;
+	float IntroTimer = 0;
 private:
 	void Init() override;
 	void Update() override;
@@ -50,4 +53,12 @@ private:
 	void OnCollisionEnter(CCollider* pOtherCollider) override;
 	void OnCollisionStay(CCollider* pOtherCollider) override;
 	void OnCollisionExit(CCollider* pOtherCollider) override;
+
+
+	void Idle();
+	void Move(const int key);
+	void Jump();
+	void Fall();
+	void Attack();
+	void Skill();
 };

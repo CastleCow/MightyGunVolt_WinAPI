@@ -8,6 +8,7 @@ CMonster::CMonster()
 {
 	m_vecScale = Vector(100, 100);
 	m_layer = Layer::Monster;
+	m_strName = L"∏ÛΩ∫≈Õ";
 }
 
 CMonster::~CMonster()
@@ -30,6 +31,7 @@ void CMonster::Render()
 		m_vecPos.y - m_vecScale.y * 0.5f,
 		m_vecPos.x + m_vecScale.x * 0.5f,
 		m_vecPos.y + m_vecScale.y * 0.5f);
+
 }
 
 void CMonster::Release()

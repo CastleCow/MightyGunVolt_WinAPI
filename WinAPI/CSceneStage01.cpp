@@ -16,6 +16,7 @@
 
 #include "CButton.h"
 #include "CPanel.h"
+#include "CScreenUI.h"
 
 CSceneStage01::CSceneStage01()
 {
@@ -39,12 +40,15 @@ void CSceneStage01::Init()
 	AddGameObject(pMonster);
 
 	CCameraController* pCamController = new CCameraController;
-	CAMERA->SetTargetPos(pPlayer->GetPos(), 1);
+	CAMERA->SetTargetPos(pPlayer->GetPos(), -10);
 	AddGameObject(pCamController);
+
+	CScreenUI* SideUI=new CScreenUI();
+	SideUI->SetScreenFixed(true);
+	AddGameObject(SideUI);
 
 	map = new CMaps();
 	map->SetImage(RESOURCE->LoadImg(L"map_part1", L"Image\\MAP\\Map_part1.png"));
-	
 	AddGameObject(map);
 }
 
@@ -65,7 +69,7 @@ void CSceneStage01::Update()
 		DELAYCHANGESCENE(GroupScene::Title, 0.25f);
 	}
 	CAMERA->SetTargetPos(pPlayer->GetPos(), 0.5f);
-	CAMERA->ZoomInOut(2.5f);
+	//CAMERA->ZoomInOut(2.5f);
 }
 
 void CSceneStage01::Render()

@@ -34,7 +34,12 @@ void CMissile::Update()
 	m_vecPos += m_vecDir * m_fVelocity * DT;
 
 	bulDelTime += DT;
-	if(bulDelTime>2.0f)DELETEOBJECT(this);
+	if (bulDelTime > 2.0f) { 
+		DELETEOBJECT(this);
+		
+	}
+
+	
 	// 화면밖으로 나갈경우 삭제
 	/*if (m_vecPos.x < 0 ||
 		m_vecPos.x > WINSIZEX ||
@@ -51,11 +56,10 @@ void CMissile::Render()
 		m_vecScale.x);
 	if(m_vecDir.x>0)
 	RENDER->Image(m_Image, m_vecPos.x , m_vecPos.y , (m_vecPos.x) + m_Image->GetWidth(), (m_vecPos.y) + m_Image->GetHeight());
-	else
-	{
+	if(m_vecDir.x<0)	
 	RENDER->Image(m_ImageRV, m_vecPos.x , m_vecPos.y , (m_vecPos.x) + m_ImageRV->GetWidth(), (m_vecPos.y) + m_ImageRV->GetHeight());
 
-	}
+
 }
 
 void CMissile::Release()

@@ -43,6 +43,12 @@ void CGroundTile::Release()
 void CGroundTile::OnCollisionEnter(CCollider* pOther)
 {
 	// 땅타일과 충돌했을 경우 처리
+
+	
+	if (pOther->GetObjName() == L"플레이어")
+	{
+
+	}
 }
 
 void CGroundTile::OnCollisionStay(CCollider* pOther)

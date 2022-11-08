@@ -195,6 +195,12 @@
     <ClInclude Include="CMaps.h">
       <Filter>GameObject\Common</Filter>
     </ClInclude>
+    <ClInclude Include="CGVController.h">
+      <Filter>GameObject\Stage01\Player_GV</Filter>
+    </ClInclude>
+    <ClInclude Include="CScreenUI.h">
+      <Filter>Engine\Asset\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinAPI.cpp">
@@ -313,6 +319,12 @@
     </ClCompile>
     <ClCompile Include="CMaps.cpp">
       <Filter>GameObject\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="CGVController.cpp">
+      <Filter>GameObject\Stage01\Player_GV</Filter>
+    </ClCompile>
+    <ClCompile Include="CScreenUI.cpp">
+      <Filter>Engine\Asset\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

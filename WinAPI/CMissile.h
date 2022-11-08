@@ -14,6 +14,7 @@ private:
 	CImage* m_ImageRV;
 	float m_fVelocity;
 	float bulDelTime;
+	int count=1;
 private:
 	void Init() override;
 	void Update() override;
@@ -25,4 +26,5 @@ private:
 public:
 	void SetDir(Vector dir);
 	void SetVelocity(float velocity);
+	int GetCount() { return count; }
 };
