@@ -39,6 +39,7 @@ void CNextMapTile::Release()
 void CNextMapTile::OnCollisionEnter(CCollider* pOther)
 {
 	// 다음맵과 충돌했을 경우 처리
+	Logger::Debug(L"다음맵으로 이동");
 }
 
 void CNextMapTile::OnCollisionStay(CCollider* pOther)
