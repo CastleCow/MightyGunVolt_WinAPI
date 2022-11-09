@@ -25,8 +25,12 @@ CPlayer::CPlayer()
 
 	m_vecMoveDir = Vector(0, 0);
 	m_vecLookDir = Vector(1, 0);
+
 	m_bIsMove = false;
 	m_bIsAttack = false;
+	m_bIsDead = false;
+	m_bIsJump = false;
+
 	gState = Ground::Air;
 }
 
@@ -47,11 +51,11 @@ void CPlayer::Init()
 	m_pAnimator->CreateAnimation(L"IntroIdleRight", m_pImage, Vector(99.f, 10.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.3f, 2);
 	m_pAnimator->CreateAnimation(L"IntroIdleLeft", m_pImageRV,  Vector(687.f, 10.f),	Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.3f, 2);
 	//IDLE		2
-	m_pAnimator->CreateAnimation(L"IdleRight", m_pImage, Vector(197.f, 10.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.3f, 2);
-	m_pAnimator->CreateAnimation(L"IdleLeft", m_pImageRV,	Vector(589.f, 10.f),	Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.3f, 2);
+	m_pAnimator->CreateAnimation(L"IdleRight", m_pImage, Vector(197.f, 10.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.4f, 2);
+	m_pAnimator->CreateAnimation(L"IdleLeft", m_pImageRV,	Vector(589.f, 10.f),	Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.4f, 2);
 	//WEAKIDLE	3
-	m_pAnimator->CreateAnimation(L"WeakIdleRight", m_pImage, Vector(295.f, 10.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.1f, 3);
-	m_pAnimator->CreateAnimation(L"WeakIdleLeft", m_pImageRV, Vector(491.f, 10.f), Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 3);
+	m_pAnimator->CreateAnimation(L"WeakIdleRight", m_pImage, Vector(295.f, 10.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.4f, 3);
+	m_pAnimator->CreateAnimation(L"WeakIdleLeft", m_pImageRV, Vector(491.f, 10.f), Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.4f, 3);
 	//SHOT		2
 	m_pAnimator->CreateAnimation(L"IdleShotRight", m_pImage, Vector(442.f, 10.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.1f, 2);
 	m_pAnimator->CreateAnimation(L"IdleShotLeft", m_pImageRV, Vector(344.f, 10.f), Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 2);
@@ -70,24 +74,32 @@ void CPlayer::Init()
 	//JUMPSHOT	2
 	m_pAnimator->CreateAnimation(L"JumpShotRight", m_pImage, Vector(99.f, 226.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.1f, 2);
 	m_pAnimator->CreateAnimation(L"JumpShotLeft", m_pImageRV, Vector(736.f, 226.f), Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 2);
+	m_pAnimator->CreateAnimation(L"JumpLoopShotRight", m_pImage, Vector(99.f, 226.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.1f, 2);
+	m_pAnimator->CreateAnimation(L"JumpLoopShotLeft", m_pImageRV, Vector(736.f, 226.f), Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 2);
 	//FALL		1
 	m_pAnimator->CreateAnimation(L"FallRight", m_pImage, Vector(197.f, 226.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.1f, 1);
-	m_pAnimator->CreateAnimation(L"FaLeftLL", m_pImageRV, Vector(589.f, 226.f), Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 1);
-	//FALLLOOP	1 ※이하 미수정
+	m_pAnimator->CreateAnimation(L"FallLeft", m_pImageRV, Vector(589.f, 226.f), Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 1);
+	//FALLLOOP	1 
 	m_pAnimator->CreateAnimation(L"FallLoopRight", m_pImage, Vector(99.f, 226.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.1f, 1);
 	m_pAnimator->CreateAnimation(L"FallLoopLeft", m_pImageRV, Vector(736.f, 226.f), Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 1);
 	//FALLSHOT	2
 	m_pAnimator->CreateAnimation(L"FallShotRight", m_pImage, Vector(99.f, 226.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.1f, 2);
 	m_pAnimator->CreateAnimation(L"FallShotLeft", m_pImageRV, Vector(736.f, 226.f), Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 2);
+	m_pAnimator->CreateAnimation(L"FallLoopShotRight", m_pImage, Vector(99.f, 226.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.1f, 2);
+	m_pAnimator->CreateAnimation(L"FallLoopShotLeft", m_pImageRV, Vector(736.f, 226.f), Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 2);
 	//HURT		3
-	
+	m_pAnimator->CreateAnimation(L"HurtRight", m_pImage, Vector(1.f, 444.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.1f, 3);
+	m_pAnimator->CreateAnimation(L"HurtLeft", m_pImageRV, Vector(832.f, 444.f), Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 3);
+	//Skill		2
+	m_pAnimator->CreateAnimation(L"SkillRight", m_pImage, Vector(1.f, 553.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.1f, 2);
+	m_pAnimator->CreateAnimation(L"SkillLeft", m_pImageRV, Vector(832.f, 553.f), Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 2);
+	//SkillLoop	4
+	m_pAnimator->CreateAnimation(L"SkillLoopRight", m_pImage, Vector(99.f, 553.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.1f, 4);
+	m_pAnimator->CreateAnimation(L"SkillLoopLeft", m_pImageRV, Vector(687.f, 553.f), Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 4);
 	//DIE		6 
-	
-	m_pAnimator->CreateAnimation(L"IdleUp", m_pImage,	Vector(8.f, 0.f), Vector(80.f, 70.f), Vector(80.f, 0.f), 0.1f, 7);
-	
-	m_pAnimator->CreateAnimation(L"MoveUp", m_pImageRV, Vector(0.f, 0.f), Vector(80.f, 75.f), Vector(84.f, 0.f), 0.05f, 16);
-	
-	
+	m_pAnimator->CreateAnimation(L"DieRight", m_pImage, Vector(1.f, 766.f), Vector(79.f, 63.f), Vector(81.f, 0.f), 0.5f, 6);//80,829
+	m_pAnimator->CreateAnimation(L"DieLeft", m_pImageRV, Vector(832.f, 766.f), Vector(79.f, 63.f), Vector(-81.f, 0.f), 0.5f, 6);
+
 	m_pAnimator->Play(L"IntroRight", false);
 	AddComponent(m_pAnimator);
 
@@ -97,59 +109,68 @@ void CPlayer::Init()
 void CPlayer::Update()
 {
 	m_bIsMove = false;
-	Timer += DT;
 	IntroTimer += DT;
-	if(IntroTimer>1.f)
+	if(IntroTimer>2.f)
 	{
-		//좌우 이동
-		if (BUTTONSTAY(VK_LEFT))
+	Timer += DT;
+	JumpTimer += DT;
+		if(State != PlayerState::Dead)
 		{
-			Move(VK_LEFT);
-		}
-		else if (BUTTONSTAY(VK_RIGHT))
-		{
-			Move(VK_RIGHT);
-		}
-		else
-		{
-			Idle();
-		}
+			//좌우 이동
+			if (BUTTONSTAY(VK_LEFT))
+			{
+				Move(VK_LEFT);
+			}
+			else if (BUTTONSTAY(VK_RIGHT))
+			{
+				Move(VK_RIGHT);
+			}
+			else
+			{
+				Idle();
+			}
+			if (BUTTONSTAY('X'))//점프
+			{
+				Jump();
+			}
 
-		if (BUTTONSTAY(VK_UP))
-		{
-			if (gState != Ground::Ceiling)
-				m_vecPos.y -= m_fSpeed * DT;
-			//m_bIsMove = true;
-			//m_vecMoveDir.y = +1;
-		}
-		else if (BUTTONSTAY(VK_DOWN))
-		{
-			if (gState != Ground::Ground)
-				m_vecPos.y += m_fSpeed * DT;
-			//m_bIsMove = true;
-			//m_vecMoveDir.y = -1;
-		}
+			if (BUTTONSTAY(VK_UP))
+			{
+				if (gState != Ground::Ceiling)
+					m_vecPos.y -= m_fSpeed * DT;
+				//m_bIsMove = true;
+				//m_vecMoveDir.y = +1;
+			}
+			else if (BUTTONSTAY(VK_DOWN))
+			{
+				if (gState != Ground::Ground)
+					m_vecPos.y += m_fSpeed * DT;
+				//m_bIsMove = true;
+				//m_vecMoveDir.y = -1;
+			}
+			if (JumpTimer > 5.f)
+				m_bIsJump = false;
 
-		if (BUTTONDOWN('X'))//점프
-		{
-			Jump();
+			if (Timer > .5f)
+				m_bIsAttack = false;
+			if (BUTTONDOWN('Z'))//공격
+			{
+				Attack();
+			}
+			if (BUTTONDOWN('C'))
+			{
+				Skill();
+			}
+			if(gState==Ground::Air&&m_bIsJump!=true)
+				Fall();
 		}
-
-		if (Timer > .5f)
-			m_bIsAttack = false;
-		if (BUTTONDOWN('Z'))//공격
+		else if (State == PlayerState::Dead)
 		{
-			Attack();
-		}
-		if (BUTTONDOWN('C'))
-		{
-			Skill();
+			//체인지씬-리트라이 
+			Dead();
 		}
 	}
-	else if (State == PlayerState::Dead)
-	{
-
-	}
+	
 	/*if ()
 	{
 
@@ -189,8 +210,19 @@ void CPlayer::AnimatorUpdate()
 		}
 		break;
 		case (int)PlayerState::Dead: str += L"Die"; break;
-		case (int)PlayerState::Jump: str += L"Jump"; break;
-
+		case (int)PlayerState::Jump:
+		{
+			str += L"Jump";
+			if (JumpTimer > 0.2f)
+				str += L"Loop";
+			break;
+		}
+		case (int)PlayerState::Fall:
+		{
+			str += L"Fall";
+			
+			break;
+		}
 		}
 		if (m_bIsAttack == true)str += L"Shot";
 		else str += L"";
@@ -198,9 +230,7 @@ void CPlayer::AnimatorUpdate()
 		if (m_vecLookDir.x > 0) str += L"Right";
 		else if (m_vecLookDir.x < 0) str += L"Left";
 
-		//if (m_vecLookDir.y > 0) str += L"Up";
-		//else if (m_vecLookDir.y < 0) str += L"Down";
-
+		
 		m_pAnimator->Play(str, false);
 	}
 }
@@ -246,9 +276,9 @@ void CPlayer::OnCollisionEnter(CCollider* pOtherCollider)
 	{
 		Logger::Debug(L"벽과 플레이어와 충돌중");
 		if (pOtherCollider->GetPos().x < m_vecPos.x)
-			m_vecPos.x++;
+			m_vecPos.x+=m_fSpeed*DT;
 		else if (pOtherCollider->GetPos().x > m_vecPos.x)
-			m_vecPos.x--;
+			m_vecPos.x-=m_fSpeed*DT;
 	}
 	
 }
@@ -268,6 +298,10 @@ void CPlayer::OnCollisionStay(CCollider* pOtherCollider)
 	{
 		Logger::Debug(L"벽과 플레이어와 충돌중");
 		//if(pOtherCollider->GetPos().x)
+		if (pOtherCollider->GetPos().x < m_vecPos.x)
+			m_vecPos.x += m_fSpeed * DT;
+		else if (pOtherCollider->GetPos().x > m_vecPos.x)
+			m_vecPos.x -= m_fSpeed * DT;
 	}
 }
 
@@ -312,10 +346,21 @@ void CPlayer::Move(const int key)
 void CPlayer::Jump()
 {
 	State = PlayerState::Jump;
+	float Speed = m_fSpeed;
+	Speed -= m_fSpeed * DT;
+	m_vecPos.y -= (Speed)*DT;
+	JumpTimer = 0;
 }
 
 void CPlayer::Fall()
 {
+	State = PlayerState::Fall;
+	if (gState == Ground::Air)
+	{
+		float Speed = m_fSpeed;
+		Speed += m_fSpeed * DT;
+		m_vecPos.y += (Speed)*DT;
+	}
 }
 
 void CPlayer::Attack()
@@ -327,4 +372,20 @@ void CPlayer::Attack()
 
 void CPlayer::Skill()
 {
+	State = PlayerState::Skill;
+}
+
+void CPlayer::Dead()
+{
+	m_bIsDead = true;
+	Timer = 0;
+}
+
+void CPlayer::Reset()
+{
+	State = PlayerState::Idle;
+	m_bIsMove = false;
+	m_bIsAttack = false;
+	m_bIsDead = false;
+	m_HP = 20;
 }

@@ -12,7 +12,7 @@ CUI::CUI()
 	m_vecAbsolutePos = Vector(0, 0);
 	m_vecRenderPos = Vector(0, 0);
 	m_bScreenFixed = true;
-
+	camScale = 1;
 	m_bPrevMouseOn	= false;
 	m_bCurMouseOn	= false;
 	m_bPrevDown		= false;
@@ -77,7 +77,8 @@ void CUI::GameObjectUpdate()
 
 	// 자식 UI의 위치는 부모를 기준으로 설정
 	// 부모 UI가 위치 이동이 있을 경우 자식도 같이 이동
-	m_vecAbsolutePos = m_vecPos;
+	//m_vecAbsolutePos = m_vecPos;
+	m_vecAbsolutePos = m_vecPos/camScale;//임시
 
 	if (nullptr != GetParentUI())
 		m_vecAbsolutePos += GetParentUI()->m_vecAbsolutePos;

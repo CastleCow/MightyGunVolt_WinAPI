@@ -8,10 +8,13 @@ public:
 	CScreenUI();
 	virtual ~CScreenUI();
 
+	
 private:
 	CImage* m_Hpbar;
 	CImage* m_PIcon;
 	CImage* m_SideBar;
+
+	
 
 private:
 	// CUI을(를) 통해 상속됨

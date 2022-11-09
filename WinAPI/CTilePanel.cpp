@@ -28,7 +28,7 @@ CTilePanel::~CTilePanel()
 
 void CTilePanel::CreateTilePalette()
 {
-	m_pImage = RESOURCE->LoadImg(L"Time", L"Image\\MGV_Tile.png");
+	m_pImage = RESOURCE->LoadImg(L"Time", L"Image\\Tile2x.png");
 	m_uiTileCountX = m_pImage->GetWidth() / CTile::TILESIZE;
 	m_uiTileCountY = m_pImage->GetHeight() / CTile::TILESIZE;
 
@@ -45,7 +45,7 @@ void CTilePanel::CreateTilePalette()
 			pTileButton->SetImage(m_pImage);
 			pTileButton->SetPos(Vector((float)x * CTile::TILESIZE, (float)y * CTile::TILESIZE));
 			pTileButton->SetPos(Vector(pTileButton->GetPos() + Vector((float)marginX, (float)marginY)));
-			pTileButton->SetScale(CTile::TILESIZE*2, CTile::TILESIZE * 2);
+			pTileButton->SetScale(CTile::TILESIZE, CTile::TILESIZE );
 			AddChildUI(pTileButton);
 			m_vecTileButton.push_back(pTileButton);
 		}

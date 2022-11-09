@@ -9,6 +9,7 @@ CScreenUI::CScreenUI()
 	m_Hpbar = nullptr;
 	m_PIcon = nullptr;
 	m_SideBar = nullptr;
+	camScale = 1;
 }
 
 CScreenUI::~CScreenUI()
@@ -25,21 +26,26 @@ void CScreenUI::Init()
 void CScreenUI::Update()
 {
 
-
 }
 
 void CScreenUI::Render()
 {
 	
 	
-	RENDER->Image(m_Hpbar, (m_vecRenderPos.x + 100), (m_vecRenderPos.y), (m_vecRenderPos.x + 100 + WINSIZEX * 0.2f), (m_vecRenderPos.y + WINSIZEY * 0.1f));
-	RENDER->Image(m_PIcon, (m_vecRenderPos.x + 110), (m_vecRenderPos.y), (m_vecRenderPos.x + 170), (m_vecRenderPos.y + WINSIZEY * 0.09f));
-	RENDER->Image(m_SideBar, m_vecRenderPos.x-100, m_vecRenderPos.y, m_vecRenderPos.x+100, m_vecRenderPos.y+WINSIZEY );
+	RENDER->Image(m_Hpbar, (m_vecRenderPos.x + 100),
+		(m_vecRenderPos.y),
+		(m_vecRenderPos.x + 100 + WINSIZEX * 0.2f),
+		(m_vecRenderPos.y + WINSIZEY * 0.1f) );
+	RENDER->Image(m_PIcon, (m_vecRenderPos.x + 110) , (m_vecRenderPos.y + 10) ,
+							(m_vecRenderPos.x + 160) , (m_vecRenderPos.y + 62) );
+	RENDER->Image(m_SideBar, (m_vecRenderPos.x - 104) , (m_vecRenderPos.y) ,
+		(m_vecRenderPos.x + 104) , (m_vecRenderPos.y + WINSIZEY) );
 	RENDER->Image(m_SideBar, WINSIZEX+m_vecRenderPos.x-100, m_vecRenderPos.y,WINSIZEX+ m_vecRenderPos.x +100, m_vecRenderPos.y+ WINSIZEY);
 	
 	RENDER->FillRect(m_vecRenderPos.x + 325, m_vecRenderPos.y +11, m_vecRenderPos.x +345, m_vecRenderPos.y +22 , Color(0,0,0,1));
 	
-	RENDER->Text(L"RETRY",m_vecRenderPos.x+50 , m_vecRenderPos.y+WINSIZEY-150, m_vecRenderPos.x + 100, m_vecRenderPos.y + WINSIZEY -100);
+	
+	RENDER->Text(L"RETRY",m_vecRenderPos.x+50 , m_vecRenderPos.y+WINSIZEY-150, m_vecRenderPos.x + 100, m_vecRenderPos.y + WINSIZEY -100,Color(0,0,0,1));
 	
 }
 

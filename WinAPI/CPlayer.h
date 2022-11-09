@@ -11,6 +11,7 @@ enum class PlayerState {
 	Jump,
 	Jump2,
 	Fall,
+	Skill,
 };
 enum class Ground {
 	Ceiling,
@@ -36,10 +37,14 @@ private:
 	PlayerState State;
 	Ground gState;
 	bool m_bIsMove;
+	bool m_bIsJump;
+	bool m_bIsDead;
 	bool m_bIsAttack;
+
 	float m_fSpeed = 200.0f;
 	float m_HP=20;
 	float Timer = 0;
+	float JumpTimer = 0;
 	float IntroTimer = 0;
 private:
 	void Init() override;
@@ -61,4 +66,6 @@ private:
 	void Fall();
 	void Attack();
 	void Skill();
+	void Dead();
+	void Reset();
 };

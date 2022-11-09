@@ -19,6 +19,8 @@ protected:
 	Vector		m_vecRenderPos;		// 게임에서의 그려질 위치
 	bool		m_bScreenFixed;		// 화면 고정 여부
 
+	float camScale;
+
 	bool		m_bPrevMouseOn;		// UI가 이전 프레임에 마우스가 올려진 여부
 	bool		m_bCurMouseOn;		// UI가 현재 프레임에 마우스가 올려진 여부
 	bool		m_bPrevDown;		// UI가 이전 프레임에 눌렸는지 여부
@@ -27,6 +29,8 @@ protected:
 public:
 	CUI* GetParentUI();
 	void AddChildUI(CUI* pChildUI);
+
+	void SetCamScale(float a) { camScale = a; }
 
 	bool GetScreenFixed();
 	void SetScreenFixed(bool fixed);
