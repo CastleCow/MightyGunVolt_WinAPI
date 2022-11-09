@@ -113,6 +113,13 @@ void CTilePanel::CreateTileTypeButton()
 	pWallTypeButton->SetText(L"Wall");
 	pWallTypeButton->SetClickedCallback(click, (DWORD_PTR)pTileToolScene, (DWORD_PTR)TypeTile::Wall);
 	AddChildUI(pWallTypeButton);
+
+	CButton* pNextMapTypeButton = new CButton;
+	pNextMapTypeButton->SetScale(75.f, 50.f);
+	pNextMapTypeButton->SetPos(Vector(70.f, m_vecScale.y - 30.f));
+	pNextMapTypeButton->SetText(L"Next");
+	pNextMapTypeButton->SetClickedCallback(click, (DWORD_PTR)pTileToolScene, (DWORD_PTR)TypeTile::Next);
+	AddChildUI(pNextMapTypeButton);
 }
 
 void CTilePanel::SetPage(UINT page)

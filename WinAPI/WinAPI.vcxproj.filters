@@ -201,6 +201,9 @@
     <ClInclude Include="CScreenUI.h">
       <Filter>Engine\Asset\UI</Filter>
     </ClInclude>
+    <ClInclude Include="CNextMapTile.h">
+      <Filter>Engine\Asset\Tile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinAPI.cpp">
@@ -325,6 +328,9 @@
     </ClCompile>
     <ClCompile Include="CScreenUI.cpp">
       <Filter>Engine\Asset\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CNextMapTile.cpp">
+      <Filter>Engine\Asset\Tile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

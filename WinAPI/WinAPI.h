@@ -62,6 +62,7 @@ enum class TypeTile
 	Ground,
 	Platform,
 	Wall,
+	Next,
 
 	Size,
 };
