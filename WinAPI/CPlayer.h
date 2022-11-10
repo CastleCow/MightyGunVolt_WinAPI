@@ -42,6 +42,7 @@ private:
 	bool m_bIsAttack;
 
 	float m_fSpeed = 200.0f;
+	float m_fFallSpeed = 200.0f;
 	float m_HP=20;
 	float Timer = 0;
 	float JumpTimer = 0;

@@ -97,8 +97,8 @@ void CPlayer::Init()
 	m_pAnimator->CreateAnimation(L"SkillLoopRight", m_pImage, Vector(99.f, 553.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.1f, 4);
 	m_pAnimator->CreateAnimation(L"SkillLoopLeft", m_pImageRV, Vector(687.f, 553.f), Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 4);
 	//DIE		6 
-	m_pAnimator->CreateAnimation(L"DieRight", m_pImage, Vector(1.f, 766.f), Vector(79.f, 63.f), Vector(81.f, 0.f), 0.5f, 6);//80,829
-	m_pAnimator->CreateAnimation(L"DieLeft", m_pImageRV, Vector(832.f, 766.f), Vector(79.f, 63.f), Vector(-81.f, 0.f), 0.5f, 6);
+	m_pAnimator->CreateAnimation(L"DieRight", m_pImage, Vector(1.1f, 766.f), Vector(79.f, 63.f), Vector(81.f, 0.f), 0.5f, 6,false);//80,829
+	m_pAnimator->CreateAnimation(L"DieLeft", m_pImageRV, Vector(831.9f, 766.f), Vector(79.f, 63.f), Vector(-81.f, 0.f), 0.5f, 6,false);
 
 	m_pAnimator->Play(L"IntroRight", false);
 	AddComponent(m_pAnimator);
@@ -116,8 +116,34 @@ void CPlayer::Update()
 	JumpTimer += DT;
 		if(State != PlayerState::Dead)
 		{
+			if (JumpTimer > .5f)
+				m_bIsJump = false;
+
+			if (m_bIsJump)
+				Jump();
+				/*&&BUTTONSTAY(VK_LEFT))
+			{
+				State = PlayerState::Jump;
+				m_vecPos.y -= m_fSpeed * 200 * DT * DT;
+				m_vecPos.x -= m_fSpeed *0.5f* DT;
+				m_bIsMove = true;
+				m_vecMoveDir.x = -1;
+			}
+			else if (m_bIsJump&& BUTTONSTAY(VK_RIGHT))
+			{
+				State = PlayerState::Jump;
+				m_vecPos.y -= m_fSpeed * 200 * DT * DT;
+				m_vecPos.x += m_fSpeed*0.5f * DT;
+				m_bIsMove = true;
+				m_vecMoveDir.x = +1;
+			}
+			else if(m_bIsJump)
+			{
+				State = PlayerState::Jump;
+				m_vecPos.y -= m_fSpeed * 200 * DT * DT;
+			}*/
 			//좌우 이동
-			if (BUTTONSTAY(VK_LEFT))
+			else if (BUTTONSTAY(VK_LEFT))
 			{
 				Move(VK_LEFT);
 			}
@@ -131,26 +157,22 @@ void CPlayer::Update()
 			}
 			if (BUTTONSTAY('X'))//점프
 			{
-				Jump();
+				m_bIsJump = true;
+				JumpTimer = 0;
 			}
-
+			
 			if (BUTTONSTAY(VK_UP))
 			{
 				if (gState != Ground::Ceiling)
 					m_vecPos.y -= m_fSpeed * DT;
-				//m_bIsMove = true;
-				//m_vecMoveDir.y = +1;
+			
 			}
 			else if (BUTTONSTAY(VK_DOWN))
 			{
 				if (gState != Ground::Ground)
 					m_vecPos.y += m_fSpeed * DT;
-				//m_bIsMove = true;
-				//m_vecMoveDir.y = -1;
+			
 			}
-			if (JumpTimer > 5.f)
-				m_bIsJump = false;
-
 			if (Timer > .5f)
 				m_bIsAttack = false;
 			if (BUTTONDOWN('Z'))//공격
@@ -161,7 +183,7 @@ void CPlayer::Update()
 			{
 				Skill();
 			}
-			if(gState==Ground::Air&&m_bIsJump!=true)
+			if(gState!=Ground::Ground&&m_bIsJump!=true)
 				Fall();
 		}
 		else if (State == PlayerState::Dead)
@@ -169,12 +191,13 @@ void CPlayer::Update()
 			//체인지씬-리트라이 
 			Dead();
 		}
+		if(gState==Ground::Ceiling)
+			m_vecPos.y += m_fSpeed * DT;
+		if (gState == Ground::Ground)
+			m_fFallSpeed = 0;
 	}
 	
-	/*if ()
-	{
-
-	}*/
+	
 	AnimatorUpdate();
 }
 
@@ -263,13 +286,18 @@ void CPlayer::OnCollisionEnter(CCollider* pOtherCollider)
 	}
 
 	gState = Ground::Air;
-	if (pOtherCollider->GetObjName() == L"땅")
+	if (pOtherCollider->GetObjName() == L"땅")//||pOtherCollider->GetPos().y - this->GetCollider()->GetPos().y*0.1 > m_vecPos.y)
 	{
-		Logger::Debug(L"땅과 플레이어와 충돌중");
+		Logger::Debug(L"땅과 플레이어와 충돌시작");
 		if (pOtherCollider->GetPos().y < m_vecPos.y)
+		{
 			gState = Ground::Ceiling;
+		}
 		else if (pOtherCollider->GetPos().y > m_vecPos.y)
+		{
 			gState = Ground::Ground;
+			m_vecPos.y = pOtherCollider->GetPos().y-pOtherCollider->GetScale().y+4;
+		}
 		
 	}
 	if (pOtherCollider->GetObjName() == L"벽")
@@ -347,18 +375,37 @@ void CPlayer::Jump()
 {
 	State = PlayerState::Jump;
 	float Speed = m_fSpeed;
-	Speed -= m_fSpeed * DT;
-	m_vecPos.y -= (Speed)*DT;
-	JumpTimer = 0;
+	Speed += m_fSpeed * DT;
+	if (BUTTONSTAY(VK_LEFT))
+	{
+		
+		m_vecPos.y -= Speed * DT;
+		m_vecPos.x -= m_fSpeed * 0.5f * DT;
+		m_bIsMove = true;
+		m_vecMoveDir.x = -1;
+	}
+	else if (BUTTONSTAY(VK_RIGHT))
+	{
+		
+		m_vecPos.y -= Speed* DT;
+		m_vecPos.x += m_fSpeed * 0.5f * DT;
+		m_bIsMove = true;
+		m_vecMoveDir.x = +1;
+	}
+	else
+	{
+		m_vecPos.y -= Speed * DT;
+	}
 }
 
 void CPlayer::Fall()
 {
 	State = PlayerState::Fall;
+	m_fFallSpeed = 200.0f;
 	if (gState == Ground::Air)
 	{
-		float Speed = m_fSpeed;
-		Speed += m_fSpeed * DT;
+		float Speed = m_fFallSpeed;
+		Speed += m_fFallSpeed * DT;
 		m_vecPos.y += (Speed)*DT;
 	}
 }
