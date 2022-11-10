@@ -29,6 +29,7 @@ void CScreenUI::Update()
 	if (UpTime >= 60)
 	{
 		min++;
+		UpTime = 0;
 	}
 	Timer = to_wstring(min) + L":" + to_wstring((int)UpTime);
 

@@ -53,6 +53,7 @@ void CSceneStage01::Init()
 
 	map = new CMaps();
 	map->SetImage(RESOURCE->LoadImg(L"map_part1", L"Image\\MAP\\Map_part1_2x.png"));
+	map->SetNextMapImage(RESOURCE->LoadImg(L"map_part2", L"Image\\MAP\\Map_part2_2x.png"));
 	AddGameObject(map);
 }
 
@@ -72,11 +73,10 @@ void CSceneStage01::Update()
 		CAMERA->FadeOut(0.25f);
 		DELAYCHANGESCENE(GroupScene::Title, 0.25f);
 	}
-	if (map->GetPos().x + map->GetScale().x * 0.4f<pPlayer->GetPos().x  &&
-		pPlayer->GetPos().x > map->GetPos().x - map->GetScale().x * 0.4f)
+	//if (map->GetPos().x + map->GetScale().x * 0.3f<pPlayer->GetPos().x  &&	pPlayer->GetPos().x > map->GetPos().x - map->GetScale().x * 0.3f)
 		CAMERA->SetTargetPos(pPlayer->GetPos(), 0.5f);
-	else
-		CAMERA->SetTargetPos(Vector(map->GetPos().x + map->GetScale().x * 0.4f, pPlayer->GetPos().y), 0.5f);
+	//else
+	//	CAMERA->SetTargetPos(Vector(map->GetPos().x + map->GetScale().x * 0.4f, pPlayer->GetPos().y), 0.5f);
 	CAMERA->ZoomInOut(camScale);
 }
 
@@ -84,6 +84,7 @@ void CSceneStage01::Render()
 {
 	
 	//RENDER->Image(map,0,0,map->GetWidth(),map->GetHeight());
+
 	
 }
 
