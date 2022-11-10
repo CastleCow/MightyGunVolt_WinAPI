@@ -24,9 +24,7 @@ public:
 	CPlayer();
 	virtual ~CPlayer();
 
-	float GetHP() { return m_HP; }
-	void SetHP(float a) { m_HP = a; }
-	void SetState(PlayerState State) { this->State = State; }
+	
 private:
 	CAnimator* m_pAnimator;
 	CImage* m_pImage;
@@ -34,10 +32,12 @@ private:
 
 	Vector m_vecMoveDir;
 	Vector m_vecLookDir;
+	Vector m_vecReset;
 	PlayerState State;
 	Ground gState;
 	bool m_bIsMove;
 	bool m_bIsJump;
+	bool m_bIsDJump;
 	bool m_bIsDead;
 	bool m_bIsAttack;
 
@@ -69,4 +69,11 @@ private:
 	void Skill();
 	void Dead();
 	void Reset();
+
+public:
+	float GetHP() { return m_HP; }
+	void SetHP(float a) { m_HP = a; }
+	void SetState(PlayerState State) { this->State = State; }
+	void SetResetPos(Vector a) { m_vecReset = a; }
+
 };

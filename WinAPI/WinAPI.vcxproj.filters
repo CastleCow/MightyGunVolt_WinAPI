@@ -204,6 +204,9 @@
     <ClInclude Include="CNextMapTile.h">
       <Filter>Engine\Asset\Tile</Filter>
     </ClInclude>
+    <ClInclude Include="CSceneStage02.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinAPI.cpp">
@@ -331,6 +334,9 @@
     </ClCompile>
     <ClCompile Include="CNextMapTile.cpp">
       <Filter>Engine\Asset\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneStage02.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

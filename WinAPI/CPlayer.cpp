@@ -15,6 +15,7 @@
 CPlayer::CPlayer()
 {
 	m_vecPos = Vector(0, 0);
+	m_vecReset=Vector(0,0);
 	m_vecScale = Vector(100, 100);
 	m_layer = Layer::Player;
 	m_strName = L"플레이어";
@@ -30,6 +31,7 @@ CPlayer::CPlayer()
 	m_bIsAttack = false;
 	m_bIsDead = false;
 	m_bIsJump = false;
+	m_bIsDJump = false;
 
 	gState = Ground::Air;
 }
@@ -117,7 +119,9 @@ void CPlayer::Update()
 		if(State != PlayerState::Dead)
 		{
 			if (JumpTimer > .5f)
+			{
 				m_bIsJump = false;
+			}
 
 			if (m_bIsJump)
 				Jump();
@@ -435,4 +439,5 @@ void CPlayer::Reset()
 	m_bIsAttack = false;
 	m_bIsDead = false;
 	m_HP = 20;
+	m_vecPos = m_vecReset;
 }

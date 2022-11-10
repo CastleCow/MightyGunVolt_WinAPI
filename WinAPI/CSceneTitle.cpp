@@ -26,6 +26,16 @@ void CSceneTitle::Enter()
 
 void CSceneTitle::Update()
 {
+	Timer += DT;
+	if (Timer > 2.f) {
+		blink = Color(0, 0, 0, 1);
+		Timer = 0;
+	}
+	else if (Timer > 1.f)
+	{
+		blink = Color(255, 255, 255, 1);
+		
+	}
 	if (BUTTONDOWN(VK_F1))
 	{
 		CHANGESCENE(GroupScene::TileTool);
@@ -39,12 +49,19 @@ void CSceneTitle::Update()
 
 void CSceneTitle::Render()
 {
+
+	RENDER->Image(RESOURCE->LoadImg(L"LOGO",L"Image\\LOGO.png"),
+		WINSIZEX * 0.33f - 100,
+		WINSIZEY * 0.5f - 100,
+		WINSIZEX * 0.63f + 100,
+		WINSIZEY * 0.5f + 100);
+
 	RENDER->Text(L"press space to start",
 		WINSIZEX * 0.5f - 100,
-		WINSIZEY * 0.5f - 10,
+		WINSIZEY * 0.7f - 10,
 		WINSIZEX * 0.5f + 100,
-		WINSIZEY * 0.5f + 10,
-		Color(0, 0, 0, 1.f),
+		WINSIZEY * 0.7f + 10,
+		blink,
 		20.f);
 }
 

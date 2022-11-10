@@ -45,7 +45,8 @@ void CScreenUI::Render()
 	RENDER->FillRect(m_vecRenderPos.x + 325, m_vecRenderPos.y +11, m_vecRenderPos.x +345, m_vecRenderPos.y +22 , Color(0,0,0,1));
 	
 	
-	RENDER->Text(L"RETRY",m_vecRenderPos.x+50 , m_vecRenderPos.y+WINSIZEY-150, m_vecRenderPos.x + 100, m_vecRenderPos.y + WINSIZEY -100,Color(0,0,0,1));
+	RENDER->Text(L"RETRY",m_vecRenderPos.x+30 , m_vecRenderPos.y+WINSIZEY-150, m_vecRenderPos.x + 100, m_vecRenderPos.y + WINSIZEY -60,Color(0,255,0,1));
+	RENDER->Text(L"TIME",m_vecRenderPos.x+WINSIZEX-130 , m_vecRenderPos.y+WINSIZEY-150, m_vecRenderPos.x+WINSIZEX - 30, m_vecRenderPos.y + WINSIZEY -60,Color(0,255,0,1));
 	
 }
 

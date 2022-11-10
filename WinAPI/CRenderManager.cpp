@@ -110,7 +110,7 @@ void CRenderManager::BeginDraw()
 
 	
 	Vector screenPos = CAMERA->ScreenToWorldPoint(Vector(0, 0));
-	FillRect(screenPos.x, screenPos.y, screenPos.x + WINSIZEX, screenPos.y + WINSIZEY, Color(255, 255, 255, 1.f));
+	FillRect(screenPos.x, screenPos.y, screenPos.x + WINSIZEX, screenPos.y + WINSIZEY, Color(1, 1, 1, 1.f));
 	CAMERA->SetScale(scale);
 }
 
