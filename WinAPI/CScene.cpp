@@ -6,6 +6,7 @@
 #include "CTile.h"
 #include "CGroundTile.h"
 #include "CWallTile.h"
+#include "CNextMapTile.h"
 
 CScene::CScene()
 {
@@ -38,6 +39,7 @@ void CScene::SceneEnter()
 	// 씬의 카메라 시작위치가 초기 위치가 아닌경우 씬의 Enter에서 위치를 설정하여 목표위치가 덮어씀
 	CAMERA->SetTargetObj(nullptr);
 	CAMERA->SetTargetPos(Vector(WINSIZEX * 0.5f, WINSIZEY * 0.5f));
+	//CAMERA->SetTargetPos(Vector(0.f,0.f));
 	Enter();
 }
 
@@ -196,6 +198,16 @@ void CScene::LoadTile(const wstring& strPath)
 
 			AddGameObject(newTile);
 		}
+		else if (TypeTile::Next == loadTile.GetType())
+		{
+
+			CNextMapTile* newTile = new CNextMapTile;
+			
+			newTile->SetTilePos(loadTile.GetTilePosX(), loadTile.GetTilePosY());
+			newTile->SetTileIndex(loadTile.GetTileIndex());
+
+			AddGameObject(newTile);
+		}
 	}
 
 	fclose(pFile);
@@ -246,6 +258,16 @@ void CScene::LoadTileMapPos(const wstring& strPath, Vector mapPos)
 		{
 			
 			CWallTile* newTile = new CWallTile;
+			//newTile->SetTilePos(loadTile.GetTilePosX()+mapPos.x, loadTile.GetTilePosY() + mapPos.y);
+			newTile->SetTilePos(loadTile.GetTilePosX(), loadTile.GetTilePosY());
+			newTile->SetTileIndex(loadTile.GetTileIndex());
+
+			AddGameObject(newTile);
+		}
+		else if (TypeTile::Next == loadTile.GetType())
+		{
+
+			CNextMapTile* newTile = new CNextMapTile;
 			//newTile->SetTilePos(loadTile.GetTilePosX()+mapPos.x, loadTile.GetTilePosY() + mapPos.y);
 			newTile->SetTilePos(loadTile.GetTilePosX(), loadTile.GetTilePosY());
 			newTile->SetTileIndex(loadTile.GetTileIndex());

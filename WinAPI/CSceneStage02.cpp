@@ -14,6 +14,9 @@
 
 CSceneStage02::CSceneStage02()
 {
+	pPlayer = nullptr;
+	map = nullptr;
+
 }
 
 CSceneStage02::~CSceneStage02()

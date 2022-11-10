@@ -159,8 +159,10 @@ void CPlayer::Update()
 			{
 				Idle();
 			}
+			
 			if (BUTTONDOWN('X'))//점프
 			{
+				
 				m_bIsJump = true;
 				JumpTimer = 0;
 			}
@@ -293,6 +295,7 @@ void CPlayer::OnCollisionEnter(CCollider* pOtherCollider)
 	if (pOtherCollider->GetObjName() == L"땅")//||pOtherCollider->GetPos().y - this->GetCollider()->GetPos().y*0.1 > m_vecPos.y)
 	{
 		Logger::Debug(L"땅과 플레이어와 충돌시작");
+		m_bIsDJump = false;
 		if (pOtherCollider->GetPos().y < m_vecPos.y)
 		{
 			gState = Ground::Ceiling;

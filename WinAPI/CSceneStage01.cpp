@@ -32,7 +32,7 @@ CSceneStage01::~CSceneStage01()
 void CSceneStage01::Init()
 {
 	pPlayer = new CPlayer();
-	pPlayer->SetPos(70, 188);
+	pPlayer->SetPos(100, 300);
 	pPlayer->SetScale(pPlayer->GetScale()*2);
 	AddGameObject(pPlayer);
 
@@ -41,7 +41,7 @@ void CSceneStage01::Init()
 	AddGameObject(pMonster);
 
 	CCameraController* pCamController = new CCameraController;
-	CAMERA->SetTargetPos(pPlayer->GetPos(), -10);
+	CAMERA->SetTargetPos(pPlayer->GetPos(), 0.f);
 	AddGameObject(pCamController);
 
 	camScale = 1.f;
@@ -62,6 +62,7 @@ void CSceneStage01::Enter()
 	CAMERA->FadeIn(0.25f);
 	
 	LoadTileMapPos(GETPATH + L"Tile\\Stage01.tile", Vector(0, WINSIZEY * 0.5f));
+	//LoadTileMapPos(GETPATH + L"Tile\\Stage02.tile", Vector(WINSIZEX, WINSIZEY * 0.5f));
 
 	
 }

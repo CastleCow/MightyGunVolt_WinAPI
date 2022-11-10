@@ -14,7 +14,7 @@ public:
 private:
 	CPlayer* pPlayer;
 	CMaps* map;
-	CImage* mapimg;
+	
 	float camScale = 1;
 private:
 	void Init()		override;
