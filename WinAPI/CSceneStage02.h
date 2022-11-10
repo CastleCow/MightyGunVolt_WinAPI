@@ -7,8 +7,6 @@ class CImage;
 class CSceneStage02 :
 	public CScene
 {
-
-
 public:
 	CSceneStage02();
 	virtual ~CSceneStage02();

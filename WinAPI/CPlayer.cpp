@@ -159,7 +159,7 @@ void CPlayer::Update()
 			{
 				Idle();
 			}
-			if (BUTTONSTAY('X'))//점프
+			if (BUTTONDOWN('X'))//점프
 			{
 				m_bIsJump = true;
 				JumpTimer = 0;

@@ -30,6 +30,8 @@ enum class GroupScene
 	TileTool,
 
 	Stage01,
+	Stage02,
+	Stage03,
 
 	Size,
 };

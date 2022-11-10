@@ -72,7 +72,11 @@ void CSceneStage01::Update()
 		CAMERA->FadeOut(0.25f);
 		DELAYCHANGESCENE(GroupScene::Title, 0.25f);
 	}
-	CAMERA->SetTargetPos(pPlayer->GetPos(), 0.5f);
+	if (map->GetPos().x + map->GetScale().x * 0.4f<pPlayer->GetPos().x  &&
+		pPlayer->GetPos().x > map->GetPos().x - map->GetScale().x * 0.4f)
+		CAMERA->SetTargetPos(pPlayer->GetPos(), 0.5f);
+	else
+		CAMERA->SetTargetPos(Vector(map->GetPos().x + map->GetScale().x * 0.4f, pPlayer->GetPos().y), 0.5f);
 	CAMERA->ZoomInOut(camScale);
 }
 

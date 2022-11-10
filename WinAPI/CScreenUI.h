@@ -14,7 +14,10 @@ private:
 	CImage* m_PIcon;
 	CImage* m_SideBar;
 
-	
+	float UpTime=0;
+	int RetryCount = 0;
+	int min = 0;
+	wstring Timer = L"";
 
 private:
 	// CUI을(를) 통해 상속됨

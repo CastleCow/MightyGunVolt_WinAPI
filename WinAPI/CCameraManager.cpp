@@ -186,7 +186,7 @@ void CCameraManager::RenderZoom()
 
 void CCameraManager::Zoom(Vector& Point)
 {
-	Point.x = (WINSIZEX * 0.5) + ((Point.x - (WINSIZEX * 0.5)) * m_fCameraScale);
-	Point.y = (WINSIZEY * 0.5) + ((Point.y - (WINSIZEY * 0.5)) * m_fCameraScale);
+	Point.x = (WINSIZEX * 0.5f) + ((Point.x - (WINSIZEX * 0.5f)) * m_fCameraScale);
+	Point.y = (WINSIZEY * 0.5f) + ((Point.y - (WINSIZEY * 0.5f)) * m_fCameraScale);
 
 }

@@ -25,6 +25,12 @@ void CScreenUI::Init()
 
 void CScreenUI::Update()
 {
+	UpTime += DT;
+	if (UpTime >= 60)
+	{
+		min++;
+	}
+	Timer = to_wstring(min) + L":" + to_wstring((int)UpTime);
 
 }
 
@@ -46,7 +52,9 @@ void CScreenUI::Render()
 	
 	
 	RENDER->Text(L"RETRY",m_vecRenderPos.x+30 , m_vecRenderPos.y+WINSIZEY-150, m_vecRenderPos.x + 100, m_vecRenderPos.y + WINSIZEY -60,Color(0,255,0,1));
+	RENDER->Text(to_wstring(RetryCount),m_vecRenderPos.x+30 , m_vecRenderPos.y+WINSIZEY-130, m_vecRenderPos.x + 100, m_vecRenderPos.y + WINSIZEY -40,Color(0,255,0,1));
 	RENDER->Text(L"TIME",m_vecRenderPos.x+WINSIZEX-130 , m_vecRenderPos.y+WINSIZEY-150, m_vecRenderPos.x+WINSIZEX - 30, m_vecRenderPos.y + WINSIZEY -60,Color(0,255,0,1));
+	RENDER->Text(Timer, m_vecRenderPos.x + WINSIZEX - 130, m_vecRenderPos.y + WINSIZEY - 130, m_vecRenderPos.x + WINSIZEX - 30, m_vecRenderPos.y + WINSIZEY - 40, Color(0, 255, 0, 1));
 	
 }
 
