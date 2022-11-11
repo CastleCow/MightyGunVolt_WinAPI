@@ -55,6 +55,12 @@ void CSceneStage02::Init()
 	map->SetImage(RESOURCE->LoadImg(L"map_part2", L"Image\\MAP\\Map_part2_2x.png"));
 	AddGameObject(map);
 
+	CMaps* nextMaps = new CMaps();
+	nextMaps->SetImage(RESOURCE->LoadImg(L"map_part1", L"Image\\MAP\\Map_part3_BG.png"));
+	nextMaps->SetVecPos(Vector(map->GetIamge()->GetWidth()-100.f, map->GetIamge()->GetWidth()));
+	AddGameObject(nextMaps);
+
+
 	CGotoNextArea* goNext = new CGotoNextArea();
 	goNext->SetPos(map->GetIamge()->GetWidth(), map->GetIamge()->GetHeight() * 0.9f);
 	goNext->SetScale(500, 30);
