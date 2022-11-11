@@ -207,6 +207,12 @@
     <ClInclude Include="CSceneStage02.h">
       <Filter>Scene</Filter>
     </ClInclude>
+    <ClInclude Include="CGotoNextArea.h">
+      <Filter>GameObject\Stage01</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneStage03.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinAPI.cpp">
@@ -336,6 +342,12 @@
       <Filter>Engine\Asset\Tile</Filter>
     </ClCompile>
     <ClCompile Include="CSceneStage02.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CGotoNextArea.cpp">
+      <Filter>GameObject\Stage01</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneStage03.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
   </ItemGroup>

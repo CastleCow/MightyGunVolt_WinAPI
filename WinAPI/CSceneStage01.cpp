@@ -2,21 +2,18 @@
 #include "CSceneStage01.h"
 
 #include "WinAPI.h"
-#include "CInputManager.h"
-#include "CTimeManager.h"
-#include "CRenderManager.h"
-#include "CEventManager.h"
-#include "CCameraManager.h"
-#include "CPathManager.h"
 
 #include "CPlayer.h"
 #include "CMonster.h"
+#include "CGotoNextArea.h"
 #include "CCameraController.h"
-#include"CMaps.h"
+#include "CMaps.h"
 
 #include "CButton.h"
 #include "CPanel.h"
 #include "CScreenUI.h"
+
+
 
 CSceneStage01::CSceneStage01()
 {
@@ -32,7 +29,7 @@ CSceneStage01::~CSceneStage01()
 void CSceneStage01::Init()
 {
 	pPlayer = new CPlayer();
-	pPlayer->SetPos(100, 300);
+	pPlayer->SetPos(100, 350);
 	pPlayer->SetScale(pPlayer->GetScale()*2);
 	AddGameObject(pPlayer);
 
@@ -55,6 +52,12 @@ void CSceneStage01::Init()
 	map->SetImage(RESOURCE->LoadImg(L"map_part1", L"Image\\MAP\\Map_part1_2x.png"));
 	map->SetNextMapImage(RESOURCE->LoadImg(L"map_part2", L"Image\\MAP\\Map_part2_2x.png"));
 	AddGameObject(map);
+
+	CGotoNextArea* goNext = new CGotoNextArea();
+	goNext->SetPos(map->GetIamge()->GetWidth(), map->GetIamge()->GetHeight()*0.2f);
+	goNext->SetScale(30,200);
+	goNext->SetScene(GroupScene::Stage02);
+   	AddGameObject(goNext);
 }
 
 void CSceneStage01::Enter()
@@ -84,7 +87,6 @@ void CSceneStage01::Update()
 void CSceneStage01::Render()
 {
 	
-	//RENDER->Image(map,0,0,map->GetWidth(),map->GetHeight());
 
 	
 }

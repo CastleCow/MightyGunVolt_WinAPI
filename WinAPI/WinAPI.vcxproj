@@ -150,6 +150,7 @@
     <ClInclude Include="CCore.h" />
     <ClInclude Include="CEventManager.h" />
     <ClInclude Include="CGameObject.h" />
+    <ClInclude Include="CGotoNextArea.h" />
     <ClInclude Include="CGroundTile.h" />
     <ClInclude Include="CGVController.h" />
     <ClInclude Include="CImageObject.h" />
@@ -168,6 +169,7 @@
     <ClInclude Include="CSceneManager.h" />
     <ClInclude Include="CSceneStage01.h" />
     <ClInclude Include="CSceneStage02.h" />
+    <ClInclude Include="CSceneStage03.h" />
     <ClInclude Include="CSceneTileTool.h" />
     <ClInclude Include="CSceneTitle.h" />
     <ClInclude Include="CImage.h" />
@@ -201,6 +203,7 @@
     <ClCompile Include="CCore.cpp" />
     <ClCompile Include="CEventManager.cpp" />
     <ClCompile Include="CGameObject.cpp" />
+    <ClCompile Include="CGotoNextArea.cpp" />
     <ClCompile Include="CGroundTile.cpp" />
     <ClCompile Include="CGVController.cpp" />
     <ClCompile Include="CImageObject.cpp" />
@@ -219,6 +222,7 @@
     <ClCompile Include="CSceneManager.cpp" />
     <ClCompile Include="CSceneStage01.cpp" />
     <ClCompile Include="CSceneStage02.cpp" />
+    <ClCompile Include="CSceneStage03.cpp" />
     <ClCompile Include="CSceneTileTool.cpp" />
     <ClCompile Include="CSceneTitle.cpp" />
     <ClCompile Include="CImage.cpp" />

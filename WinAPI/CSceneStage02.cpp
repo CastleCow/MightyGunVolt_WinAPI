@@ -5,6 +5,7 @@
 
 #include "CPlayer.h"
 #include "CMonster.h"
+#include "CGotoNextArea.h"
 #include "CCameraController.h"
 #include "CMaps.h"
 
@@ -45,9 +46,20 @@ void CSceneStage02::Init()
 	SideUI->SetCamScale(camScale);
 	AddGameObject(SideUI);
 
+	CMaps* prevMaps = new CMaps();
+	prevMaps->SetImage(RESOURCE->LoadImg(L"map_part1", L"Image\\MAP\\Map_part1_2x.png"));
+	prevMaps->SetVecPos(Vector(-1*prevMaps->GetIamge()->GetWidth(),0));
+	AddGameObject(prevMaps);
+
 	map = new CMaps();
 	map->SetImage(RESOURCE->LoadImg(L"map_part2", L"Image\\MAP\\Map_part2_2x.png"));
 	AddGameObject(map);
+
+	CGotoNextArea* goNext = new CGotoNextArea();
+	goNext->SetPos(map->GetIamge()->GetWidth(), map->GetIamge()->GetHeight() * 0.9f);
+	goNext->SetScale(500, 30);
+	goNext->SetScene(GroupScene::Stage03);
+	AddGameObject(goNext);
 }
 
 void CSceneStage02::Enter()
@@ -65,7 +77,7 @@ void CSceneStage02::Update()
 		CAMERA->FadeOut(0.25f);
 		DELAYCHANGESCENE(GroupScene::Title, 0.25f);
 	}
-	if(pPlayer->GetPos().x < map->GetPos().x * 0.9f &&pPlayer->GetPos().x>map->GetPos().x*0.1f)
+	//if(pPlayer->GetPos().x < map->GetPos().x * 0.9f &&pPlayer->GetPos().x>map->GetPos().x*0.1f)
 	CAMERA->SetTargetPos(pPlayer->GetPos(), 0.5f);
 	CAMERA->ZoomInOut(camScale);
 }
