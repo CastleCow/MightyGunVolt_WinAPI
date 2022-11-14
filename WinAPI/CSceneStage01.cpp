@@ -32,7 +32,7 @@ void CSceneStage01::Init()
 	pPlayer->SetPos(100, 350);
 	pPlayer->SetScale(pPlayer->GetScale()*2);
 	AddGameObject(pPlayer);
-
+	
 	CMonster* pMonster = new CMonster();
 	pMonster->SetPos(1000, WINSIZEY * 0.5f);
 	AddGameObject(pMonster);
@@ -55,7 +55,7 @@ void CSceneStage01::Init()
 
 	CGotoNextArea* goNext = new CGotoNextArea();
 	goNext->SetPos(map->GetIamge()->GetWidth(), map->GetIamge()->GetHeight()*0.2f);
-	goNext->SetScale(30,200);
+	goNext->SetScale(30,500);
 	goNext->SetScene(GroupScene::Stage02);
    	AddGameObject(goNext);
 }
@@ -64,8 +64,8 @@ void CSceneStage01::Enter()
 {
 	CAMERA->FadeIn(0.25f);
 	
-	LoadTileMapPos(GETPATH + L"Tile\\Stage01.tile", Vector(0, WINSIZEY * 0.5f));
-	//LoadTileMapPos(GETPATH + L"Tile\\Stage02.tile", Vector(WINSIZEX, WINSIZEY * 0.5f));
+	LoadTile(GETPATH + L"Tile\\Stage01.tile");
+	
 
 	
 }
@@ -77,17 +77,16 @@ void CSceneStage01::Update()
 		CAMERA->FadeOut(0.25f);
 		DELAYCHANGESCENE(GroupScene::Title, 0.25f);
 	}
-	//if (map->GetPos().x + map->GetScale().x * 0.3f<pPlayer->GetPos().x  &&	pPlayer->GetPos().x > map->GetPos().x - map->GetScale().x * 0.3f)
-		CAMERA->SetTargetPos(pPlayer->GetPos(), 0.5f);
-	//else
-	//	CAMERA->SetTargetPos(Vector(map->GetPos().x + map->GetScale().x * 0.4f, pPlayer->GetPos().y), 0.5f);
+	
+	CAMERA->SetTargetPos(pPlayer->GetPos(), 0.5f);
 	CAMERA->ZoomInOut(camScale);
+	Logger::Debug(L"플레이어 현재체력:" + to_wstring(pPlayer->GetHP()));
 }
 
 void CSceneStage01::Render()
 {
-	
-
+	//CImage* temp = RESOURCE->LoadImg(L"SparkCaliber", L"Image\\Player\\SparkCaliber.png");
+	//RENDER->Image(temp,pPlayer->GetPos().x+50.f, pPlayer->GetPos().y-70.f, pPlayer->GetPos().x+50.f+ temp->GetWidth(), pPlayer->GetPos().y-70.f+ temp->GetHeight());
 	
 }
 

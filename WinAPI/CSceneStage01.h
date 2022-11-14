@@ -11,6 +11,7 @@ public:
 	CSceneStage01();
 	virtual ~CSceneStage01();
 
+	CPlayer* GetPlayer() { return pPlayer; }
 private:
 	CPlayer* pPlayer;
 	CMaps* map;

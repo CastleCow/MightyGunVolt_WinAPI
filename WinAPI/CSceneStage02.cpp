@@ -56,13 +56,13 @@ void CSceneStage02::Init()
 	AddGameObject(map);
 
 	CMaps* nextMaps = new CMaps();
-	nextMaps->SetImage(RESOURCE->LoadImg(L"map_part1", L"Image\\MAP\\Map_part3_BG.png"));
-	nextMaps->SetVecPos(Vector(map->GetIamge()->GetWidth()-100.f, map->GetIamge()->GetWidth()));
+	nextMaps->SetImage(RESOURCE->LoadImg(L"map_part3", L"Image\\MAP\\Map_part3_BG.png"));
+	nextMaps->SetVecPos(Vector(map->GetIamge()->GetWidth()-500.f, map->GetIamge()->GetWidth()));
 	AddGameObject(nextMaps);
 
 
 	CGotoNextArea* goNext = new CGotoNextArea();
-	goNext->SetPos(map->GetIamge()->GetWidth(), map->GetIamge()->GetHeight() * 0.9f);
+	goNext->SetPos(map->GetIamge()->GetWidth()*0.9f, map->GetIamge()->GetHeight()+1.3f );
 	goNext->SetScale(500, 30);
 	goNext->SetScene(GroupScene::Stage03);
 	AddGameObject(goNext);
@@ -86,10 +86,12 @@ void CSceneStage02::Update()
 	//if(pPlayer->GetPos().x < map->GetPos().x * 0.9f &&pPlayer->GetPos().x>map->GetPos().x*0.1f)
 	CAMERA->SetTargetPos(pPlayer->GetPos(), 0.5f);
 	CAMERA->ZoomInOut(camScale);
+	Logger::Debug(L"플레이어 현재체력:" + to_wstring(pPlayer->GetHP()));
 }
 
 void CSceneStage02::Render()
 {
+	
 }
 
 void CSceneStage02::Exit()

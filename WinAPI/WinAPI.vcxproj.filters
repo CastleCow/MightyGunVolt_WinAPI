@@ -213,6 +213,9 @@
     <ClInclude Include="CSceneStage03.h">
       <Filter>Scene</Filter>
     </ClInclude>
+    <ClInclude Include="CPlayerSkill.h">
+      <Filter>GameObject\Stage01\Player_GV</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinAPI.cpp">
@@ -349,6 +352,9 @@
     </ClCompile>
     <ClCompile Include="CSceneStage03.cpp">
       <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerSkill.cpp">
+      <Filter>GameObject\Stage01\Player_GV</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

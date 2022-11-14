@@ -8,6 +8,7 @@
 #include "CAnimator.h"
 
 #include "CMissile.h"
+#include "CPlayerSkill.h"
 
 #define RVFIRST 785
 #define NEXTSLICE 49
@@ -22,8 +23,8 @@ CPlayer::CPlayer()
 
 	m_pImage = nullptr;
 	m_pImageRV = nullptr;
+	skillOn = nullptr;
 	State = PlayerState::Idle;
-
 	m_vecMoveDir = Vector(0, 0);
 	m_vecLookDir = Vector(1, 0);
 
@@ -106,10 +107,12 @@ void CPlayer::Init()
 	AddComponent(m_pAnimator);
 
 	AddCollider(ColliderType::Rect, Vector(30, 32), Vector(0, 0));
+	
 }
 
 void CPlayer::Update()
 {
+	
 	m_bIsMove = false;
 	IntroTimer += DT;
 	if(IntroTimer>2.f)
@@ -218,8 +221,10 @@ void CPlayer::Release()
 void CPlayer::AnimatorUpdate()
 {
 	if (m_vecMoveDir.Length() > 0)
+	{
 		m_vecLookDir = m_vecMoveDir;
-	if(IntroTimer<1.f)
+		
+	}if (IntroTimer < 1.f)
 		m_pAnimator->Play(L"IntroRight", false);
 	else if (2.f> IntroTimer&&IntroTimer>1.f)
 	{
@@ -252,6 +257,10 @@ void CPlayer::AnimatorUpdate()
 			
 			break;
 		}
+		case (int)PlayerState::Skill:
+			str += L"Skill";
+
+			break;
 		}
 		if (m_bIsAttack == true)str += L"Shot";
 		else str += L"";
@@ -274,6 +283,14 @@ void CPlayer::CreateMissile()
 	ADDOBJECT(pMissile);
 	
 	
+}void CPlayer::SkillTurnOn()
+{
+	Logger::Debug(L"스킬생성");
+
+	skillOn = new CPlayerSkill();
+	skillOn->SetPos(m_vecPos);
+	skillOn->SetDir(m_vecLookDir);
+	ADDOBJECT(skillOn);
 }
 
 void CPlayer::OnCollisionEnter(CCollider* pOtherCollider)
@@ -427,6 +444,8 @@ void CPlayer::Attack()
 void CPlayer::Skill()
 {
 	State = PlayerState::Skill;
+	SkillTurnOn();
+	Timer = 0;
 }
 
 void CPlayer::Dead()

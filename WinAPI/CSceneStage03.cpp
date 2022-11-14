@@ -39,14 +39,14 @@ void CSceneStage03::Init()
 	AddGameObject(pCamController);
 
 	camScale = 1.f;
-	//camScale = 2.5f;
+	
 	CScreenUI* SideUI = new CScreenUI();
 	SideUI->SetScreenFixed(true);
 	SideUI->SetCamScale(camScale);
 	AddGameObject(SideUI);
 
 	map = new CMaps();
-	map->SetImage(RESOURCE->LoadImg(L"map_part1", L"Image\\MAP\\Map_part1_2x.png"));
+	map->SetImage(RESOURCE->LoadImg(L"map_part3", L"Image\\MAP\\Map_part3_2x.png"));
 	
 	AddGameObject(map);
 
@@ -61,11 +61,20 @@ void CSceneStage03::Enter()
 {
 	CAMERA->FadeIn(0.25f);
 
-	//LoadTileMapPos(GETPATH + L"Tile\\Stage01.tile", Vector(0, WINSIZEY * 0.5f));
+	//LoadTile(GETPATH + L"Tile\\Stage01.tile");
 }
 
 void CSceneStage03::Update()
 {
+	if (BUTTONDOWN(VK_ESCAPE))
+	{
+		CAMERA->FadeOut(0.25f);
+		DELAYCHANGESCENE(GroupScene::Title, 0.25f);
+	}
+	
+	CAMERA->SetTargetPos(pPlayer->GetPos(), 0.5f);
+	CAMERA->ZoomInOut(camScale);
+	Logger::Debug(L"플레이어 현재체력:" + to_wstring(pPlayer->GetHP()));
 }
 
 void CSceneStage03::Render()

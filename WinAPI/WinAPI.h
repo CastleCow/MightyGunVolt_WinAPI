@@ -49,6 +49,8 @@ enum class Layer
 	Player,
 	Missile,
 	Monster,
+	MonsterBullet,
+	Skill,
 
 	Ui,
 	Size,

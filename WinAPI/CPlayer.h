@@ -3,6 +3,8 @@
 
 class CImage;
 class CAnimator;
+class CPlayerSkill;
+
 enum class PlayerState {
 	Dead,
 	Idle,
@@ -18,6 +20,7 @@ enum class Ground {
 	Air,
 	Ground
 };
+
 class CPlayer : public CGameObject
 {
 public:
@@ -30,8 +33,8 @@ private:
 	CImage* m_pImage;
 	CImage* m_pImageRV;
 
-	Vector m_vecMoveDir;
-	Vector m_vecLookDir;
+	CPlayerSkill* skillOn;
+
 	Vector m_vecReset;
 	PlayerState State;
 	Ground gState;
@@ -47,6 +50,9 @@ private:
 	float Timer = 0;
 	float JumpTimer = 0;
 	float IntroTimer = 0;
+protected:
+	Vector m_vecMoveDir;
+	Vector m_vecLookDir;
 private:
 	void Init() override;
 	void Update() override;
@@ -55,6 +61,7 @@ private:
 
 	void AnimatorUpdate();
 	void CreateMissile();
+	void SkillTurnOn();
 
 	void OnCollisionEnter(CCollider* pOtherCollider) override;
 	void OnCollisionStay(CCollider* pOtherCollider) override;
