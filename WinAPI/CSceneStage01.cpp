@@ -19,6 +19,7 @@ CSceneStage01::CSceneStage01()
 {
 	pPlayer = nullptr;
 	map = nullptr;
+	SideUI = nullptr;
 	
 }
 
@@ -43,7 +44,7 @@ void CSceneStage01::Init()
 
 	camScale = 1.f;
 	//camScale = 2.5f;
-	CScreenUI* SideUI=new CScreenUI();
+	SideUI=new CScreenUI();
 	SideUI->SetScreenFixed(true);
 	SideUI->SetCamScale(camScale);
 	AddGameObject(SideUI);
@@ -77,7 +78,7 @@ void CSceneStage01::Update()
 		CAMERA->FadeOut(0.25f);
 		DELAYCHANGESCENE(GroupScene::Title, 0.25f);
 	}
-	
+	SideUI->SetHp(20-pPlayer->GetHP());
 	CAMERA->SetTargetPos(pPlayer->GetPos(), 0.5f);
 	CAMERA->ZoomInOut(camScale);
 	Logger::Debug(L"플레이어 현재체력:" + to_wstring(pPlayer->GetHP()));

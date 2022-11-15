@@ -96,9 +96,13 @@ void CPlayer::Init()
 	//Skill		2
 	m_pAnimator->CreateAnimation(L"SkillRight", m_pImage, Vector(1.f, 553.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.1f, 2);
 	m_pAnimator->CreateAnimation(L"SkillLeft", m_pImageRV, Vector(832.f, 553.f), Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 2);
+	m_pAnimator->CreateAnimation(L"SkillShotRight", m_pImage, Vector(1.f, 553.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.1f, 2);
+	m_pAnimator->CreateAnimation(L"SkillShotLeft", m_pImageRV, Vector(832.f, 553.f), Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 2);
 	//SkillLoop	4
 	m_pAnimator->CreateAnimation(L"SkillLoopRight", m_pImage, Vector(99.f, 553.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.1f, 4);
 	m_pAnimator->CreateAnimation(L"SkillLoopLeft", m_pImageRV, Vector(687.f, 553.f), Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 4);
+	m_pAnimator->CreateAnimation(L"SkillLoopShotRight", m_pImage, Vector(99.f, 553.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.1f, 4);
+	m_pAnimator->CreateAnimation(L"SkillLoopShotLeft", m_pImageRV, Vector(687.f, 553.f), Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 4);
 	//DIE		6 
 	m_pAnimator->CreateAnimation(L"DieRight", m_pImage, Vector(1.1f, 766.f), Vector(79.f, 63.f), Vector(81.f, 0.f), 0.5f, 6,false);//80,829
 	m_pAnimator->CreateAnimation(L"DieLeft", m_pImageRV, Vector(831.9f, 766.f), Vector(79.f, 63.f), Vector(-81.f, 0.f), 0.5f, 6,false);
@@ -191,6 +195,7 @@ void CPlayer::Update()
 			if (BUTTONDOWN('C'))
 			{
 				Skill();
+				
 			}
 			if(gState!=Ground::Ground&&m_bIsJump!=true)
 				Fall();
@@ -205,7 +210,8 @@ void CPlayer::Update()
 		if (gState == Ground::Ground)
 			m_fFallSpeed = 0;
 	}
-	
+	if (skillOn != nullptr)
+		skillOn->SetPos(m_vecPos);
 	
 	AnimatorUpdate();
 }
@@ -223,13 +229,15 @@ void CPlayer::AnimatorUpdate()
 	if (m_vecMoveDir.Length() > 0)
 	{
 		m_vecLookDir = m_vecMoveDir;
-		
-	}if (IntroTimer < 1.f)
+	}
+	if (IntroTimer < 1.f)
 		m_pAnimator->Play(L"IntroRight", false);
+
 	else if (2.f> IntroTimer&&IntroTimer>1.f)
 	{
 		m_pAnimator->Play(L"IntroIdleRight", false);
 	}
+
 	else
 	{
 		wstring str = L"";

@@ -2,7 +2,8 @@
 #include "CGameObject.h"
 #include "CPlayer.h"
 class CImage;
-
+class  CLightningSphere;
+class CSparkCaliver;
 enum class SkillSel {
     Idle,
     LightningSphere,
@@ -21,9 +22,11 @@ public:
 
 
 private:
-    CImage* m_SparkCal;
-    CImage* m_SparkCalRV;
-    CImage* m_LiSph;
+    CLightningSphere*   LiSp;
+    CSparkCaliver*      SpCal;
+
+
+    CImage* m_SelBut;
     CImage* m_Blank;
     CAnimator* m_pAnimator;
 

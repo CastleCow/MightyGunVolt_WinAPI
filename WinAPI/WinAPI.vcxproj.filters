@@ -58,6 +58,9 @@
     <Filter Include="GameObject\Stage01\Monster">
       <UniqueIdentifier>{ffba5cea-6303-4f0e-ab38-7d3267eb9ba3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Stage01\Player_GV\Skill">
+      <UniqueIdentifier>{e49bae06-7bb3-4d77-a8dc-2d99902b1c2e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -216,6 +219,12 @@
     <ClInclude Include="CPlayerSkill.h">
       <Filter>GameObject\Stage01\Player_GV</Filter>
     </ClInclude>
+    <ClInclude Include="CSparkCaliver.h">
+      <Filter>GameObject\Stage01\Player_GV\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="CLightningSphere.h">
+      <Filter>GameObject\Stage01\Player_GV\Skill</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinAPI.cpp">
@@ -355,6 +364,12 @@
     </ClCompile>
     <ClCompile Include="CPlayerSkill.cpp">
       <Filter>GameObject\Stage01\Player_GV</Filter>
+    </ClCompile>
+    <ClCompile Include="CSparkCaliver.cpp">
+      <Filter>GameObject\Stage01\Player_GV\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="CLightningSphere.cpp">
+      <Filter>GameObject\Stage01\Player_GV\Skill</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

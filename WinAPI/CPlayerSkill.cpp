@@ -7,25 +7,27 @@
 #include "CImage.h"
 #include "CAnimator.h"
 
-#include "CMissile.h"
+#include "CLightningSphere.h"
+#include "CSparkCaliver.h"
+
 
 CPlayerSkill::CPlayerSkill()
 {
-	m_vecLookDir = Vector(0, 0);
+	m_vecLookDir= Vector(0, 0);
 	
 	m_pAnimator = nullptr;
 
-	m_LiSph = nullptr;
-	m_SparkCal = nullptr;
-	m_SparkCalRV = nullptr;
-	m_Blank = nullptr;
+	LiSp		= nullptr;
+	SpCal		= nullptr;
+	m_SelBut	= nullptr;
+	m_Blank		= nullptr;
 
-	m_layer = Layer::Skill;
-	sel = SkillSel::Idle;
+	m_layer		= Layer::Skill;
+	sel			= SkillSel::Idle;
 	
-	m_strName = L"스킬";
+	m_strName	= L"스킬";
 
-	LiSpTimer = 0;
+	LiSpTimer	= 0;
 }
 
 CPlayerSkill::~CPlayerSkill()
@@ -34,27 +36,19 @@ CPlayerSkill::~CPlayerSkill()
 
 void CPlayerSkill::Init()
 {
-	m_LiSph= RESOURCE->LoadImg(L"LiSp", L"Image\\Player\\LightSphereAniRo.png");
-	m_SparkCal= RESOURCE->LoadImg(L"SpCal", L"Image\\Player\\SparkCaliber.png");
-	m_SparkCalRV= RESOURCE->LoadImg(L"SpCal", L"Image\\Player\\SparkCaliberRV.png");
+	
+	
+	m_SelBut= RESOURCE->LoadImg(L"SkillButton", L"Image\\Player\\SkillButton.png");
 	m_Blank = RESOURCE->LoadImg(L"Blank", L"Image\\Player\\BlancBox.png");
 	
 	m_pAnimator = new CAnimator;
 	m_pAnimator->CreateAnimation(L"Idle", m_Blank, Vector(0.f, 0.f), Vector(100.f, 100.f), Vector(0.f, 0.f), 0.1f, 1);
+	m_pAnimator->CreateAnimation(L"Button", m_SelBut, Vector(0.f, 0.f), Vector(100.f, 100.f), Vector(0.f, 0.f), 0.1f, 1);
+		
+	/*m_pAnimator->CreateAnimation(L"SpCalButton", m_SelBut, Vector(0.f, 0.f), Vector(32.f, 32.f), Vector(0.f, 0.f), 0.1f, 1);
+	m_pAnimator->CreateAnimation(L"LiSphButton", m_SelBut, Vector(32.f, 0.f), Vector(32.f, 32.f), Vector(0.f, 0.f), 0.1f, 1);
+	*/
 	
-	m_pAnimator->CreateAnimation(L"SpCal1Right", m_SparkCal, Vector(200.f, 0.f), Vector(50.f, 162.f), Vector(0.f, 0.f), 0.1f, 1,false);
-	m_pAnimator->CreateAnimation(L"SpCal2Right", m_SparkCal, Vector(150.f, 0.f), Vector(100.f, 162.f), Vector(0.f, 0.f), 0.1f, 1,false);
-	m_pAnimator->CreateAnimation(L"SpCal3Right", m_SparkCal, Vector(100.f, 0.f), Vector(150.f, 162.f), Vector(0.f, 0.f), 0.1f, 1,false);
-	m_pAnimator->CreateAnimation(L"SpCal4Right", m_SparkCal, Vector(50.f, 0.f), Vector(200.f, 162.f), Vector(0.f, 0.f), 0.1f, 1,false);
-	m_pAnimator->CreateAnimation(L"SpCal5Right", m_SparkCal, Vector(0.f, 0.f), Vector(250.f, 162.f), Vector(0.f, 0.f), 0.1f, 1,false);
-
-	m_pAnimator->CreateAnimation(L"SpCal1Left", m_SparkCalRV, Vector(0.f, 0.f), Vector(50.f, 162.f), Vector(0.f, 0.f), 0.1f, 1, false);
-	m_pAnimator->CreateAnimation(L"SpCal2Left", m_SparkCalRV, Vector(0.f, 0.f), Vector(100.f, 162.f), Vector(0.f, 0.f), 0.1f, 1, false);
-	m_pAnimator->CreateAnimation(L"SpCal3Left", m_SparkCalRV, Vector(0.f, 0.f), Vector(150.f, 162.f), Vector(0.f, 0.f), 0.1f, 1, false);
-	m_pAnimator->CreateAnimation(L"SpCal4Left", m_SparkCalRV, Vector(0.f, 0.f), Vector(200.f, 162.f), Vector(0.f, 0.f), 0.1f, 1, false);
-	m_pAnimator->CreateAnimation(L"SpCal5Left", m_SparkCalRV, Vector(0.f, 0.f), Vector(250.f, 162.f), Vector(0.f, 0.f), 0.1f, 1, false);
-	
-	m_pAnimator->CreateAnimation(L"LightnigSphere", m_LiSph, Vector(0.f, 0.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.3f, 7);
 
 	m_pAnimator->Play(L"Idle", false);
 	AddComponent(m_pAnimator);
@@ -64,22 +58,38 @@ void CPlayerSkill::Update()
 {
 	LiSpTimer += DT;
 
-	if (LiSpTimer > 3.f)
+	if (LiSpTimer > 1.f)
 	{
-		m_bIsLiSp = false;
-		m_bIsSpCal = false;
+		sel = SkillSel::Idle;
+		
 		LiSpTimer = 0;
+		
+		DELETEOBJECT(this);
 	}
-
+	
 
 	if (BUTTONDOWN(VK_LEFT))
 	{
+		sel = SkillSel::LightningSphere;
 		LightningSphere();
 	}
 	
 	if (BUTTONDOWN(VK_RIGHT))
 	{
+		sel = SkillSel::SparkCaliber;
 		SparkCaliber();
+	}
+	if (SpCal != nullptr)
+	{
+		if (m_vecLookDir.x > 0)
+		SpCal->SetPos(Vector(m_vecPos.x + 150, m_vecPos.y));
+		else if (m_vecLookDir.x < 0)
+		SpCal->SetPos(Vector(m_vecPos.x - 150, m_vecPos.y));
+	}
+	if (LiSp != nullptr)
+	{
+		LiSp->SetPos(m_vecPos);
+
 	}
 	AnimatorUpdate();
 }
@@ -95,31 +105,17 @@ void CPlayerSkill::Release()
 void CPlayerSkill::AnimatorUpdate()
 {
 	wstring str = L"";
-	switch (sel)
+	/*switch (sel)
 	{
 	case SkillSel::Idle:
 		str += L"Idle";
-		break;
-	case SkillSel::LightningSphere:
-		str += L"LightnigSphere";
-		break;
-	case SkillSel::SparkCaliber:
-	{
-		float Timer =100* DT;
-		str += L"SpCal";
-		str += to_wstring((int)Timer+1);
-		if (m_vecLookDir.x > 0) str += L"Right";
-		else if (m_vecLookDir.x < 0) str += L"Left";
-
-	}
-		break;
-	case SkillSel::VolticChain:
-		break;
-	case SkillSel::QudosBoost:
+		
 		break;
 	default:
+		str += L"Button";
 		break;
-	}
+	}*/
+	str += L"Button";
 	m_pAnimator->Play(str, false);
 	
 }
@@ -139,13 +135,26 @@ void CPlayerSkill::OnCollisionExit(CCollider* pOtherCollider)
 void CPlayerSkill::SparkCaliber()
 {
 	sel = SkillSel::SparkCaliber;
-	AddCollider(ColliderType::Rect, Vector(30, 32), Vector(0, 0));
-	m_bIsLiSp = true;
+	Logger::Debug(L"스킬생성");
+
+	//CSparkCaliver* SpCal = new CSparkCaliver();
+	SpCal = new CSparkCaliver();
+	
+	SpCal->SetPos(Vector(m_vecPos.x + 100, m_vecPos.y));
+	SpCal->SetDir(m_vecLookDir);
+	ADDOBJECT(SpCal);
+	
 }
 
 void CPlayerSkill::LightningSphere()
 {
 	sel = SkillSel::LightningSphere;
-	AddCollider(ColliderType::Circle, Vector(60, 60), Vector(0, 0));
-	m_bIsSpCal = true;
+	Logger::Debug(L"스킬생성");
+
+	//CLightningSphere* LiSp = new CLightningSphere();
+	LiSp = new CLightningSphere();
+	LiSp->SetPos(m_vecPos);
+	
+	ADDOBJECT(LiSp);
+	
 }

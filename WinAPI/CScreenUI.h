@@ -8,13 +8,15 @@ public:
 	CScreenUI();
 	virtual ~CScreenUI();
 
-	
+	void SetHp(float a) { Hp = a; }
+	float GetHP() { return Hp; }
 private:
 	CImage* m_Hpbar;
 	CImage* m_PIcon;
 	CImage* m_SideBar;
 
 	float UpTime=0;
+	float Hp = 0;
 	int RetryCount = 0;
 	int min = 0;
 	wstring Timer = L"";

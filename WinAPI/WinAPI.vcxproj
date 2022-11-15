@@ -155,6 +155,7 @@
     <ClInclude Include="CGVController.h" />
     <ClInclude Include="CImageObject.h" />
     <ClInclude Include="CInputManager.h" />
+    <ClInclude Include="CLightningSphere.h" />
     <ClInclude Include="CMaps.h" />
     <ClInclude Include="CMissile.h" />
     <ClInclude Include="CMonster.h" />
@@ -177,6 +178,7 @@
     <ClInclude Include="CScreenUI.h" />
     <ClInclude Include="CSound.h" />
     <ClInclude Include="CSoundManager.h" />
+    <ClInclude Include="CSparkCaliver.h" />
     <ClInclude Include="CTile.h" />
     <ClInclude Include="CTileButton.h" />
     <ClInclude Include="CTilePanel.h" />
@@ -209,6 +211,7 @@
     <ClCompile Include="CGVController.cpp" />
     <ClCompile Include="CImageObject.cpp" />
     <ClCompile Include="CInputManager.cpp" />
+    <ClCompile Include="CLightningSphere.cpp" />
     <ClCompile Include="CMaps.cpp" />
     <ClCompile Include="CMissile.cpp" />
     <ClCompile Include="CMonster.cpp" />
@@ -231,6 +234,7 @@
     <ClCompile Include="CScreenUI.cpp" />
     <ClCompile Include="CSound.cpp" />
     <ClCompile Include="CSoundManager.cpp" />
+    <ClCompile Include="CSparkCaliver.cpp" />
     <ClCompile Include="CTile.cpp" />
     <ClCompile Include="CTileButton.cpp" />
     <ClCompile Include="CTilePanel.cpp" />

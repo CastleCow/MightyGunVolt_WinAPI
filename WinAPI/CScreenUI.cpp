@@ -39,7 +39,7 @@ void CScreenUI::Render()
 {
 	
 	
-	RENDER->Image(m_Hpbar, (m_vecRenderPos.x + 100),
+	RENDER->Image(m_Hpbar, (m_vecRenderPos.x + 100 ),
 		(m_vecRenderPos.y),
 		(m_vecRenderPos.x + 100 + WINSIZEX * 0.2f),
 		(m_vecRenderPos.y + WINSIZEY * 0.1f) );
@@ -49,7 +49,7 @@ void CScreenUI::Render()
 		(m_vecRenderPos.x + 104) , (m_vecRenderPos.y + WINSIZEY) );
 	RENDER->Image(m_SideBar, WINSIZEX+m_vecRenderPos.x-100, m_vecRenderPos.y,WINSIZEX+ m_vecRenderPos.x +100, m_vecRenderPos.y+ WINSIZEY);
 	
-	RENDER->FillRect(m_vecRenderPos.x + 325, m_vecRenderPos.y +11, m_vecRenderPos.x +345, m_vecRenderPos.y +22 , Color(0,0,0,1));
+	RENDER->FillRect(m_vecRenderPos.x + 335 - (Hp * 8), m_vecRenderPos.y +11, m_vecRenderPos.x +345, m_vecRenderPos.y +22 , Color(0,0,0,1));
 	
 	
 	RENDER->Text(L"RETRY",m_vecRenderPos.x+30 , m_vecRenderPos.y+WINSIZEY-150, m_vecRenderPos.x + 100, m_vecRenderPos.y + WINSIZEY -60,Color(0,255,0,1));

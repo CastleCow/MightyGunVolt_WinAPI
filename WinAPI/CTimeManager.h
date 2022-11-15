@@ -12,6 +12,7 @@ private:
 
 	UINT	m_uiFPS;	// FPS : 주사율(프레임), 1초당 그려진 화면 수
 	float	m_fDT;		// Delta Time : 단위시간, 1프레임당 소요된 시간
+	float	m_fTimeScale;// 시간변화율
 
 	UINT	updateCount;
 	float	updateOneSecond;
@@ -25,6 +26,7 @@ private:
 public:
 	UINT GetFPS();
 	float GetDT();
+	void SetTimeScale(float scale) { m_fTimeScale =scale; };
 };
 
 #define	TIME	CTimeManager::GetInstance()

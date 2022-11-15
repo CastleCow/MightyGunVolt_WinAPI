@@ -5,6 +5,7 @@ CTimeManager::CTimeManager()
 {
 	m_uiFPS = 1;
 	m_fDT = 1;
+	m_fTimeScale = 1;
 	updateCount = 0;
 	updateOneSecond = 0;
 
@@ -28,7 +29,7 @@ void CTimeManager::Update()
 	curTime = chrono::high_resolution_clock::now();
 	chrono::duration<float> elapsed = curTime - prevTime;
 
-	m_fDT = elapsed.count();
+	m_fDT = elapsed.count()*m_fTimeScale;
 	if (m_fDT > 0.1f) m_fDT = 0.1f;
 	prevTime = curTime;
 
