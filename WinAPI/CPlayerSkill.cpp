@@ -13,12 +13,11 @@
 
 CPlayerSkill::CPlayerSkill()
 {
-	m_vecLookDir= Vector(0, 0);
+	
 	
 	m_pAnimator = nullptr;
 
-	LiSp		= nullptr;
-	SpCal		= nullptr;
+	
 	m_SelBut	= nullptr;
 	m_Blank		= nullptr;
 
@@ -44,12 +43,7 @@ void CPlayerSkill::Init()
 	m_pAnimator = new CAnimator;
 	m_pAnimator->CreateAnimation(L"Idle", m_Blank, Vector(0.f, 0.f), Vector(100.f, 100.f), Vector(0.f, 0.f), 0.1f, 1);
 	m_pAnimator->CreateAnimation(L"Button", m_SelBut, Vector(0.f, 0.f), Vector(100.f, 100.f), Vector(0.f, 0.f), 0.1f, 1);
-		
-	/*m_pAnimator->CreateAnimation(L"SpCalButton", m_SelBut, Vector(0.f, 0.f), Vector(32.f, 32.f), Vector(0.f, 0.f), 0.1f, 1);
-	m_pAnimator->CreateAnimation(L"LiSphButton", m_SelBut, Vector(32.f, 0.f), Vector(32.f, 32.f), Vector(0.f, 0.f), 0.1f, 1);
-	*/
 	
-
 	m_pAnimator->Play(L"Idle", false);
 	AddComponent(m_pAnimator);
 }
@@ -57,13 +51,14 @@ void CPlayerSkill::Init()
 void CPlayerSkill::Update()
 {
 	LiSpTimer += DT;
-
+	TIME->SetTimeScale(0.5f);
 	if (LiSpTimer > 1.f)
 	{
 		sel = SkillSel::Idle;
 		
 		LiSpTimer = 0;
 		
+		TIME->SetTimeScale(1.f);
 		DELETEOBJECT(this);
 	}
 	
@@ -71,26 +66,17 @@ void CPlayerSkill::Update()
 	if (BUTTONDOWN(VK_LEFT))
 	{
 		sel = SkillSel::LightningSphere;
-		LightningSphere();
+		TIME->SetTimeScale(1.f);
+		DELETEOBJECT(this);
 	}
 	
 	if (BUTTONDOWN(VK_RIGHT))
 	{
 		sel = SkillSel::SparkCaliber;
-		SparkCaliber();
+		TIME->SetTimeScale(1.f);
+		DELETEOBJECT(this);
 	}
-	if (SpCal != nullptr)
-	{
-		if (m_vecLookDir.x > 0)
-		SpCal->SetPos(Vector(m_vecPos.x + 150, m_vecPos.y));
-		else if (m_vecLookDir.x < 0)
-		SpCal->SetPos(Vector(m_vecPos.x - 150, m_vecPos.y));
-	}
-	if (LiSp != nullptr)
-	{
-		LiSp->SetPos(m_vecPos);
-
-	}
+	
 	AnimatorUpdate();
 }
 
@@ -105,56 +91,8 @@ void CPlayerSkill::Release()
 void CPlayerSkill::AnimatorUpdate()
 {
 	wstring str = L"";
-	/*switch (sel)
-	{
-	case SkillSel::Idle:
-		str += L"Idle";
-		
-		break;
-	default:
-		str += L"Button";
-		break;
-	}*/
+
 	str += L"Button";
 	m_pAnimator->Play(str, false);
-	
-}
-
-void CPlayerSkill::OnCollisionEnter(CCollider* pOtherCollider)
-{
-}
-
-void CPlayerSkill::OnCollisionStay(CCollider* pOtherCollider)
-{
-}
-
-void CPlayerSkill::OnCollisionExit(CCollider* pOtherCollider)
-{
-}
-
-void CPlayerSkill::SparkCaliber()
-{
-	sel = SkillSel::SparkCaliber;
-	Logger::Debug(L"胶懦积己");
-
-	//CSparkCaliver* SpCal = new CSparkCaliver();
-	SpCal = new CSparkCaliver();
-	
-	SpCal->SetPos(Vector(m_vecPos.x + 100, m_vecPos.y));
-	SpCal->SetDir(m_vecLookDir);
-	ADDOBJECT(SpCal);
-	
-}
-
-void CPlayerSkill::LightningSphere()
-{
-	sel = SkillSel::LightningSphere;
-	Logger::Debug(L"胶懦积己");
-
-	//CLightningSphere* LiSp = new CLightningSphere();
-	LiSp = new CLightningSphere();
-	LiSp->SetPos(m_vecPos);
-	
-	ADDOBJECT(LiSp);
 	
 }

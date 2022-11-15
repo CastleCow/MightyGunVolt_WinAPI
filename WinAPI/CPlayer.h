@@ -4,7 +4,8 @@
 class CImage;
 class CAnimator;
 class CPlayerSkill;
-
+class CLightningSphere;
+class CSparkCaliver;
 enum class PlayerState {
 	Dead,
 	Idle,
@@ -34,6 +35,8 @@ private:
 	CImage* m_pImageRV;
 
 	CPlayerSkill* skillOn;
+	CLightningSphere* LiSp;
+	CSparkCaliver* SpCal;
 
 	Vector m_vecReset;
 	PlayerState State;
@@ -43,6 +46,7 @@ private:
 	bool m_bIsDJump;
 	bool m_bIsDead;
 	bool m_bIsAttack;
+	bool m_bIsSkillSel=false;
 
 	float m_fSpeed = 200.0f;
 	float m_fFallSpeed = 200.0f;
@@ -50,6 +54,7 @@ private:
 	float Timer = 0;
 	float JumpTimer = 0;
 	float IntroTimer = 0;
+	float Mp = 6;
 protected:
 	Vector m_vecMoveDir;
 	Vector m_vecLookDir;
@@ -61,6 +66,8 @@ private:
 
 	void AnimatorUpdate();
 	void CreateMissile();
+	void SparkCaliber();
+	void LightningSphere();
 	void SkillTurnOn();
 
 	void OnCollisionEnter(CCollider* pOtherCollider) override;

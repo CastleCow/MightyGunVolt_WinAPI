@@ -10,6 +10,9 @@
 #include "CMissile.h"
 #include "CPlayerSkill.h"
 
+#include "CLightningSphere.h"
+#include "CSparkCaliver.h"
+
 #define RVFIRST 785
 #define NEXTSLICE 49
 
@@ -125,9 +128,17 @@ void CPlayer::Update()
 	JumpTimer += DT;
 		if(State != PlayerState::Dead)
 		{
+			if(skillOn!=nullptr&&
+				skillOn->GetSkillSel()== SkillSel::LightningSphere)
+				LightningSphere();
+			if(skillOn!=nullptr&&
+				skillOn->GetSkillSel()== SkillSel::SparkCaliber)
+				SparkCaliber();
+
 			if (JumpTimer > .5f)
 			{
 				m_bIsJump = false;
+				TIME->SetTimeScale(1.f);
 			}
 
 			if (m_bIsJump)
@@ -194,8 +205,7 @@ void CPlayer::Update()
 			}
 			if (BUTTONDOWN('C'))
 			{
-				Skill();
-				
+				Skill();	
 			}
 			if(gState!=Ground::Ground&&m_bIsJump!=true)
 				Fall();
@@ -212,7 +222,11 @@ void CPlayer::Update()
 	}
 	if (skillOn != nullptr)
 		skillOn->SetPos(m_vecPos);
-	
+
+	if (LiSp != nullptr)
+	{
+		LiSp->SetPos(m_vecPos);
+	}
 	AnimatorUpdate();
 }
 
@@ -291,13 +305,44 @@ void CPlayer::CreateMissile()
 	ADDOBJECT(pMissile);
 	
 	
-}void CPlayer::SkillTurnOn()
+}
+
+void CPlayer::SparkCaliber()
+{
+	
+	Logger::Debug(L"胶懦积己");
+
+	//CSparkCaliver* SpCal = new CSparkCaliver();
+	SpCal = new CSparkCaliver();
+
+	if (m_vecLookDir.x > 0)
+		SpCal->SetPos(Vector(m_vecPos.x + 150, m_vecPos.y));
+	else if (m_vecLookDir.x < 0)
+		SpCal->SetPos(Vector(m_vecPos.x - 150, m_vecPos.y));
+	SpCal->SetDir(m_vecLookDir);
+	ADDOBJECT(SpCal);
+
+}
+
+void CPlayer::LightningSphere()
+{
+	
+	Logger::Debug(L"胶懦积己");
+
+	//CLightningSphere* LiSp = new CLightningSphere();
+	LiSp = new CLightningSphere();
+	LiSp->SetPos(m_vecPos);
+
+	ADDOBJECT(LiSp);
+
+}
+void CPlayer::SkillTurnOn()
 {
 	Logger::Debug(L"胶懦积己");
 
 	skillOn = new CPlayerSkill();
 	skillOn->SetPos(m_vecPos);
-	skillOn->SetDir(m_vecLookDir);
+	
 	ADDOBJECT(skillOn);
 }
 
@@ -454,6 +499,7 @@ void CPlayer::Skill()
 	State = PlayerState::Skill;
 	SkillTurnOn();
 	Timer = 0;
+	
 }
 
 void CPlayer::Dead()

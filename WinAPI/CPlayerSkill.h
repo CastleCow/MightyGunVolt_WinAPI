@@ -2,8 +2,7 @@
 #include "CGameObject.h"
 #include "CPlayer.h"
 class CImage;
-class  CLightningSphere;
-class CSparkCaliver;
+
 enum class SkillSel {
     Idle,
     LightningSphere,
@@ -20,18 +19,17 @@ public:
     CPlayerSkill();
     virtual ~CPlayerSkill();
 
+    SkillSel GetSkillSel() { return sel; }
 
 private:
-    CLightningSphere*   LiSp;
-    CSparkCaliver*      SpCal;
-
+  
 
     CImage* m_SelBut;
     CImage* m_Blank;
     CAnimator* m_pAnimator;
 
 private:
-    Vector m_vecLookDir;
+   
 
     SkillSel sel;
     bool m_bIsLiSp=false;
@@ -46,14 +44,5 @@ private:
 
     void AnimatorUpdate();
 
-   void OnCollisionEnter(CCollider* pOtherCollider) override;
-    void OnCollisionStay(CCollider* pOtherCollider) override;
-    void OnCollisionExit(CCollider* pOtherCollider) override;
-
-    void SparkCaliber();
-    void LightningSphere();
-
-public:
-    void SetDir(Vector a) { m_vecLookDir = a; };
 };
 
