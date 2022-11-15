@@ -10,6 +10,8 @@ public:
 
 	void SetHp(float a) { Hp = a; }
 	float GetHP() { return Hp; }
+	void SetMp(float a) { Mp = a; }
+	float GetMP() { return Mp; }
 private:
 	CImage* m_Hpbar;
 	CImage* m_MP;

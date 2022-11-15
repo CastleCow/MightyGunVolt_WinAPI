@@ -58,14 +58,14 @@ void CScreenUI::Render()
 		(m_vecRenderPos.x + 104) , (m_vecRenderPos.y + WINSIZEY) );
 	RENDER->Image(m_SideBar, WINSIZEX+m_vecRenderPos.x-100, m_vecRenderPos.y,WINSIZEX+ m_vecRenderPos.x +100, m_vecRenderPos.y+ WINSIZEY);
 	
-	RENDER->FillRect(m_vecRenderPos.x + 335 - (Hp * 8), m_vecRenderPos.y +11, m_vecRenderPos.x +345, m_vecRenderPos.y +22 , Color(0,0,0,1));
+	RENDER->FillRect(m_vecRenderPos.x + 344 - (Hp*8), m_vecRenderPos.y +11, m_vecRenderPos.x +345, m_vecRenderPos.y +22 , Color(0,0,0,1));
 	{
-		RENDER->Image(m_MP, (m_vecRenderPos.x + 100+70),(m_vecRenderPos.y+50),(m_vecRenderPos.x + 100+70+ 15),(m_vecRenderPos.y+50 +10),alpha[0]);
-		RENDER->Image(m_MP, (m_vecRenderPos.x + 115+70),(m_vecRenderPos.y+50),(m_vecRenderPos.x + 115+70+ 15),(m_vecRenderPos.y+50 +10),alpha[1]);
-		RENDER->Image(m_MP, (m_vecRenderPos.x + 130+70),(m_vecRenderPos.y+50),(m_vecRenderPos.x + 130+70+ 15),(m_vecRenderPos.y+50 +10),alpha[2]);
-		RENDER->Image(m_MP, (m_vecRenderPos.x + 145+70),(m_vecRenderPos.y+50),(m_vecRenderPos.x + 145+70+ 15),(m_vecRenderPos.y+50 +10),alpha[3]);
-		RENDER->Image(m_MP, (m_vecRenderPos.x + 160+70),(m_vecRenderPos.y+50),(m_vecRenderPos.x + 160+70+ 15),(m_vecRenderPos.y+50 +10),alpha[4]);
-		RENDER->Image(m_MP, (m_vecRenderPos.x + 175+70),(m_vecRenderPos.y+50),(m_vecRenderPos.x + 175+70+ 15),(m_vecRenderPos.y+50 +10),alpha[5]);
+		RENDER->Image(m_MP, (m_vecRenderPos.x + 100+70),(m_vecRenderPos.y+32),(m_vecRenderPos.x + 100+70+ m_MP->GetWidth()),(m_vecRenderPos.y+52 ),alpha[0]);
+		RENDER->Image(m_MP, (m_vecRenderPos.x + 115+70),(m_vecRenderPos.y+32),(m_vecRenderPos.x + 115+70+ m_MP->GetWidth()),(m_vecRenderPos.y+52 ),alpha[1]);
+		RENDER->Image(m_MP, (m_vecRenderPos.x + 130+70),(m_vecRenderPos.y+32),(m_vecRenderPos.x + 130+70+ m_MP->GetWidth()),(m_vecRenderPos.y+52 ),alpha[2]);
+		RENDER->Image(m_MP, (m_vecRenderPos.x + 145+70),(m_vecRenderPos.y+32),(m_vecRenderPos.x + 145+70+ m_MP->GetWidth()),(m_vecRenderPos.y+52 ),alpha[3]);
+		RENDER->Image(m_MP, (m_vecRenderPos.x + 160+70),(m_vecRenderPos.y+32),(m_vecRenderPos.x + 160+70+ m_MP->GetWidth()),(m_vecRenderPos.y+52 ),alpha[4]);
+		RENDER->Image(m_MP, (m_vecRenderPos.x + 175+70),(m_vecRenderPos.y+32),(m_vecRenderPos.x + 175+70+ m_MP->GetWidth()),(m_vecRenderPos.y+52 ),alpha[5]);
 	}
 	RENDER->Text(L"RETRY",m_vecRenderPos.x+30 , m_vecRenderPos.y+WINSIZEY-150, m_vecRenderPos.x + 100, m_vecRenderPos.y + WINSIZEY -60,Color(0,255,0,1));
 	RENDER->Text(to_wstring(RetryCount),m_vecRenderPos.x+30 , m_vecRenderPos.y+WINSIZEY-130, m_vecRenderPos.x + 100, m_vecRenderPos.y + WINSIZEY -40,Color(0,255,0,1));

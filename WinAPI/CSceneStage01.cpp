@@ -79,6 +79,7 @@ void CSceneStage01::Update()
 		DELAYCHANGESCENE(GroupScene::Title, 0.25f);
 	}
 	SideUI->SetHp(20-pPlayer->GetHP());
+	SideUI->SetMp(pPlayer->GetMp());
 	CAMERA->SetTargetPos(pPlayer->GetPos(), 0.5f);
 	CAMERA->ZoomInOut(camScale);
 	Logger::Debug(L"플레이어 현재체력:" + to_wstring(pPlayer->GetHP()));
