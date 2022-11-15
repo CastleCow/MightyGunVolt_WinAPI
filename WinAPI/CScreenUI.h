@@ -12,11 +12,14 @@ public:
 	float GetHP() { return Hp; }
 private:
 	CImage* m_Hpbar;
+	CImage* m_MP;
 	CImage* m_PIcon;
 	CImage* m_SideBar;
 
 	float UpTime=0;
 	float Hp = 0;
+	float Mp = 6;
+	float alpha[6] = { 1 };
 	int RetryCount = 0;
 	int min = 0;
 	wstring Timer = L"";

@@ -87,6 +87,8 @@ private:
 public:
 	float GetHP() { return m_HP; }
 	void SetHP(float a) { m_HP = a; }
+	float GetMp() { return Mp; }
+	void SetMp(float a) { Mp = a; }
 	void SetState(PlayerState State) { this->State = State; }
 	void SetResetPos(Vector a) { m_vecReset = a; }
 

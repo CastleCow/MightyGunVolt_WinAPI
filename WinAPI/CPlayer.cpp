@@ -128,11 +128,15 @@ void CPlayer::Update()
 	JumpTimer += DT;
 		if(State != PlayerState::Dead)
 		{
+			if (0 == (int)IntroTimer % 10 && Mp <= 6)
+				Mp++;
 			if(skillOn!=nullptr&&
-				skillOn->GetSkillSel()== SkillSel::LightningSphere)
+				skillOn->GetSkillSel()== SkillSel::LightningSphere&&
+				Mp>0)
 				LightningSphere();
 			if(skillOn!=nullptr&&
-				skillOn->GetSkillSel()== SkillSel::SparkCaliber)
+				skillOn->GetSkillSel()== SkillSel::SparkCaliber&&
+				Mp>1)
 				SparkCaliber();
 
 			if (JumpTimer > .5f)
@@ -205,6 +209,7 @@ void CPlayer::Update()
 			}
 			if (BUTTONDOWN('C'))
 			{
+				if(Mp>0)
 				Skill();	
 			}
 			if(gState!=Ground::Ground&&m_bIsJump!=true)
