@@ -160,6 +160,11 @@
     <ClInclude Include="CMaps.h" />
     <ClInclude Include="CMissile.h" />
     <ClInclude Include="CMonster.h" />
+    <ClInclude Include="CMonsterMissileBot.h" />
+    <ClInclude Include="CMonsterTurret.h" />
+    <ClInclude Include="CMonsterTurretMissile.h" />
+    <ClInclude Include="CMonsterWaterBoss.h" />
+    <ClInclude Include="CMonsterWheel.h" />
     <ClInclude Include="CNextMapTile.h" />
     <ClInclude Include="CPanel.h" />
     <ClInclude Include="CPathManager.h" />
@@ -217,6 +222,11 @@
     <ClCompile Include="CMaps.cpp" />
     <ClCompile Include="CMissile.cpp" />
     <ClCompile Include="CMonster.cpp" />
+    <ClCompile Include="CMonsterMissileBot.cpp" />
+    <ClCompile Include="CMonsterTurret.cpp" />
+    <ClCompile Include="CMonsterTurretMissile.cpp" />
+    <ClCompile Include="CMonsterWaterBoss.cpp" />
+    <ClCompile Include="CMonsterWheel.cpp" />
     <ClCompile Include="CNextMapTile.cpp" />
     <ClCompile Include="CPanel.cpp" />
     <ClCompile Include="CPathManager.cpp" />

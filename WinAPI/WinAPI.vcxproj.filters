@@ -61,6 +61,12 @@
     <Filter Include="GameObject\Stage01\Player_GV\Skill">
       <UniqueIdentifier>{e49bae06-7bb3-4d77-a8dc-2d99902b1c2e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Stage01\Monster\Boss">
+      <UniqueIdentifier>{47dd37c4-d19d-4ee3-adca-b2ef9d8afe5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Stage01\Monster\mob">
+      <UniqueIdentifier>{671d6634-1abe-4dc3-bc5f-0e2a2ca0aef6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -189,9 +195,6 @@
     <ClInclude Include="CPlayer.h">
       <Filter>GameObject\Stage01\Player_GV</Filter>
     </ClInclude>
-    <ClInclude Include="CMonster.h">
-      <Filter>GameObject\Stage01\Monster</Filter>
-    </ClInclude>
     <ClInclude Include="CWallTile.h">
       <Filter>Engine\Asset\Tile</Filter>
     </ClInclude>
@@ -227,6 +230,24 @@
     </ClInclude>
     <ClInclude Include="CGameManager.h">
       <Filter>Engine\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonsterWheel.h">
+      <Filter>GameObject\Stage01\Monster\mob</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonster.h">
+      <Filter>GameObject\Stage01\Monster\mob</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonsterMissileBot.h">
+      <Filter>GameObject\Stage01\Monster\mob</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonsterTurret.h">
+      <Filter>GameObject\Stage01\Monster\mob</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonsterWaterBoss.h">
+      <Filter>GameObject\Stage01\Monster\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonsterTurretMissile.h">
+      <Filter>GameObject\Stage01\Monster\mob</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -338,9 +359,6 @@
     <ClCompile Include="CPlayer.cpp">
       <Filter>GameObject\Stage01\Player_GV</Filter>
     </ClCompile>
-    <ClCompile Include="CMonster.cpp">
-      <Filter>GameObject\Stage01\Monster</Filter>
-    </ClCompile>
     <ClCompile Include="CWallTile.cpp">
       <Filter>Engine\Asset\Tile</Filter>
     </ClCompile>
@@ -376,6 +394,24 @@
     </ClCompile>
     <ClCompile Include="CGameManager.cpp">
       <Filter>Engine\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonster.cpp">
+      <Filter>GameObject\Stage01\Monster\mob</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonsterMissileBot.cpp">
+      <Filter>GameObject\Stage01\Monster\mob</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonsterTurret.cpp">
+      <Filter>GameObject\Stage01\Monster\mob</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonsterWheel.cpp">
+      <Filter>GameObject\Stage01\Monster\mob</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonsterWaterBoss.cpp">
+      <Filter>GameObject\Stage01\Monster\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonsterTurretMissile.cpp">
+      <Filter>GameObject\Stage01\Monster\mob</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
