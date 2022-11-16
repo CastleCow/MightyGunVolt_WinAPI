@@ -245,6 +245,8 @@ void CPlayer::Release()
 
 void CPlayer::AnimatorUpdate()
 {
+	GAME->SetPos(m_vecPos);
+
 	if (m_vecMoveDir.Length() > 0)
 	{
 		m_vecLookDir = m_vecMoveDir;

@@ -50,6 +50,7 @@ enum class Layer
 	Missile,
 	Monster,
 	MonsterBullet,
+	MonsterRecog,
 	Skill,
 
 	Ui,
