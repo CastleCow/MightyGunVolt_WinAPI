@@ -51,7 +51,7 @@ void CMonster::Update()
 		if (m_fTimer > 0)
 		{
 			m_fTimer -= DT;
-			m_vecPos += metoP.Normalized() * 200 * DT;
+			m_vecPos += metoP.Normalized() * 100 * DT;
 
 		}
 		else

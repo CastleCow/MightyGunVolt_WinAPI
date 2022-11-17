@@ -15,8 +15,10 @@ CMonsterWheel::CMonsterWheel()
 	m_MonImg = nullptr;
 	m_pAnimator = nullptr;
 	m_bIsHit = false;
+	m_bOnGround = false;
 	m_fIsAttacked;
 	m_fHP=5;
+	m_vecDir = Vector(0, 0);
 }
 
 CMonsterWheel::~CMonsterWheel()
@@ -25,33 +27,33 @@ CMonsterWheel::~CMonsterWheel()
 
 void CMonsterWheel::Init()
 {
-	m_MonImg = RESOURCE->LoadImg(L"Fly",L"Image\\Monster\\Mon_FlyingBot_Sort.png");
+	m_MonImg = RESOURCE->LoadImg(L"Wheel",L"Image\\Monster\\Mon_Wheel_ani.png");
 
 	m_pAnimator = new CAnimator;
-	m_pAnimator->CreateAnimation(L"Flying", m_MonImg, Vector(0.f, 0.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f,5);
+	m_pAnimator->CreateAnimation(L"Crawl", m_MonImg, Vector(0.f, 0.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f,3);
 
 	AddComponent(m_pAnimator);
-	m_pAnimator->Play(L"Flying", false);
-	AddCollider(ColliderType::Rect, Vector(50, 50), Vector(0, 0));
+	m_pAnimator->Play(L"Crawl", false);
+	AddCollider(ColliderType::Circle, Vector(15, 15), Vector(0, 0));
 	
-	
+	m_vecDir =  m_vecPos-PLAYERPOS;
 }
 
 void CMonsterWheel::Update()
 {
 	
-	Vector metoP = m_vecPos - PLAYERPOS;
+	//Vector metoP = m_vecPos - PLAYERPOS;
 	if (m_fIsAttacked > 0)
 	{
 		m_fIsAttacked -= 10*DT;
-		m_vecPos += metoP.Normalized() * 150 * DT;
+		m_vecPos.x += m_vecDir.Normalized().x * 150 * DT;
 	}
 	else if (m_bIsHit)
 	{
 		if (m_fTimer > 0)
 		{
 			m_fTimer -= DT;
-			m_vecPos += metoP.Normalized() * 200 * DT;
+			m_vecPos.x += m_vecDir.Normalized().x * 200 * DT;
 
 		}
 		else
@@ -59,14 +61,15 @@ void CMonsterWheel::Update()
 			m_bIsHit = false;
 		}
 	}
-	else if(metoP.x<200&&
-		metoP.y<200)
-	m_vecPos -=metoP.Normalized() * 100 * DT;
+	//else if(m_vecDir.x<300)
+		m_vecPos.x -= m_vecDir.Normalized().x * 100 * DT;
 
 
 	if (m_fHP <= 0)
 		DELETEOBJECT(this);
 	AnimatorUpdate();
+	if(m_bOnGround==false)
+		Fall();
 }
 
 void CMonsterWheel::Render()
@@ -81,6 +84,16 @@ void CMonsterWheel::Release()
 
 void CMonsterWheel::OnCollisionEnter(CCollider* pOtherCollider)
 {
+	if (pOtherCollider->GetObjName()==L"땅")
+	{
+		m_vecPos.y = pOtherCollider->GetPos().y - pOtherCollider->GetScale().y * 0.9f;
+		m_bOnGround = true;
+	}
+	if (pOtherCollider->GetObjName() == L"벽")
+	{
+		m_vecDir.x *= -1;
+		m_vecPos.x += m_vecDir.x * DT;
+	}
 	if (pOtherCollider->GetObjName() == L"플레이어")
 	{
 		Logger::Debug(L"몬스터가 플레이어와 충돌진입");
@@ -93,10 +106,19 @@ void CMonsterWheel::OnCollisionEnter(CCollider* pOtherCollider)
 		m_fIsAttacked++;
 		m_fHP--;
 	}
+	else if (pOtherCollider->GetObjName() == L"스파크칼리버")
+		m_fHP -= 5;
+	else if (pOtherCollider->GetObjName() == L"라이트닝스피어")
+		m_fHP -= 3;
 }
 
 void CMonsterWheel::OnCollisionStay(CCollider* pOtherCollider)
 {
+	if (pOtherCollider->GetObjName() == L"땅")
+	{
+		m_vecPos.y = pOtherCollider->GetPos().y- pOtherCollider->GetScale().y*0.9f;
+		m_bOnGround = true;
+	}
 }
 
 void CMonsterWheel::OnCollisionExit(CCollider* pOtherCollider)
@@ -109,10 +131,20 @@ void CMonsterWheel::OnCollisionExit(CCollider* pOtherCollider)
 	{
 		Logger::Debug(L"몬스터가 미사일과 충돌해제");
 	}
+	if (pOtherCollider->GetObjName() == L"땅")
+	{
+		
+		m_bOnGround = false;
+	}
 }
 
 void CMonsterWheel::AnimatorUpdate()
 {
 	wstring str;
-	m_pAnimator->Play(L"Flying", false);
+	m_pAnimator->Play(L"Crawl", false);
+}
+
+void  CMonsterWheel::Fall()
+{
+	m_vecPos.y += 100 * DT;
 }

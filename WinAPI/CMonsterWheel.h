@@ -14,9 +14,12 @@ private:
 	CAnimator* m_pAnimator;
 	
 	bool m_bIsHit;
+	bool m_bOnGround;
 	float m_fIsAttacked;
 	float m_fHP;
 	float m_fTimer;
+
+	Vector m_vecDir;
 private:
 
 	void Init() override;
@@ -29,5 +32,6 @@ private:
 	void OnCollisionExit(CCollider* pOtherCollider) override;
 
 	void AnimatorUpdate();
+	void Fall();
 };
 

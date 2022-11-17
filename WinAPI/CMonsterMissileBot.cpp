@@ -25,10 +25,11 @@ CMonsterMissileBot::~CMonsterMissileBot()
 
 void CMonsterMissileBot::Init()
 {
-	m_MonImg = RESOURCE->LoadImg(L"Bot",L"Image\\Monster\\Mon_FlyingBot_Sort.png");
+	m_MonImg = RESOURCE->LoadImg(L"Bot",L"Image\\Monster\\Monster_MissileBot_Ani.png");
 
 	m_pAnimator = new CAnimator;
-	m_pAnimator->CreateAnimation(L"Idle", m_MonImg, Vector(0.f, 0.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f,5);
+	m_pAnimator->CreateAnimation(L"IdleRight", m_MonImg, Vector(0.f, 0.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f,5);
+	m_pAnimator->CreateAnimation(L"IdleLeft", m_MonImg, Vector(0.f, 150.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f,5);
 
 	AddComponent(m_pAnimator);
 	m_pAnimator->Play(L"Idle", false);
@@ -93,6 +94,10 @@ void CMonsterMissileBot::OnCollisionEnter(CCollider* pOtherCollider)
 		m_fIsAttacked++;
 		m_fHP--;
 	}
+	else if (pOtherCollider->GetObjName() == L"스파크칼리버")
+		m_fHP -= 5;
+	else if (pOtherCollider->GetObjName() == L"라이트닝스피어")
+		m_fHP -= 3;
 }
 
 void CMonsterMissileBot::OnCollisionStay(CCollider* pOtherCollider)
@@ -115,4 +120,9 @@ void CMonsterMissileBot::AnimatorUpdate()
 {
 	wstring str;
 	m_pAnimator->Play(L"Flying", false);
+}
+
+void CMonsterMissileBot::CreateMissile()
+{
+
 }

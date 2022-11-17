@@ -29,5 +29,6 @@ private:
 	void OnCollisionExit(CCollider* pOtherCollider) override;
 
 	void AnimatorUpdate();
+	void CreateMissile();
 };
 

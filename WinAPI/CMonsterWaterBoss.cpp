@@ -25,7 +25,7 @@ CMonsterWaterBoss::~CMonsterWaterBoss()
 
 void CMonsterWaterBoss::Init()
 {
-	m_MonImg = RESOURCE->LoadImg(L"Fly",L"Image\\Monster\\Mon_FlyingBot_Sort.png");
+	m_MonImg = RESOURCE->LoadImg(L"Fly",L"Image\\Monster\\BOSS_MWATER.png");
 
 	m_pAnimator = new CAnimator;
 	m_pAnimator->CreateAnimation(L"Flying", m_MonImg, Vector(0.f, 0.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f,5);

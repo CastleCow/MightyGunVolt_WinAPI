@@ -246,7 +246,13 @@
     <ClInclude Include="CMonsterWaterBoss.h">
       <Filter>GameObject\Stage01\Monster\Boss</Filter>
     </ClInclude>
+    <ClInclude Include="CMonsterMissileBotMissile.h">
+      <Filter>GameObject\Stage01\Monster\mob</Filter>
+    </ClInclude>
     <ClInclude Include="CMonsterTurretMissile.h">
+      <Filter>GameObject\Stage01\Monster\mob</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterList.h">
       <Filter>GameObject\Stage01\Monster\mob</Filter>
     </ClInclude>
   </ItemGroup>
@@ -409,6 +415,9 @@
     </ClCompile>
     <ClCompile Include="CMonsterWaterBoss.cpp">
       <Filter>GameObject\Stage01\Monster\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonsterMissileBotMissile.cpp">
+      <Filter>GameObject\Stage01\Monster\mob</Filter>
     </ClCompile>
     <ClCompile Include="CMonsterTurretMissile.cpp">
       <Filter>GameObject\Stage01\Monster\mob</Filter>

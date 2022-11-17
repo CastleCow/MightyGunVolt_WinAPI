@@ -162,6 +162,7 @@
     <ClInclude Include="CMonster.h" />
     <ClInclude Include="CMonsterMissileBot.h" />
     <ClInclude Include="CMonsterTurret.h" />
+    <ClInclude Include="CMonsterMissileBotMissile.h" />
     <ClInclude Include="CMonsterTurretMissile.h" />
     <ClInclude Include="CMonsterWaterBoss.h" />
     <ClInclude Include="CMonsterWheel.h" />
@@ -194,6 +195,7 @@
     <ClInclude Include="CWallTile.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Logger.h" />
+    <ClInclude Include="MonsterList.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SingleTon.h" />
     <ClInclude Include="Struct.h" />
@@ -224,6 +226,7 @@
     <ClCompile Include="CMonster.cpp" />
     <ClCompile Include="CMonsterMissileBot.cpp" />
     <ClCompile Include="CMonsterTurret.cpp" />
+    <ClCompile Include="CMonsterMissileBotMissile.cpp" />
     <ClCompile Include="CMonsterTurretMissile.cpp" />
     <ClCompile Include="CMonsterWaterBoss.cpp" />
     <ClCompile Include="CMonsterWheel.cpp" />

@@ -13,7 +13,9 @@ private:
 	CImage* m_MonImg;
 	CAnimator* m_pAnimator;
 	
-	bool m_bIsHit;
+	Vector m_vecDir;
+
+	bool m_bIsShot;
 	float m_fIsAttacked;
 	float m_fHP;
 	float m_fTimer;
@@ -29,5 +31,7 @@ private:
 	void OnCollisionExit(CCollider* pOtherCollider) override;
 
 	void AnimatorUpdate();
+
+	void CreateMissile();
 };
 

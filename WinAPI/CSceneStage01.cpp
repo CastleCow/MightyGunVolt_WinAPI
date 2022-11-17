@@ -4,7 +4,7 @@
 #include "WinAPI.h"
 
 #include "CPlayer.h"
-#include "CMonster.h"
+#include "MonsterList.h"
 #include "CGotoNextArea.h"
 #include "CCameraController.h"
 #include "CMaps.h"
@@ -37,6 +37,12 @@ void CSceneStage01::Init()
 	CMonster* pMonster = new CMonster();
 	pMonster->SetPos(1000, WINSIZEY * 0.5f);
 	AddGameObject(pMonster);
+	CMonsterWheel* pMonster2 = new CMonsterWheel();
+	pMonster2->SetPos(1300, WINSIZEY * 0.5f);
+	AddGameObject(pMonster2);
+	CMonsterTurret* pMonster3 = new CMonsterTurret();
+	pMonster3->SetPos(1500, WINSIZEY * 0.5f);
+	AddGameObject(pMonster3);
 
 	CCameraController* pCamController = new CCameraController;
 	CAMERA->SetTargetPos(pPlayer->GetPos(), 0.f);
