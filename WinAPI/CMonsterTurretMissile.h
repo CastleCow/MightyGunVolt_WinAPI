@@ -3,11 +3,11 @@
 
 class CImage;
 class CAnimator;
-class CMissile : public CGameObject
+class CMonsterTurretMissile : public CGameObject
 {
 public:
-	CMissile();
-	virtual ~CMissile();
+	CMonsterTurretMissile();
+	virtual ~CMonsterTurretMissile();
 
 private:
 	Vector m_vecDir;

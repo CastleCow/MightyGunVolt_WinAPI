@@ -328,6 +328,7 @@ void CPlayer::SparkCaliber()
 		SpCal->SetPos(Vector(m_vecPos.x - 150, m_vecPos.y));
 	SpCal->SetDir(m_vecLookDir);
 	ADDOBJECT(SpCal);
+	Mp -= 2;
 
 }
 
@@ -342,6 +343,7 @@ void CPlayer::LightningSphere()
 
 	ADDOBJECT(LiSp);
 
+	Mp--;
 }
 void CPlayer::SkillTurnOn()
 {

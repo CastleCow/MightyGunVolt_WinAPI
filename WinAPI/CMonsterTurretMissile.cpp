@@ -1,12 +1,12 @@
 #include "framework.h"
-#include "CMissile.h"
+#include "CMonsterTurretMissile.h"
 
 #include "CRenderManager.h"
 #include "CTimeManager.h"
 #include "CEventManager.h"
 #include "CCollider.h"
 #include"CImage.h"
-CMissile::CMissile()
+CMonsterTurretMissile::CMonsterTurretMissile()
 {
 	m_vecScale = Vector(10, 10);
 	m_vecDir = Vector(0, 0);
@@ -20,11 +20,11 @@ CMissile::CMissile()
 
 }
 
-CMissile::~CMissile()
+CMonsterTurretMissile::~CMonsterTurretMissile()
 {
 }
 
-void CMissile::Init()
+void CMonsterTurretMissile::Init()
 {
 	AddCollider(ColliderType::Circle, Vector(8, 8), Vector(0, 0));
 	m_Image = RESOURCE->LoadImg(L"Bullet", L"Image\\Player\\GV_BULLETDual.png");
@@ -41,7 +41,7 @@ void CMissile::Init()
 
 }
 
-void CMissile::Update()
+void CMonsterTurretMissile::Update()
 {
 	m_vecPos += m_vecDir * m_fVelocity * DT;
 
@@ -66,7 +66,7 @@ void CMissile::Update()
 	
 }
 
-void CMissile::Render()
+void CMonsterTurretMissile::Render()
 {
 	RENDER->FrameCircle(
 		m_vecPos.x,
@@ -83,11 +83,11 @@ void CMissile::Render()
 
 }
 
-void CMissile::Release()
+void CMonsterTurretMissile::Release()
 {
 }
 
-void CMissile::AnimatorUpdate()
+void CMonsterTurretMissile::AnimatorUpdate()
 {
 	wstring str = L"";
 	if (m_vecDir.x > 0) str += L"Right";
@@ -101,19 +101,19 @@ void CMissile::AnimatorUpdate()
 
 }
 
-void CMissile::OnCollisionEnter(CCollider* pOtherCollider)
+void CMonsterTurretMissile::OnCollisionEnter(CCollider* pOtherCollider)
 {
 
 	Logger::Debug(L"미사일이 충돌체와 부딪혀 사라집니다.");
 	DELETEOBJECT(this);
 }
 
-void CMissile::SetDir(Vector dir)
+void CMonsterTurretMissile::SetDir(Vector dir)
 {
 	m_vecDir = dir.Normalized();
 }
 
-void CMissile::SetVelocity(float velocity)
+void CMonsterTurretMissile::SetVelocity(float velocity)
 {
 	m_fVelocity = velocity;
 }

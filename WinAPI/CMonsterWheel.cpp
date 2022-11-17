@@ -1,5 +1,5 @@
 #include "framework.h"
-#include "CMonster.h"
+#include "CMonsterWheel.h"
 
 #include "CRenderManager.h"
 #include "CCollider.h"
@@ -7,7 +7,7 @@
 #include "CAnimator.h"
 
 
-CMonster::CMonster()
+CMonsterWheel::CMonsterWheel()
 {
 	m_vecScale = Vector(100, 100);
 	m_layer = Layer::Monster;
@@ -19,11 +19,11 @@ CMonster::CMonster()
 	m_fHP=5;
 }
 
-CMonster::~CMonster()
+CMonsterWheel::~CMonsterWheel()
 {
 }
 
-void CMonster::Init()
+void CMonsterWheel::Init()
 {
 	m_MonImg = RESOURCE->LoadImg(L"Fly",L"Image\\Monster\\Mon_FlyingBot_Sort.png");
 
@@ -37,7 +37,7 @@ void CMonster::Init()
 	
 }
 
-void CMonster::Update()
+void CMonsterWheel::Update()
 {
 	
 	Vector metoP = m_vecPos - PLAYERPOS;
@@ -69,17 +69,17 @@ void CMonster::Update()
 	AnimatorUpdate();
 }
 
-void CMonster::Render()
+void CMonsterWheel::Render()
 {
 	
 
 }
 
-void CMonster::Release()
+void CMonsterWheel::Release()
 {
 }
 
-void CMonster::OnCollisionEnter(CCollider* pOtherCollider)
+void CMonsterWheel::OnCollisionEnter(CCollider* pOtherCollider)
 {
 	if (pOtherCollider->GetObjName() == L"플레이어")
 	{
@@ -95,11 +95,11 @@ void CMonster::OnCollisionEnter(CCollider* pOtherCollider)
 	}
 }
 
-void CMonster::OnCollisionStay(CCollider* pOtherCollider)
+void CMonsterWheel::OnCollisionStay(CCollider* pOtherCollider)
 {
 }
 
-void CMonster::OnCollisionExit(CCollider* pOtherCollider)
+void CMonsterWheel::OnCollisionExit(CCollider* pOtherCollider)
 {
 	if (pOtherCollider->GetObjName() == L"플레이어")
 	{
@@ -111,7 +111,7 @@ void CMonster::OnCollisionExit(CCollider* pOtherCollider)
 	}
 }
 
-void CMonster::AnimatorUpdate()
+void CMonsterWheel::AnimatorUpdate()
 {
 	wstring str;
 	m_pAnimator->Play(L"Flying", false);

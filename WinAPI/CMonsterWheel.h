@@ -3,11 +3,11 @@
 class CImage;
 class CAnimator;
 
-class CMonster : public CGameObject
+class CMonsterWheel : public CGameObject
 {
 public:
-	CMonster();
-	virtual ~CMonster();
+	CMonsterWheel();
+	virtual ~CMonsterWheel();
 
 private:
 	CImage* m_MonImg;
