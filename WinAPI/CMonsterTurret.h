@@ -16,6 +16,7 @@ private:
 	Vector m_vecDir;
 
 	bool m_bIsShot;
+	bool m_bOnGround;
 	float m_fIsAttacked;
 	float m_fHP;
 	float m_fTimer;

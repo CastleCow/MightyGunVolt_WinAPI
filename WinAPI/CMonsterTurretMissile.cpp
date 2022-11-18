@@ -14,7 +14,7 @@ CMonsterTurretMissile::CMonsterTurretMissile()
 	m_fVelocity = 250;
 	bulDelTime = 0;
 	Dir[0] = {0};
-	m_layer = Layer::Missile;
+	m_layer = Layer::MonsterBullet;
 	m_strName = L"몬스터미사일";
 	m_Image = nullptr;
 
@@ -27,7 +27,7 @@ CMonsterTurretMissile::~CMonsterTurretMissile()
 void CMonsterTurretMissile::Init()
 {
 	AddCollider(ColliderType::Circle, Vector(8, 8), Vector(0, 0));
-	m_Image = RESOURCE->LoadImg(L"Bullet", L"Image\\Player\\Mon_turret_sort.png");
+	m_Image = RESOURCE->LoadImg(L"TurretBullet", L"Image\\Monster\\Mon_turret_sort.png");
 	m_pAnimator = new CAnimator;
 	m_pAnimator->CreateAnimation(L"Left", m_Image, Vector(1500.f, 0.f), Vector(100.f,100.f), Vector(150.f, 0.f), 0.1f, 1);
 	m_pAnimator->CreateAnimation(L"Right", m_Image, Vector(1500.f, 150.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f, 1);
@@ -52,10 +52,7 @@ void CMonsterTurretMissile::Update()
 
 void CMonsterTurretMissile::Render()
 {
-	RENDER->FrameCircle(
-		m_vecPos.x,
-		m_vecPos.y,
-		m_vecScale.x);
+	
 	
 
 

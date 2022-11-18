@@ -3,6 +3,8 @@
 class CPlayer;
 class CMaps;
 class CImage;
+class CScreenUI;
+class CGotoNextArea;
 
 class CSceneStage02 :
 	public CScene
@@ -15,6 +17,8 @@ private:
 	CPlayer* pPlayer;
 	CMaps* map;
 	CImage* mapimg;
+	CScreenUI* SideUI;
+	CGotoNextArea* goNext;
 	float camScale = 1;
 private:
 	void Init()		override;

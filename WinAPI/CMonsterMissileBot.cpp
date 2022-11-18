@@ -10,13 +10,14 @@
 CMonsterMissileBot::CMonsterMissileBot()
 {
 	m_vecScale = Vector(100, 100);
+	BS = BotState::Idle;
 	m_layer = Layer::Monster;
 	m_strName = L"¸ó½ºÅÍ";
 	m_MonImg = nullptr;
 	m_pAnimator = nullptr;
 	m_bIsHit = false;
-	m_fIsAttacked;
-	m_fHP=5;
+	m_fIsAttacked=false;
+	m_fHP=10;
 }
 
 CMonsterMissileBot::~CMonsterMissileBot()
@@ -28,11 +29,17 @@ void CMonsterMissileBot::Init()
 	m_MonImg = RESOURCE->LoadImg(L"Bot",L"Image\\Monster\\Monster_MissileBot_Ani.png");
 
 	m_pAnimator = new CAnimator;
-	m_pAnimator->CreateAnimation(L"IdleRight", m_MonImg, Vector(0.f, 0.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f,5);
-	m_pAnimator->CreateAnimation(L"IdleLeft", m_MonImg, Vector(0.f, 150.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f,5);
+	m_pAnimator->CreateAnimation(L"IdleRight", m_MonImg, Vector(0.f, 0.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f,1);
+	m_pAnimator->CreateAnimation(L"IdleLeft", m_MonImg, Vector(0.f, 150.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f,1);
+
+	m_pAnimator->CreateAnimation(L"ShotMissileRight", m_MonImg, Vector(0.f, 0.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f, 10,false);
+	m_pAnimator->CreateAnimation(L"ShotMissileLeft", m_MonImg, Vector(0.f, 150.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f, 10,false);
+	
+	m_pAnimator->CreateAnimation(L"ShotSparkRight", m_MonImg, Vector(0.f, 250.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f, 12,false);	
+	m_pAnimator->CreateAnimation(L"ShotSparkLeft", m_MonImg, Vector(0.f, 400.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f, 12 ,false);
 
 	AddComponent(m_pAnimator);
-	m_pAnimator->Play(L"Idle", false);
+	m_pAnimator->Play(L"IdleLeft", false);
 	AddCollider(ColliderType::Rect, Vector(50, 50), Vector(0, 0));
 	
 	
@@ -41,18 +48,18 @@ void CMonsterMissileBot::Init()
 void CMonsterMissileBot::Update()
 {
 	
-	Vector metoP = m_vecPos - PLAYERPOS;
+	Vector metoP = PLAYERPOS-m_vecPos  ;
 	if (m_fIsAttacked > 0)
 	{
 		m_fIsAttacked -= 10*DT;
-		m_vecPos += metoP.Normalized() * 150 * DT;
+		m_vecPos += metoP.Normalized() * 10 * DT;
 	}
 	else if (m_bIsHit)
 	{
 		if (m_fTimer > 0)
 		{
 			m_fTimer -= DT;
-			m_vecPos += metoP.Normalized() * 200 * DT;
+			//m_vecPos += metoP.Normalized() * 200 * DT;
 
 		}
 		else
@@ -62,7 +69,9 @@ void CMonsterMissileBot::Update()
 	}
 	else if(metoP.x<200&&
 		metoP.y<200)
-	m_vecPos -=metoP.Normalized() * 100 * DT;
+	{
+		//m_vecPos -=metoP.Normalized() * 100 * DT;
+	}
 
 
 	if (m_fHP <= 0)
@@ -119,6 +128,19 @@ void CMonsterMissileBot::OnCollisionExit(CCollider* pOtherCollider)
 void CMonsterMissileBot::AnimatorUpdate()
 {
 	wstring str;
+	switch (BS)
+	{
+	case BotState::Idle:str += L"Idle";
+		break;
+	case BotState::Missile:str += L"ShotSpark";
+		break;
+	case BotState::Spark: str += L"ShotMissile";
+		break;
+	}
+	
+	if(m_vecPos.x>PLAYERPOS.x) str += L"Left";
+	else str += L"Right";
+
 	m_pAnimator->Play(L"Flying", false);
 }
 

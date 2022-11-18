@@ -14,13 +14,14 @@
 #include "CScreenUI.h"
 
 
+//CPlayer* pPlayer = nullptr;
 
 CSceneStage01::CSceneStage01()
 {
 	pPlayer = nullptr;
 	map = nullptr;
 	SideUI = nullptr;
-	
+	goNext = nullptr;
 }
 
 CSceneStage01::~CSceneStage01()
@@ -41,7 +42,7 @@ void CSceneStage01::Init()
 	pMonster2->SetPos(1300, WINSIZEY * 0.5f);
 	AddGameObject(pMonster2);
 	CMonsterTurret* pMonster3 = new CMonsterTurret();
-	pMonster3->SetPos(1500, WINSIZEY * 0.5f);
+	pMonster3->SetPos(1500, WINSIZEY * 0.4f);
 	AddGameObject(pMonster3);
 
 	CCameraController* pCamController = new CCameraController;
@@ -60,7 +61,7 @@ void CSceneStage01::Init()
 	map->SetNextMapImage(RESOURCE->LoadImg(L"map_part2", L"Image\\MAP\\Map_part2_2x.png"));
 	AddGameObject(map);
 
-	CGotoNextArea* goNext = new CGotoNextArea();
+	goNext = new CGotoNextArea();
 	goNext->SetPos(map->GetIamge()->GetWidth(), map->GetIamge()->GetHeight()*0.2f);
 	goNext->SetScale(30,500);
 	goNext->SetScene(GroupScene::Stage02);
@@ -86,6 +87,7 @@ void CSceneStage01::Update()
 	}
 	SideUI->SetHp(20-pPlayer->GetHP());
 	SideUI->SetMp(pPlayer->GetMp());
+	goNext->SetPHP(pPlayer->GetHP());
 	CAMERA->SetTargetPos(pPlayer->GetPos(), 0.5f);
 	CAMERA->ZoomInOut(camScale);
 	Logger::Debug(L"플레이어 현재체력:" + to_wstring(pPlayer->GetHP()));

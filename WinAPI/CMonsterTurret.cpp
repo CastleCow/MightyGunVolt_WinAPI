@@ -17,8 +17,9 @@ CMonsterTurret::CMonsterTurret()
 	m_MonImg = nullptr;
 	m_pAnimator = nullptr;
 	m_bIsShot = false;
-	m_fIsAttacked;
+	m_fIsAttacked=false;
 	m_fHP=5;
+	//m_fTimer = -1.f;
 }
 
 CMonsterTurret::~CMonsterTurret()
@@ -36,11 +37,11 @@ void CMonsterTurret::Init()
 	m_pAnimator->CreateAnimation(L"Idle60Left", m_MonImg, Vector(450.f, 0.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f,1);
 	m_pAnimator->CreateAnimation(L"Idle90Left", m_MonImg, Vector(600.f, 0.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f,1);
 	
-	m_pAnimator->CreateAnimation(L"Shot0Left", m_MonImg, Vector(0.f, 0.f), Vector(100.f, 100.f),    Vector(0.f, 150.f), 0.2f, 2);
-	m_pAnimator->CreateAnimation(L"Shot30Left", m_MonImg, Vector(150.f, 0.f), Vector(100.f, 100.f), Vector(0.f, 150.f), 0.2f, 2);
-	m_pAnimator->CreateAnimation(L"Shot45Left", m_MonImg, Vector(300.f, 0.f), Vector(100.f, 100.f), Vector(0.f, 150.f), 0.2f, 2);
-	m_pAnimator->CreateAnimation(L"Shot60Left", m_MonImg, Vector(450.f, 0.f), Vector(100.f, 100.f), Vector(0.f, 150.f), 0.2f, 2);
-	m_pAnimator->CreateAnimation(L"Shot90Left", m_MonImg, Vector(600.f, 0.f), Vector(100.f, 100.f), Vector(0.f, 150.f), 0.2f, 2);
+	m_pAnimator->CreateAnimation(L"Shot0Left", m_MonImg, Vector(0.f, 0.f), Vector(100.f, 100.f),    Vector(0.f, 150.f), 0.9f, 2);
+	m_pAnimator->CreateAnimation(L"Shot30Left", m_MonImg, Vector(150.f, 0.f), Vector(100.f, 100.f), Vector(0.f, 150.f), 0.9f, 2);
+	m_pAnimator->CreateAnimation(L"Shot45Left", m_MonImg, Vector(300.f, 0.f), Vector(100.f, 100.f), Vector(0.f, 150.f), 0.9f, 2);
+	m_pAnimator->CreateAnimation(L"Shot60Left", m_MonImg, Vector(450.f, 0.f), Vector(100.f, 100.f), Vector(0.f, 150.f), 0.9f, 2);
+	m_pAnimator->CreateAnimation(L"Shot90Left", m_MonImg, Vector(600.f, 0.f), Vector(100.f, 100.f), Vector(0.f, 150.f), 0.9f, 2);
 
 	m_pAnimator->CreateAnimation(L"Idle0Right", m_MonImg, Vector(750.f, 0.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f, 1);
 	m_pAnimator->CreateAnimation(L"Idle30Right", m_MonImg, Vector(900.f, 0.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f, 1);
@@ -48,11 +49,11 @@ void CMonsterTurret::Init()
 	m_pAnimator->CreateAnimation(L"Idle60Right", m_MonImg, Vector(1200.f, 0.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f, 1);
 	m_pAnimator->CreateAnimation(L"Idle90Right", m_MonImg, Vector(1350.f, 0.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f, 1);
 
-	m_pAnimator->CreateAnimation(L"Shot0Right", m_MonImg, Vector(750.f, 0.f), Vector(100.f, 100.f),   Vector(0.f, 150.f), 0.2f, 2);
-	m_pAnimator->CreateAnimation(L"Shot30Right", m_MonImg, Vector(900.f, 0.f), Vector(100.f, 100.f),  Vector(0.f, 150.f), 0.2f, 2);
-	m_pAnimator->CreateAnimation(L"Shot45Right", m_MonImg, Vector(1050.f, 0.f), Vector(100.f, 100.f), Vector(0.f, 150.f), 0.2f, 2);
-	m_pAnimator->CreateAnimation(L"Shot60Right", m_MonImg, Vector(1200.f, 0.f), Vector(100.f, 100.f), Vector(0.f, 150.f), 0.2f, 2);
-	m_pAnimator->CreateAnimation(L"Shot90Right", m_MonImg, Vector(1350.f, 0.f), Vector(100.f, 100.f), Vector(0.f, 150.f), 0.2f, 2);
+	m_pAnimator->CreateAnimation(L"Shot0Right", m_MonImg, Vector(750.f, 0.f), Vector(100.f, 100.f),   Vector(0.f, 150.f), 0.9f, 2);
+	m_pAnimator->CreateAnimation(L"Shot30Right", m_MonImg, Vector(900.f, 0.f), Vector(100.f, 100.f),  Vector(0.f, 150.f), 0.9f, 2);
+	m_pAnimator->CreateAnimation(L"Shot45Right", m_MonImg, Vector(1050.f, 0.f), Vector(100.f, 100.f), Vector(0.f, 150.f), 0.9f, 2);
+	m_pAnimator->CreateAnimation(L"Shot60Right", m_MonImg, Vector(1200.f, 0.f), Vector(100.f, 100.f), Vector(0.f, 150.f), 0.9f, 2);
+	m_pAnimator->CreateAnimation(L"Shot90Right", m_MonImg, Vector(1350.f, 0.f), Vector(100.f, 100.f), Vector(0.f, 150.f), 0.9f, 2);
 	AddComponent(m_pAnimator);
 
 	m_pAnimator->Play(L"Idle0Left", false);
@@ -63,24 +64,22 @@ void CMonsterTurret::Init()
 
 void CMonsterTurret::Update()
 {
-	if (m_bIsShot)
-	{
-		m_fTimer -= 10.f*DT;
-	}
-	if (m_fTimer < 0)
-	{
-		m_bIsShot = false;
-	}
+	m_fTimer += DT;
 	Vector metoP =PLAYERPOS-m_vecPos;
 	if (metoP.x < 300 &&
-		metoP.y < 300&&
-		m_fTimer<0)
+		metoP.y < 300 &&
+		m_fTimer>1.f)
 		CreateMissile();
 		/*m_vecPos -=metoP.Normalized() * 100 * DT;*/
 
+	//초당 한번 발사 하기 위해선?
 
 	if (m_fHP <= 0)
 		DELETEOBJECT(this);
+
+	if (m_bOnGround == false)
+		m_vecPos.y += 50 * DT;
+
 	AnimatorUpdate();
 }
 
@@ -112,11 +111,20 @@ void CMonsterTurret::OnCollisionEnter(CCollider* pOtherCollider)
 		m_fHP -= 5;
 	else if (pOtherCollider->GetObjName() == L"라이트닝스피어")
 		m_fHP -= 3;
+
+	if (pOtherCollider->GetObjName() == L"땅")
+	{
+		m_bOnGround = true;
+	}
 		
 }
 
 void CMonsterTurret::OnCollisionStay(CCollider* pOtherCollider)
 {
+	if (pOtherCollider->GetObjName() == L"땅")
+	{
+		m_vecPos.y -= pOtherCollider->GetPos().y * 0.5f;
+	}
 }
 
 void CMonsterTurret::OnCollisionExit(CCollider* pOtherCollider)
@@ -128,6 +136,10 @@ void CMonsterTurret::OnCollisionExit(CCollider* pOtherCollider)
 	else if (pOtherCollider->GetObjName() == L"미사일")
 	{
 		Logger::Debug(L"몬스터가 미사일과 충돌해제");
+	}
+	if (pOtherCollider->GetObjName() == L"땅")
+	{
+		m_bOnGround = false;
 	}
 }
 
@@ -173,7 +185,7 @@ void CMonsterTurret::AnimatorUpdate()
 
 void CMonsterTurret::CreateMissile()
 {
-	m_fTimer = 3;
+	m_fTimer =0;
 	Logger::Debug(L"미사일 생성");
 	Vector metoP = PLAYERPOS - m_vecPos;
 	CMonsterTurretMissile* pMissile = new CMonsterTurretMissile();

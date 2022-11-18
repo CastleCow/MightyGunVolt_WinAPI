@@ -119,7 +119,11 @@ void CPlayer::Init()
 
 void CPlayer::Update()
 {
-	
+	GAME->SetPos(m_vecPos);
+		
+
+
+
 	m_bIsMove = false;
 	IntroTimer += DT;
 	if(IntroTimer>2.f)
@@ -245,7 +249,7 @@ void CPlayer::Release()
 
 void CPlayer::AnimatorUpdate()
 {
-	GAME->SetPos(m_vecPos);
+	
 
 	if (m_vecMoveDir.Length() > 0)
 	{

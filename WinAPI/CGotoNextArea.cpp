@@ -39,7 +39,12 @@ void CGotoNextArea::Release()
 void CGotoNextArea::OnCollisionEnter(CCollider* pOtherCollider)
 {
 	if (pOtherCollider->GetObjName() == L"플레이어")
+	{
+		//여기서 다음씬으로 리트라이 카운트 HP MP등을 넘겨준다
+		GAME->SetPlayerHP(PHP);
 		CHANGESCENE(nextScene);
+	
+	}
 }
 
 void CGotoNextArea::OnCollisionStay(CCollider* pOtherCollider)

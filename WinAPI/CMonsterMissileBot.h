@@ -2,7 +2,11 @@
 #include "CGameObject.h"
 class CImage;
 class CAnimator;
-
+enum class BotState {
+	Idle,
+	Missile,
+	Spark,
+};
 class CMonsterMissileBot : public CGameObject
 {
 public:
@@ -12,7 +16,7 @@ public:
 private:
 	CImage* m_MonImg;
 	CAnimator* m_pAnimator;
-	
+	BotState BS;
 	bool m_bIsHit;
 	float m_fIsAttacked;
 	float m_fHP;
