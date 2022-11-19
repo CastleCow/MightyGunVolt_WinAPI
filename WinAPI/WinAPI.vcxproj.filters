@@ -255,6 +255,9 @@
     <ClInclude Include="MonsterList.h">
       <Filter>GameObject\Stage01\Monster\mob</Filter>
     </ClInclude>
+    <ClInclude Include="CBossBullet.h">
+      <Filter>GameObject\Stage01\Monster\Boss</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinAPI.cpp">
@@ -421,6 +424,9 @@
     </ClCompile>
     <ClCompile Include="CMonsterTurretMissile.cpp">
       <Filter>GameObject\Stage01\Monster\mob</Filter>
+    </ClCompile>
+    <ClCompile Include="CBossBullet.cpp">
+      <Filter>GameObject\Stage01\Monster\Boss</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
