@@ -15,7 +15,7 @@ CMonsterMissileBotMissile::CMonsterMissileBotMissile()
 	m_fVelocity = 250;
 	bulDelTime = 0;
 	Dir[0] = {0};
-	m_layer = Layer::Missile;
+	m_layer = Layer::MonsterBullet;
 	m_strName = L"미사일";
 	m_Image = nullptr;
 
@@ -28,7 +28,7 @@ CMonsterMissileBotMissile::~CMonsterMissileBotMissile()
 void CMonsterMissileBotMissile::Init()
 {
 	AddCollider(ColliderType::Circle, Vector(8, 8), Vector(0, 0));
-	m_Image = RESOURCE->LoadImg(L"Bullet", L"Image\\Player\\Monster_MissileBot_Ani_Bullet.png");
+	m_Image = RESOURCE->LoadImg(L"MMBBullet", L"Image\\Monster\\Monster_MissileBot_Ani_Bullet.png");
 	m_pAnimator = new CAnimator;
 	m_pAnimator->CreateAnimation(L"Left", m_Image, Vector(0.f, 0.f), Vector(100.f,100.f), Vector(150.f, 0.f), 0.1f, 5);
 	m_pAnimator->CreateAnimation(L"Right", m_Image, Vector(0.f, 150.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f, 5);
@@ -39,47 +39,25 @@ void CMonsterMissileBotMissile::Init()
 
 	m_pAnimator->Play(L"Right", false);
 	AddComponent(m_pAnimator);
-
+	
 }
 
 void CMonsterMissileBotMissile::Update()
 {
-	m_vecPos += m_vecDir * m_fVelocity * DT;
+	m_vecPos.x += m_vecDir.x * m_fVelocity * DT;
 
 	bulDelTime += DT;
 	if (bulDelTime > 2.0f) { 
-		DELETEOBJECT(this);
-		
+		DELETEOBJECT(this);	
 	}
-	if (BUTTONDOWN('A'))
-	{
-		bulenhace++;
-		bulenhace = (int)bulenhace % 2;
-	}
+
 	
-	// 화면밖으로 나갈경우 삭제
-	/*if (m_vecPos.x < 0 ||
-		m_vecPos.x > WINSIZEX ||
-		m_vecPos.y < 0 ||
-		m_vecPos.y > WINSIZEY)
-		DELETEOBJECT(this);*/
 	AnimatorUpdate();
 	
 }
 
 void CMonsterMissileBotMissile::Render()
 {
-	RENDER->FrameCircle(
-		m_vecPos.x,
-		m_vecPos.y,
-		m_vecScale.x);
-	
-	/*RENDER->Image(m_Image, 
-		m_vecPos.x,
-		m_vecPos.y, 
-		(m_vecPos.x)+m_Image->GetWidth(),
-		(m_vecPos.y) + m_Image->GetHeight());*/
-	//RENDER->Image(m_ImageRV, m_vecPos.x, m_vecPos.y, (m_vecPos.x) + m_ImageRV->GetWidth(), (m_vecPos.y) + m_ImageRV->GetHeight());
 
 
 }

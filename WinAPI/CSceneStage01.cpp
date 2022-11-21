@@ -42,9 +42,11 @@ void CSceneStage01::Init()
 	pMonster2->SetPos(1300, WINSIZEY * 0.5f);
 	AddGameObject(pMonster2);
 	CMonsterTurret* pMonster3 = new CMonsterTurret();
-	pMonster3->SetPos(1500, WINSIZEY * 0.4f);
+	pMonster3->SetPos(1500, 350);
 	AddGameObject(pMonster3);
-
+	CMonsterMissileBot* pMonster4 = new CMonsterMissileBot();
+	pMonster4->SetPos(1550, 340);
+	AddGameObject(pMonster4);
 	CCameraController* pCamController = new CCameraController;
 	CAMERA->SetTargetPos(pPlayer->GetPos(), 0.f);
 	AddGameObject(pCamController);

@@ -61,7 +61,7 @@ void CSceneStage03::Enter()
 {
 	CAMERA->FadeIn(0.25f);
 
-	//LoadTile(GETPATH + L"Tile\\Stage01.tile");
+	LoadTile(GETPATH + L"Tile\\Stage03.tile");
 }
 
 void CSceneStage03::Update()

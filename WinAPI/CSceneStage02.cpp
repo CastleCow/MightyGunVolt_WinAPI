@@ -41,7 +41,7 @@ void CSceneStage02::Init()
 	AddGameObject(pMonster);
 
 	CCameraController* pCamController = new CCameraController;
-	CAMERA->SetTargetPos(pPlayer->GetPos(), 0.f);
+	CAMERA->SetTargetPos(pPlayer->GetPos());
 	AddGameObject(pCamController);
 
 	camScale = 1.f;

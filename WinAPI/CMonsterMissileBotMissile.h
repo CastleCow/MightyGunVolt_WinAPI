@@ -33,5 +33,6 @@ private:
 public:
 	void SetDir(Vector dir);
 	void SetVelocity(float velocity);
+	void SetBul(bool a) { bulenhace = a; }
 	//int GetCount() { return count; }
 };

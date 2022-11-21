@@ -33,6 +33,7 @@ CPlayer::CPlayer()
 
 	m_bIsMove = false;
 	m_bIsAttack = false;
+	m_bIsAttacked = false;
 	m_bIsDead = false;
 	m_bIsJump = false;
 	m_bIsDJump = false;
@@ -96,6 +97,9 @@ void CPlayer::Init()
 	//HURT		3
 	m_pAnimator->CreateAnimation(L"HurtRight", m_pImage, Vector(1.f, 444.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.1f, 3);
 	m_pAnimator->CreateAnimation(L"HurtLeft", m_pImageRV, Vector(832.f, 444.f), Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 3);
+	m_pAnimator->CreateAnimation(L"HurtShotRight", m_pImage, Vector(1.f, 444.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.1f, 3);
+	m_pAnimator->CreateAnimation(L"HurtShotLeft", m_pImageRV, Vector(832.f, 444.f), Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 3);
+
 	//Skill		2
 	m_pAnimator->CreateAnimation(L"SkillRight", m_pImage, Vector(1.f, 553.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.1f, 2);
 	m_pAnimator->CreateAnimation(L"SkillLeft", m_pImageRV, Vector(832.f, 553.f), Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 2);
@@ -121,9 +125,6 @@ void CPlayer::Update()
 {
 	GAME->SetPos(m_vecPos);
 		
-
-
-
 	m_bIsMove = false;
 	IntroTimer += DT;
 	if(IntroTimer>2.f)
@@ -149,7 +150,21 @@ void CPlayer::Update()
 				TIME->SetTimeScale(1.f);
 			}
 
-			if (m_bIsJump)
+			if (m_bIsAttacked)
+			{
+				if (HitTimer > 0)
+				{
+					HitTimer -= DT;
+					m_vecPos.x -= m_vecMoveDir.x  * DT;
+					State = PlayerState::Attacked;
+
+				}
+				else
+				{
+					m_bIsAttacked = false;
+				}
+			}
+			else if (m_bIsJump)
 				Jump();
 				/*&&BUTTONSTAY(VK_LEFT))
 			{
@@ -266,33 +281,35 @@ void CPlayer::AnimatorUpdate()
 	else
 	{
 		wstring str = L"";
-		switch ((int)State)
+		switch (State)
 		{
-		case (int)PlayerState::Move:	str += L"Move"; break;
-		case (int)PlayerState::Idle:
+		case PlayerState::Move:	str += L"Move"; break;
+		case PlayerState::Idle:
 		{
 			if (m_HP < 5)
 				str += L"Weak";
 			str += L"Idle";
 		}
 		break;
-		case (int)PlayerState::Dead: str += L"Die"; break;
-		case (int)PlayerState::Jump:
+		case PlayerState::Dead: str += L"Die"; break;
+		case PlayerState::Jump:
 		{
 			str += L"Jump";
 			if (JumpTimer > 0.2f)
 				str += L"Loop";
 			break;
 		}
-		case (int)PlayerState::Fall:
+		case PlayerState::Fall:
 		{
 			str += L"Fall";
 			
 			break;
 		}
-		case (int)PlayerState::Skill:
+		case PlayerState::Skill:
 			str += L"Skill";
 
+			break;
+		case PlayerState::Attacked:str += L"Hurt";
 			break;
 		}
 		if (m_bIsAttack == true)str += L"Shot";
@@ -371,7 +388,7 @@ void CPlayer::OnCollisionEnter(CCollider* pOtherCollider)
 			State = PlayerState::Dead;
 		}
 		m_HP--;
-
+		Attacked();
 	}
 
 	gState = Ground::Air;
@@ -410,7 +427,11 @@ void CPlayer::OnCollisionStay(CCollider* pOtherCollider)
 		if (pOtherCollider->GetPos().y < m_vecPos.y)
 			gState = Ground::Ceiling;
 		else if (pOtherCollider->GetPos().y > m_vecPos.y)
+		{
 			gState = Ground::Ground;
+			if(m_vecPos.y> pOtherCollider->GetPos().y - pOtherCollider->GetScale().y + 4)
+			m_vecPos.y = pOtherCollider->GetPos().y - pOtherCollider->GetScale().y + 4;
+		}
 	}
 	if (pOtherCollider->GetObjName() == L"º®")
 	{
@@ -465,7 +486,7 @@ void CPlayer::Jump()
 {
 	State = PlayerState::Jump;
 	float Speed = m_fSpeed;
-	Speed += m_fSpeed * DT;
+	Speed -= m_fSpeed * DT;
 	if (BUTTONSTAY(VK_LEFT))
 	{
 		
@@ -505,6 +526,12 @@ void CPlayer::Attack()
 	m_bIsAttack = true;
 	CreateMissile();
 	Timer = 0;
+}
+void CPlayer::Attacked()
+{
+	m_bIsAttacked = true;
+
+	HitTimer = 0.3f;
 }
 
 void CPlayer::Skill()

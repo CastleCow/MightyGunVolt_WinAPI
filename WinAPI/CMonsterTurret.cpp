@@ -123,7 +123,7 @@ void CMonsterTurret::OnCollisionStay(CCollider* pOtherCollider)
 {
 	if (pOtherCollider->GetObjName() == L"¶¥")
 	{
-		m_vecPos.y -= pOtherCollider->GetPos().y * 0.5f;
+		m_vecPos.y -= pOtherCollider->GetPos().y-pOtherCollider->GetScale().y+4;
 	}
 }
 

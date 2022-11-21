@@ -11,6 +11,7 @@ enum class PlayerState {
 	Idle,
 	Move,
 	Attack,
+	Attacked,
 	Jump,
 	Jump2,
 	Fall,
@@ -46,12 +47,14 @@ private:
 	bool m_bIsDJump;
 	bool m_bIsDead;
 	bool m_bIsAttack;
+	bool m_bIsAttacked;
 	bool m_bIsSkillSel=false;
 
 	float m_fSpeed = 200.0f;
 	float m_fFallSpeed = 200.0f;
 	float m_HP=20;
 	float Timer = 0;
+	float HitTimer = 0;
 	float JumpTimer = 0;
 	float IntroTimer = 0;
 	float Mp = 6;
@@ -80,6 +83,7 @@ private:
 	void Jump();
 	void Fall();
 	void Attack();
+	void Attacked();
 	void Skill();
 	void Dead();
 	void Reset();

@@ -30,7 +30,7 @@ void CMonsterTurretMissile::Init()
 	m_Image = RESOURCE->LoadImg(L"TurretBullet", L"Image\\Monster\\Mon_turret_sort.png");
 	m_pAnimator = new CAnimator;
 	m_pAnimator->CreateAnimation(L"Left", m_Image, Vector(1500.f, 0.f), Vector(100.f,100.f), Vector(150.f, 0.f), 0.1f, 1);
-	m_pAnimator->CreateAnimation(L"Right", m_Image, Vector(1500.f, 150.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f, 1);
+	m_pAnimator->CreateAnimation(L"Right", m_Image, Vector(1500.f, 0.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f, 1);
 
 	m_pAnimator->Play(L"Right", false);
 	AddComponent(m_pAnimator);

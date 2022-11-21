@@ -18,6 +18,7 @@ private:
 	CAnimator* m_pAnimator;
 	BotState BS;
 	bool m_bIsHit;
+	bool m_bIsShot;
 	float m_fIsAttacked;
 	float m_fHP;
 	float m_fTimer;

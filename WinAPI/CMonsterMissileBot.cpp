@@ -6,6 +6,7 @@
 #include "CImage.h"
 #include "CAnimator.h"
 
+#include"CMonsterMissileBotMissile.h"
 
 CMonsterMissileBot::CMonsterMissileBot()
 {
@@ -16,6 +17,7 @@ CMonsterMissileBot::CMonsterMissileBot()
 	m_MonImg = nullptr;
 	m_pAnimator = nullptr;
 	m_bIsHit = false;
+	m_bIsShot = false;
 	m_fIsAttacked=false;
 	m_fHP=10;
 }
@@ -35,12 +37,12 @@ void CMonsterMissileBot::Init()
 	m_pAnimator->CreateAnimation(L"ShotMissileRight", m_MonImg, Vector(0.f, 0.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f, 10,false);
 	m_pAnimator->CreateAnimation(L"ShotMissileLeft", m_MonImg, Vector(0.f, 150.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f, 10,false);
 	
-	m_pAnimator->CreateAnimation(L"ShotSparkRight", m_MonImg, Vector(0.f, 250.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f, 12,false);	
-	m_pAnimator->CreateAnimation(L"ShotSparkLeft", m_MonImg, Vector(0.f, 400.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f, 12 ,false);
+	m_pAnimator->CreateAnimation(L"ShotSparkRight", m_MonImg, Vector(0.f, 250.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f, 13,false);	
+	m_pAnimator->CreateAnimation(L"ShotSparkLeft", m_MonImg,  Vector(0.f, 400.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f, 13,false);
 
 	AddComponent(m_pAnimator);
 	m_pAnimator->Play(L"IdleLeft", false);
-	AddCollider(ColliderType::Rect, Vector(50, 50), Vector(0, 0));
+	AddCollider(ColliderType::Rect, Vector(50, 50), Vector(0, -10));
 	
 	
 }
@@ -49,28 +51,28 @@ void CMonsterMissileBot::Update()
 {
 	
 	Vector metoP = PLAYERPOS-m_vecPos  ;
-	if (m_fIsAttacked > 0)
+/*	if (m_fIsAttacked > 0)
 	{
 		m_fIsAttacked -= 10*DT;
-		m_vecPos += metoP.Normalized() * 10 * DT;
+		m_vecPos -= metoP.Normalized() * 10 * DT;
 	}
-	else if (m_bIsHit)
+	else */if (m_bIsHit)
 	{
 		if (m_fTimer > 0)
 		{
 			m_fTimer -= DT;
 			//m_vecPos += metoP.Normalized() * 200 * DT;
-
 		}
 		else
 		{
 			m_bIsHit = false;
 		}
 	}
-	else if(metoP.x<200&&
-		metoP.y<200)
+	else if (abs(metoP.x) < 400 &&
+		abs(metoP.y) < 200)
 	{
-		//m_vecPos -=metoP.Normalized() * 100 * DT;
+		CreateMissile();
+		m_bIsHit = true;
 	}
 
 
@@ -94,8 +96,7 @@ void CMonsterMissileBot::OnCollisionEnter(CCollider* pOtherCollider)
 	if (pOtherCollider->GetObjName() == L"플레이어")
 	{
 		Logger::Debug(L"몬스터가 플레이어와 충돌진입");
-		m_bIsHit = true;
-		m_fTimer = 2.f;
+		
 	}
 	else if (pOtherCollider->GetObjName() == L"미사일")
 	{
@@ -132,19 +133,54 @@ void CMonsterMissileBot::AnimatorUpdate()
 	{
 	case BotState::Idle:str += L"Idle";
 		break;
-	case BotState::Missile:str += L"ShotSpark";
+	case BotState::Missile:str += L"ShotMissile";
 		break;
-	case BotState::Spark: str += L"ShotMissile";
+	case BotState::Spark: str += L"ShotSpark";
 		break;
 	}
 	
-	if(m_vecPos.x>PLAYERPOS.x) str += L"Left";
+	if(m_vecPos.x<PLAYERPOS.x) str += L"Left";
 	else str += L"Right";
 
-	m_pAnimator->Play(L"Flying", false);
+	m_pAnimator->Play(str, false);
 }
 
 void CMonsterMissileBot::CreateMissile()
 {
+	Vector metoP = PLAYERPOS - m_vecPos;
+	m_fTimer = 3.f;
+	m_bIsShot==false ? BS=BotState::Missile : BS = BotState::Spark;
+
+	if(BS == BotState::Missile)
+	{
+		CMonsterMissileBotMissile* Missile = new CMonsterMissileBotMissile;
+		Missile->SetDir(metoP);
+		Missile->SetPos(m_vecPos);
+		Missile->SetBul(false);
+		ADDOBJECT(Missile);
+		CMonsterMissileBotMissile* Missile2 = new CMonsterMissileBotMissile;
+		Missile2->SetDir(metoP);
+		Missile2->SetPos(Vector(m_vecPos.x + 10 * metoP.Normalized().x, m_vecPos.y));
+		Missile2->SetBul(false);
+		ADDOBJECT(Missile2);
+
+		m_bIsShot = true;
+	}
+	else
+	{
+		CMonsterMissileBotMissile* Missile = new CMonsterMissileBotMissile;
+		Missile->SetDir(metoP);
+		Missile->SetPos(Vector(m_vecPos.x + 20 * metoP.Normalized().x, m_vecPos.y+10));
+		Missile->SetBul(true);
+		ADDOBJECT(Missile);
+		CMonsterMissileBotMissile* Missile2 = new CMonsterMissileBotMissile;
+		Missile2->SetDir(metoP);
+		Missile2->SetPos(Vector(m_vecPos.x + 10 * metoP.Normalized().x, m_vecPos.y+10));
+		Missile2->SetBul(true);
+		ADDOBJECT(Missile2);
+
+		m_bIsShot = false;
+	}
+
 
 }
