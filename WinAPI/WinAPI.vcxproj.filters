@@ -258,6 +258,9 @@
     <ClInclude Include="CBossBullet.h">
       <Filter>GameObject\Stage01\Monster\Boss</Filter>
     </ClInclude>
+    <ClInclude Include="CDeadExplo.h">
+      <Filter>GameObject\Stage01\Monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinAPI.cpp">
@@ -427,6 +430,9 @@
     </ClCompile>
     <ClCompile Include="CBossBullet.cpp">
       <Filter>GameObject\Stage01\Monster\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="CDeadExplo.cpp">
+      <Filter>GameObject\Stage01\Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

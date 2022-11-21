@@ -15,6 +15,7 @@ CCollider::CCollider()
 	m_vecPos = Vector(0, 0);
 	m_vecOffsetPos = Vector(0, 0);
 	m_vecScale = Vector(0, 0);
+	m_fDamage = 0.f;
 }
 
 CCollider::~CCollider()
@@ -95,24 +96,27 @@ void CCollider::Render()
 	{
 		color = Color(0, 255, 0, 1.f);
 	}
+	if(GAME->GetDebug())
+	{
 
-	if (m_type == ColliderType::Rect)
-	{
-		RENDER->FrameRect(
-			m_vecPos.x - m_vecScale.x * 0.5f,
-			m_vecPos.y - m_vecScale.y * 0.5f,
-			m_vecPos.x + m_vecScale.x * 0.5f,
-			m_vecPos.y + m_vecScale.y * 0.5f,
-			color);
-	}
-	else if (m_type == ColliderType::Circle)
-	{
-		RENDER->FrameCircle(
-			m_vecPos.x,
-			m_vecPos.y,
-			m_vecScale.x,
-			color
-		);
+		if (m_type == ColliderType::Rect)
+		{
+			RENDER->FrameRect(
+				m_vecPos.x - m_vecScale.x * 0.5f,
+				m_vecPos.y - m_vecScale.y * 0.5f,
+				m_vecPos.x + m_vecScale.x * 0.5f,
+				m_vecPos.y + m_vecScale.y * 0.5f,
+				color);
+		}
+		else if (m_type == ColliderType::Circle)
+		{
+			RENDER->FrameCircle(
+				m_vecPos.x,
+				m_vecPos.y,
+				m_vecScale.x,
+				color
+			);
+		}
 	}
 }
 

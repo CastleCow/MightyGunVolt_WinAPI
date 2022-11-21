@@ -32,6 +32,7 @@ enum class GroupScene
 	Stage01,
 	Stage02,
 	Stage03,
+	Stage04,
 
 	Size,
 };
@@ -50,7 +51,7 @@ enum class Layer
 	Missile,
 	Monster,
 	MonsterBullet,
-	MonsterRecog,
+	BossBullet,
 	Skill,
 
 	Ui,

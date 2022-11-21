@@ -16,7 +16,17 @@ void CGameManager::Init()
 }
 void CGameManager::Update()
 {
-	
+	if (BUTTONDOWN(VK_F2))
+	{
+		if (m_debugMode == true)
+			m_debugMode = false;
+		else
+			m_debugMode = true;
+	}
+	if (BUTTONDOWN(VK_F5))
+	{
+		SCENE->ChangeScene(GroupScene::Stage04);
+	}
 	UpTime += DT;
 	if (UpTime >= 60)
 	{

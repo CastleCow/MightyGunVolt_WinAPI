@@ -23,13 +23,13 @@ private:
 	Vector m_vecPos;		// 충돌체의 위치
 	Vector m_vecOffsetPos;	// 충돌체의 변위차(수정값)
 	Vector m_vecScale;		// 충돌체의 크기
-
+	float m_fDamage;
 private:
 	void SetType(ColliderType type);
 	void SetPos(Vector pos);
 	void SetOffsetPos(Vector offset);
 	void SetScale(Vector scale);
-
+	void SetDamage(float a) { m_fDamage = a; }
 public:
 	ColliderType GetType();
 	wstring GetObjName();
@@ -37,6 +37,8 @@ public:
 	Vector GetPos();
 	Vector GetOffsetPos();
 	Vector GetScale();
+	float GetDamage() { return m_fDamage; }
+	
 
 private:
 	void Init() override;

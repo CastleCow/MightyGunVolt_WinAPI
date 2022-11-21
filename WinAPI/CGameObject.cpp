@@ -103,7 +103,7 @@ CCollider* CGameObject::GetCollider()
 	return m_pCollider;
 }
 
-void CGameObject::AddCollider(ColliderType type, Vector scale, Vector offsetPos)
+void CGameObject::AddCollider(ColliderType type, Vector scale, Vector offsetPos,float damage)
 {
 	if (nullptr != m_pCollider)
 		return;
@@ -112,6 +112,7 @@ void CGameObject::AddCollider(ColliderType type, Vector scale, Vector offsetPos)
 	m_pCollider->SetType(type);
 	m_pCollider->SetScale(scale);
 	m_pCollider->SetOffsetPos(offsetPos);
+	m_pCollider->SetDamage(damage);
 	AddComponent(m_pCollider);
 }
 

@@ -96,9 +96,9 @@ void CPlayer::Init()
 	m_pAnimator->CreateAnimation(L"FallLoopShotLeft", m_pImageRV, Vector(736.f, 226.f), Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 2);
 	//HURT		3
 	m_pAnimator->CreateAnimation(L"HurtRight", m_pImage, Vector(1.f, 444.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.1f, 3);
-	m_pAnimator->CreateAnimation(L"HurtLeft", m_pImageRV, Vector(832.f, 444.f), Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 3);
-	m_pAnimator->CreateAnimation(L"HurtShotRight", m_pImage, Vector(1.f, 444.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.1f, 3);
-	m_pAnimator->CreateAnimation(L"HurtShotLeft", m_pImageRV, Vector(832.f, 444.f), Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 3);
+	m_pAnimator->CreateAnimation(L"HurtLeft", m_pImageRV, Vector(785.f, 444.f), Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 3);
+	m_pAnimator->CreateAnimation(L"HurtShotRight", m_pImage,  Vector(1.f, 444.f),   Vector(47.f, 47.f), Vector(49.f, 0.f), 0.1f, 3);
+	m_pAnimator->CreateAnimation(L"HurtShotLeft", m_pImageRV, Vector(785.f, 444.f), Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 3);
 
 	//Skill		2
 	m_pAnimator->CreateAnimation(L"SkillRight", m_pImage, Vector(1.f, 553.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.1f, 2);
@@ -387,7 +387,7 @@ void CPlayer::OnCollisionEnter(CCollider* pOtherCollider)
 		{
 			State = PlayerState::Dead;
 		}
-		m_HP--;
+		m_HP-=pOtherCollider->GetDamage();
 		Attacked();
 	}
 

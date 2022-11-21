@@ -6,7 +6,7 @@
 #include "CImage.h"
 #include "CAnimator.h"
 #include"CMonsterTurretMissile.h"
-
+#include"CDeadExplo.h"
 
 CMonsterTurret::CMonsterTurret()
 {
@@ -75,7 +75,13 @@ void CMonsterTurret::Update()
 	//초당 한번 발사 하기 위해선?
 
 	if (m_fHP <= 0)
-		DELETEOBJECT(this);
+	{
+		CDeadExplo* expl = new CDeadExplo;
+		expl->SetPos(m_vecPos);
+		if (expl == nullptr)
+			DELETEOBJECT(this);
+	}
+		
 
 	if (m_bOnGround == false)
 		m_vecPos.y += 50 * DT;
