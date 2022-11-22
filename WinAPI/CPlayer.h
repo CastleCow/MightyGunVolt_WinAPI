@@ -49,6 +49,7 @@ private:
 	bool m_bIsAttack;
 	bool m_bIsAttacked;
 	bool m_bIsSkillSel=false;
+	bool m_Debug = false;
 
 	float m_fSpeed = 200.0f;
 	float m_fFallSpeed = 200.0f;

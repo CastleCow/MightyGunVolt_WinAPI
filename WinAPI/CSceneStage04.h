@@ -6,13 +6,13 @@ class CMaps;
 class CImage;
 class CScreenUI;
 class CGotoNextArea;
-class CSceneStage03 :
+class CSceneStage04 :
 	public CScene
 {
 
 public:
-	CSceneStage03();
-	virtual ~CSceneStage03();
+	CSceneStage04();
+	virtual ~CSceneStage04();
 
 private:
 	CPlayer* pPlayer;

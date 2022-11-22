@@ -26,7 +26,7 @@ CMonsterTurretMissile::~CMonsterTurretMissile()
 
 void CMonsterTurretMissile::Init()
 {
-	AddCollider(ColliderType::Circle, Vector(8, 8), Vector(0, 0));
+	AddCollider(ColliderType::Circle, Vector(8, 8), Vector(0, 0),1.f);
 	m_Image = RESOURCE->LoadImg(L"TurretBullet", L"Image\\Monster\\Mon_turret_sort.png");
 	m_pAnimator = new CAnimator;
 	m_pAnimator->CreateAnimation(L"Left", m_Image, Vector(1500.f, 0.f), Vector(100.f,100.f), Vector(150.f, 0.f), 0.1f, 1);

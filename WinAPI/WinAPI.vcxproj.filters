@@ -261,6 +261,9 @@
     <ClInclude Include="CDeadExplo.h">
       <Filter>GameObject\Stage01\Monster</Filter>
     </ClInclude>
+    <ClInclude Include="CSceneStage04.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinAPI.cpp">
@@ -433,6 +436,9 @@
     </ClCompile>
     <ClCompile Include="CDeadExplo.cpp">
       <Filter>GameObject\Stage01\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneStage04.cpp">
+      <Filter>Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

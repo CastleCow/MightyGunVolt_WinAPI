@@ -14,7 +14,7 @@ enum class BossState {
 
 	Size,
 };
-enum class Ground {
+enum class BossGround {
 	Ceiling,
 	Air,
 	Ground
@@ -39,15 +39,19 @@ private:
 
 
 	BossState State;
-	Ground gState;
+	BossGround gState;
 
 	bool m_bIsHit;
+	bool m_bIsPatterning;
+	bool m_bIsCrBul;
 	float m_fIsAttacked;
 	float m_fHP;
 	float m_fTimer;
 	float m_deadTimer;
+	float m_fEntryTimer;
+	
 	float bulletCount;
-
+	float m_fPatternTimer;
 	int patNum;
 private:
 

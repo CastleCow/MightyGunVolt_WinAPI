@@ -9,7 +9,7 @@
 
 CLightningSphere::CLightningSphere()
 {
-	m_strName = L"라이트닝스피어";
+	m_strName = L"스킬";
 	m_layer = Layer::Skill;
 	m_bIsLiSp = false;
 	m_pAnimator = nullptr;
@@ -33,7 +33,7 @@ void CLightningSphere::Init()
 	m_pAnimator->Play(L"Idle", false);
 	AddComponent(m_pAnimator);
 
-	AddCollider(ColliderType::Circle, Vector(60, 60), Vector(0, 0));
+	AddCollider(ColliderType::Circle, Vector(60, 60), Vector(0, 0),5.f);
 }
 
 void CLightningSphere::Update()

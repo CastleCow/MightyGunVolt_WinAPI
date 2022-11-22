@@ -93,6 +93,8 @@ void CMonster::OnCollisionEnter(CCollider* pOtherCollider)
 		m_fIsAttacked++;
 		m_fHP--;
 	}
+	else if (pOtherCollider->GetObjName() == L"½ºÅ³")
+		m_fHP -= pOtherCollider->GetDamage();
 }
 
 void CMonster::OnCollisionStay(CCollider* pOtherCollider)

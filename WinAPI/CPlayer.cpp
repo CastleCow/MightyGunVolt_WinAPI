@@ -113,6 +113,8 @@ void CPlayer::Init()
 	//DIE		6 
 	m_pAnimator->CreateAnimation(L"DieRight", m_pImage, Vector(1.1f, 766.f), Vector(79.f, 63.f), Vector(81.f, 0.f), 0.5f, 6,false);//80,829
 	m_pAnimator->CreateAnimation(L"DieLeft", m_pImageRV, Vector(831.9f, 766.f), Vector(79.f, 63.f), Vector(-81.f, 0.f), 0.5f, 6,false);
+	m_pAnimator->CreateAnimation(L"DieShotRight", m_pImage, Vector(1.1f, 766.f), Vector(79.f, 63.f), Vector(81.f, 0.f), 0.5f, 6,false);//80,829
+	m_pAnimator->CreateAnimation(L"DieShotLeft", m_pImageRV, Vector(831.9f, 766.f), Vector(79.f, 63.f), Vector(-81.f, 0.f), 0.5f, 6,false);
 
 	m_pAnimator->Play(L"IntroRight", false);
 	AddComponent(m_pAnimator);
@@ -125,6 +127,18 @@ void CPlayer::Update()
 {
 	GAME->SetPos(m_vecPos);
 		
+	if (BUTTONDOWN(VK_F11))
+	{
+		if (m_Debug == true)
+		{
+			m_Debug = false;
+		}
+		else
+			m_Debug = true;
+	}
+	if (m_Debug == true)
+		m_HP = 20;
+
 	m_bIsMove = false;
 	IntroTimer += DT;
 	if(IntroTimer>2.f)
@@ -133,7 +147,7 @@ void CPlayer::Update()
 	JumpTimer += DT;
 		if(State != PlayerState::Dead)
 		{
-			if (0 == (int)IntroTimer % 10 && Mp <= 6)
+			if (0 == (int)IntroTimer % 20 && Mp < 6)
 				Mp++;
 			if(skillOn!=nullptr&&
 				skillOn->GetSkillSel()== SkillSel::LightningSphere&&
@@ -381,20 +395,32 @@ void CPlayer::OnCollisionEnter(CCollider* pOtherCollider)
 	//적의 탄환과 부딫쳤을때
 	
 	//적과 부딫쳤을때
-	if (pOtherCollider->GetObjName() == L"몬스터")
+	if(IntroTimer>2.0f)
 	{
-		if (m_HP <= 0)
+		if (pOtherCollider->GetObjName() == L"몬스터")
 		{
-			State = PlayerState::Dead;
+			if (m_HP <= 0)
+			{
+				State = PlayerState::Dead;
+			}
+			m_HP -= pOtherCollider->GetDamage();
+			Attacked();
 		}
-		m_HP-=pOtherCollider->GetDamage();
-		Attacked();
+		if (pOtherCollider->GetObjName() == L"몬스터미사일")
+		{
+			if (m_HP <= 0)
+			{
+				State = PlayerState::Dead;
+			}
+			m_HP -= pOtherCollider->GetDamage();
+			Attacked();
+		}
 	}
 
 	gState = Ground::Air;
 	if (pOtherCollider->GetObjName() == L"땅")//||pOtherCollider->GetPos().y - this->GetCollider()->GetPos().y*0.1 > m_vecPos.y)
 	{
-		Logger::Debug(L"땅과 플레이어와 충돌시작");
+		//Logger::Debug(L"땅과 플레이어와 충돌시작");
 		m_bIsDJump = false;
 		if (pOtherCollider->GetPos().y < m_vecPos.y)
 		{
@@ -423,7 +449,7 @@ void CPlayer::OnCollisionStay(CCollider* pOtherCollider)
 	gState = Ground::Air;
 	if (pOtherCollider->GetObjName() == L"땅")
 	{
-		Logger::Debug(L"땅과 플레이어와 충돌중");
+		//Logger::Debug(L"땅과 플레이어와 충돌중");
 		if (pOtherCollider->GetPos().y < m_vecPos.y)
 			gState = Ground::Ceiling;
 		else if (pOtherCollider->GetPos().y > m_vecPos.y)
@@ -436,7 +462,7 @@ void CPlayer::OnCollisionStay(CCollider* pOtherCollider)
 	if (pOtherCollider->GetObjName() == L"벽")
 	{
 		Logger::Debug(L"벽과 플레이어와 충돌중");
-		//if(pOtherCollider->GetPos().x)
+		if(pOtherCollider->GetPos().x)
 		if (pOtherCollider->GetPos().x < m_vecPos.x)
 			m_vecPos.x += m_fSpeed * DT;
 		else if (pOtherCollider->GetPos().x > m_vecPos.x)
@@ -449,7 +475,7 @@ void CPlayer::OnCollisionExit(CCollider* pOtherCollider)
 	
 	if (pOtherCollider->GetObjName() == L"땅")
 	{
-		Logger::Debug(L"땅과 플레이어와 충돌");
+		//Logger::Debug(L"땅과 플레이어와 충돌");
 		if (pOtherCollider->GetPos().y < m_vecPos.y)
 			gState = Ground::Air;
 		else if (pOtherCollider->GetPos().y > m_vecPos.y)

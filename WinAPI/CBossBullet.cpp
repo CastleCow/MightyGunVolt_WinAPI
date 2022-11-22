@@ -6,14 +6,15 @@
 CBossBullet::CBossBullet()
 {
 	m_vecScale = Vector(10, 10);
-	m_vecDir = Vector(0, 0);
+	m_vecDir = Vector(1, 0);
 	m_pAnimator = nullptr;
 	m_fVelocity = 250;
 	bulDelTime = 0;
 	Dir[0] = { 0 };
 	m_layer = Layer::BossBullet;
-	m_strName = L"보스미사일";
+	m_strName = L"몬스터미사일";
 	m_Image = nullptr;
+	m_bIsDel = false;
 
 }
 
@@ -23,7 +24,7 @@ CBossBullet::~CBossBullet()
 
 void CBossBullet::Init()
 {
-	AddCollider(ColliderType::Circle, Vector(8, 8), Vector(0, 0));
+	AddCollider(ColliderType::Circle, Vector(8, 8), Vector(0, 0),1.f);
 	m_Image = RESOURCE->LoadImg(L"BossBullet", L"Image\\Monster\\BOSS_MWATER.png");
 	m_pAnimator = new CAnimator();
 	
@@ -36,19 +37,31 @@ void CBossBullet::Init()
 
 void CBossBullet::Update()
 {
-	MoveCircle();
+	if (m_bIsDel)
+		DELETEOBJECT(this);
+	
+	if (bulenhace == false)
+	{
+		MoveCircle();
+	if (890.f > (BOSSPOS - m_vecPos).Magnitude() &&
+		(BOSSPOS - m_vecPos).Magnitude() < 910.f)
+	{
+		m_vecPos += (BOSSPOS - m_vecPos).Normalized() * 10 * DT;
+	}
+		//if(29.f<(BOSSPOS - m_vecPos).Magnitude() &&(BOSSPOS-m_vecPos).Magnitude()<31.f)
+		this->SetLayer(Layer::BossBullet);
+	}
+	else
+	{
+		this->SetLayer(Layer::MonsterBullet);
+	}
 	m_vecPos += m_vecDir * m_fVelocity * DT;
-
-	bulDelTime += DT;
-	if (bulDelTime > 2.0f) {
+	/*bulDelTime += DT;
+	if (bulDelTime > 3.0f) {
 		DELETEOBJECT(this);
 
-	}
-	if (BUTTONDOWN('A'))
-	{
-		bulenhace++;
-		bulenhace = (int)bulenhace % 2;
-	}
+	}*/
+
 
 	AnimatorUpdate();
 }
@@ -59,16 +72,15 @@ void CBossBullet::Render()
 
 void CBossBullet::Release()
 {
+	DELETEOBJECT(this);
 }
 
 void CBossBullet::AnimatorUpdate()
 {
 	wstring str = L"";
-	if (m_vecDir.x > 0) str += L"Right";
-	else if (m_vecDir.x < 0) str += L"Left";
 
-	if (bulenhace) str += L"+";
-	else str += L"";
+	if (bulenhace==false) str += L"Water";
+	else str += L"Icing";
 
 
 	m_pAnimator->Play(str, false);
@@ -76,6 +88,9 @@ void CBossBullet::AnimatorUpdate()
 
 void CBossBullet::MoveCircle()
 {
+	
+
+
 	int totalPoint, xPoint, yPoint;
 	// 사각 원 충돌 : 사각형을 중심으로 원이 어느 영역에 있느냐에 따라 다르게 처리
 	/*	totalPoint (xPoint, yPoint)
@@ -149,7 +164,8 @@ switch (totalPoint)
 void CBossBullet::OnCollisionEnter(CCollider* pOtherCollider)
 {
 	Logger::Debug(L"미사일이 충돌체와 부딪혀 사라집니다.");
-	DELETEOBJECT(this);
+	if(bulenhace)
+		DELETEOBJECT(this);
 }
 
 void CBossBullet::SetDir(Vector dir)

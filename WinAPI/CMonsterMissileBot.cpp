@@ -104,10 +104,8 @@ void CMonsterMissileBot::OnCollisionEnter(CCollider* pOtherCollider)
 		m_fIsAttacked++;
 		m_fHP--;
 	}
-	else if (pOtherCollider->GetObjName() == L"스파크칼리버")
-		m_fHP -= 5;
-	else if (pOtherCollider->GetObjName() == L"라이트닝스피어")
-		m_fHP -= 3;
+	else if (pOtherCollider->GetObjName() == L"스킬")
+		m_fHP -= pOtherCollider->GetDamage();
 }
 
 void CMonsterMissileBot::OnCollisionStay(CCollider* pOtherCollider)

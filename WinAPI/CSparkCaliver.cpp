@@ -9,7 +9,7 @@
 
 CSparkCaliver::CSparkCaliver()
 {
-	m_strName = L"스파크칼리버";
+	m_strName = L"스킬";
 	m_layer = Layer::Skill;
 	m_bIsSpCal = false;
 	m_pAnimator = nullptr;
@@ -34,7 +34,7 @@ void CSparkCaliver::Init()
 	m_pAnimator->Play(L"Idle", false);
 	AddComponent(m_pAnimator);
 
-	AddCollider(ColliderType::Rect, Vector(200, 100), Vector(0, 0));
+	AddCollider(ColliderType::Rect, Vector(200, 100), Vector(0, 0),3.f);
 }
 
 void CSparkCaliver::Update()

@@ -4,7 +4,7 @@
 #include "WinAPI.h"
 
 #include "CPlayer.h"
-#include "CMonster.h"
+#include "MonsterList.h"
 #include "CGotoNextArea.h"
 #include "CCameraController.h"
 #include "CMaps.h"
@@ -53,7 +53,7 @@ void CSceneStage02::Init()
 
 	CMaps* prevMaps = new CMaps();
 	prevMaps->SetImage(RESOURCE->LoadImg(L"map_part1", L"Image\\MAP\\Map_part1_2x.png"));
-	prevMaps->SetVecPos(Vector(-1*prevMaps->GetIamge()->GetWidth(),0));
+	prevMaps->SetVecPos(Vector(-1.f*prevMaps->GetIamge()->GetWidth(),0));
 	AddGameObject(prevMaps);
 
 	map = new CMaps();
@@ -91,7 +91,7 @@ void CSceneStage02::Update()
 	}
 	SideUI->SetHp(20 - pPlayer->GetHP());
 	SideUI->SetMp(pPlayer->GetMp());
-	//if(pPlayer->GetPos().x < map->GetPos().x * 0.9f &&pPlayer->GetPos().x>map->GetPos().x*0.1f)
+	goNext->SetPHP(pPlayer->GetHP());
 	CAMERA->SetTargetPos(pPlayer->GetPos(), 0.5f);
 	CAMERA->ZoomInOut(camScale);
 	Logger::Debug(L"플레이어 현재체력:" + to_wstring(pPlayer->GetHP()));

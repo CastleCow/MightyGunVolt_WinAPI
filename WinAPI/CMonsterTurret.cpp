@@ -57,7 +57,7 @@ void CMonsterTurret::Init()
 	AddComponent(m_pAnimator);
 
 	m_pAnimator->Play(L"Idle0Left", false);
-	AddCollider(ColliderType::Rect, Vector(50, 50), Vector(0, 0));
+	AddCollider(ColliderType::Rect, Vector(50, 50), Vector(0, 0),1.f);
 	
 	
 }
@@ -113,10 +113,9 @@ void CMonsterTurret::OnCollisionEnter(CCollider* pOtherCollider)
 		m_fIsAttacked++;
 		m_fHP--;
 	}
-	else if (pOtherCollider->GetObjName() == L"½ºÆÄÅ©Ä®¸®¹ö")
-		m_fHP -= 5;
-	else if (pOtherCollider->GetObjName() == L"¶óÀÌÆ®´×½ºÇÇ¾î")
-		m_fHP -= 3;
+	else if (pOtherCollider->GetObjName() == L"½ºÅ³")
+		m_fHP -= pOtherCollider->GetDamage();
+	
 
 	if (pOtherCollider->GetObjName() == L"¶¥")
 	{

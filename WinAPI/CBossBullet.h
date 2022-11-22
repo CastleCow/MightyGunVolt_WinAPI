@@ -15,13 +15,13 @@ private:
 	Vector m_vecDir;
 	CAnimator* m_pAnimator;
 	CImage* m_Image;
-	CImage* m_ImageRV;
+	
 	float m_fVelocity;
 	float bulDelTime;
 	float Dir[2];
-
+	
 	bool bulenhace;
-
+	bool m_bIsDel;
 private:
 	void Init() override;
 	void Update() override;
@@ -35,6 +35,8 @@ private:
 public:
 	void SetDir(Vector dir);
 	void SetVelocity(float velocity);
+	void SetDelete(bool a) { m_bIsDel = a; }
+	void SetBullet(bool a) { bulenhace = a; }
 	void MoveCircle();
 };
 

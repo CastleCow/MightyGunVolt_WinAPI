@@ -16,7 +16,7 @@ CMonsterMissileBotMissile::CMonsterMissileBotMissile()
 	bulDelTime = 0;
 	Dir[0] = {0};
 	m_layer = Layer::MonsterBullet;
-	m_strName = L"미사일";
+	m_strName = L"몬스터미사일";
 	m_Image = nullptr;
 
 }
@@ -27,7 +27,7 @@ CMonsterMissileBotMissile::~CMonsterMissileBotMissile()
 
 void CMonsterMissileBotMissile::Init()
 {
-	AddCollider(ColliderType::Circle, Vector(8, 8), Vector(0, 0));
+	AddCollider(ColliderType::Circle, Vector(8, 8), Vector(0, 0),2.5f);
 	m_Image = RESOURCE->LoadImg(L"MMBBullet", L"Image\\Monster\\Monster_MissileBot_Ani_Bullet.png");
 	m_pAnimator = new CAnimator;
 	m_pAnimator->CreateAnimation(L"Left", m_Image, Vector(0.f, 0.f), Vector(100.f,100.f), Vector(150.f, 0.f), 0.1f, 5);

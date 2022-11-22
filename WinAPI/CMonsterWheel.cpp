@@ -34,7 +34,7 @@ void CMonsterWheel::Init()
 
 	AddComponent(m_pAnimator);
 	m_pAnimator->Play(L"Crawl", false);
-	AddCollider(ColliderType::Circle, Vector(15, 15), Vector(0, 0));
+	AddCollider(ColliderType::Circle, Vector(15, 15), Vector(0, 0),1.5f);
 	
 	m_vecDir =  m_vecPos-PLAYERPOS;
 }
