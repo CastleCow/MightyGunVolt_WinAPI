@@ -66,6 +66,8 @@ void CPlayer::Init()
 	//SHOT		2
 	m_pAnimator->CreateAnimation(L"IdleShotRight", m_pImage, Vector(442.f, 10.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.1f, 2);
 	m_pAnimator->CreateAnimation(L"IdleShotLeft", m_pImageRV, Vector(344.f, 10.f), Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 2);
+	m_pAnimator->CreateAnimation(L"WeakIdleShotRight", m_pImage, Vector(442.f, 10.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.1f, 2);
+	m_pAnimator->CreateAnimation(L"WeakIdleShotLeft", m_pImageRV, Vector(344.f, 10.f), Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 2);
 	//WALK		6
 	m_pAnimator->CreateAnimation(L"MoveRight", m_pImage, Vector(540.f, 10.f), Vector(47.f, 47.f), Vector(49.f, 0.f), 0.1f, 6);
 	m_pAnimator->CreateAnimation(L"MoveLeft", m_pImageRV, Vector(246.f, 10.f), Vector(47.f, 47.f), Vector(-49.f, 0.f), 0.1f, 6);
@@ -153,11 +155,14 @@ void CPlayer::Update()
 				skillOn->GetSkillSel()== SkillSel::LightningSphere&&
 				Mp>0)
 				LightningSphere();
-			if(skillOn!=nullptr&&
-				skillOn->GetSkillSel()== SkillSel::SparkCaliber&&
-				Mp>1)
+			if (skillOn != nullptr &&
+				skillOn->GetSkillSel() == SkillSel::SparkCaliber &&
+				Mp > 1) {
+				/*CSound* atkSound = nullptr;
+				atkSound->Load(L"Sound\\Gunvolt's SFX\\GROUP_PL_GV (10).wav");
+				SOUND->Play(atkSound);*/
 				SparkCaliber();
-
+			}
 			if (JumpTimer > .5f)
 			{
 				m_bIsJump = false;
@@ -180,27 +185,7 @@ void CPlayer::Update()
 			}
 			else if (m_bIsJump)
 				Jump();
-				/*&&BUTTONSTAY(VK_LEFT))
-			{
-				State = PlayerState::Jump;
-				m_vecPos.y -= m_fSpeed * 200 * DT * DT;
-				m_vecPos.x -= m_fSpeed *0.5f* DT;
-				m_bIsMove = true;
-				m_vecMoveDir.x = -1;
-			}
-			else if (m_bIsJump&& BUTTONSTAY(VK_RIGHT))
-			{
-				State = PlayerState::Jump;
-				m_vecPos.y -= m_fSpeed * 200 * DT * DT;
-				m_vecPos.x += m_fSpeed*0.5f * DT;
-				m_bIsMove = true;
-				m_vecMoveDir.x = +1;
-			}
-			else if(m_bIsJump)
-			{
-				State = PlayerState::Jump;
-				m_vecPos.y -= m_fSpeed * 200 * DT * DT;
-			}*/
+		
 			//좌우 이동
 			else if (BUTTONSTAY(VK_LEFT))
 			{
@@ -220,6 +205,9 @@ void CPlayer::Update()
 				
 				m_bIsJump = true;
 				JumpTimer = 0;
+				/*CSound* jumpSound=nullptr;
+				jumpSound->Load(L"Sound\\Gunvolt's SFX\\GROUP_PL_GV (3).wav");
+				SOUND->Play(jumpSound);*/
 			}
 			
 			if (BUTTONSTAY(VK_UP))
@@ -239,6 +227,9 @@ void CPlayer::Update()
 			if (BUTTONDOWN('Z'))//공격
 			{
 				Attack();
+				/*CSound* atkSound = nullptr;
+				atkSound->Load(L"Sound\\Gunvolt's SFX\\GROUP_PL_GV (2).wav");
+				SOUND->Play(atkSound);*/
 			}
 			if (BUTTONDOWN('C'))
 			{

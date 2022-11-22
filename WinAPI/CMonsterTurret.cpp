@@ -66,13 +66,11 @@ void CMonsterTurret::Update()
 {
 	m_fTimer += DT;
 	Vector metoP =PLAYERPOS-m_vecPos;
-	if (metoP.x < 300 &&
-		metoP.y < 300 &&
+	if (abs(metoP.x < 300) &&
+		abs(metoP.y < 300) &&
 		m_fTimer>1.f)
 		CreateMissile();
-		/*m_vecPos -=metoP.Normalized() * 100 * DT;*/
-
-	//초당 한번 발사 하기 위해선?
+	
 
 	if (m_fHP <= 0)
 	{
@@ -82,9 +80,6 @@ void CMonsterTurret::Update()
 			DELETEOBJECT(this);
 	}
 		
-
-	if (m_bOnGround == false)
-		m_vecPos.y += 50 * DT;
 
 	AnimatorUpdate();
 }
@@ -128,7 +123,7 @@ void CMonsterTurret::OnCollisionStay(CCollider* pOtherCollider)
 {
 	if (pOtherCollider->GetObjName() == L"땅")
 	{
-		m_vecPos.y -= pOtherCollider->GetPos().y-pOtherCollider->GetScale().y+4;
+		//m_vecPos.y -= pOtherCollider->GetPos().y-pOtherCollider->GetScale().y+4;
 	}
 }
 

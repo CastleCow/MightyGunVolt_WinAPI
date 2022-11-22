@@ -42,25 +42,19 @@ void CBossBullet::Update()
 	
 	if (bulenhace == false)
 	{
+		
+		//if(59.f<(BOSSPOS - m_vecPos).Magnitude() &&(BOSSPOS-m_vecPos).Magnitude()<61.f)
 		MoveCircle();
-	if (890.f > (BOSSPOS - m_vecPos).Magnitude() &&
-		(BOSSPOS - m_vecPos).Magnitude() < 910.f)
-	{
-		m_vecPos += (BOSSPOS - m_vecPos).Normalized() * 10 * DT;
-	}
-		//if(29.f<(BOSSPOS - m_vecPos).Magnitude() &&(BOSSPOS-m_vecPos).Magnitude()<31.f)
+		
 		this->SetLayer(Layer::BossBullet);
 	}
 	else
 	{
 		this->SetLayer(Layer::MonsterBullet);
 	}
+	
 	m_vecPos += m_vecDir * m_fVelocity * DT;
-	/*bulDelTime += DT;
-	if (bulDelTime > 3.0f) {
-		DELETEOBJECT(this);
-
-	}*/
+	
 
 
 	AnimatorUpdate();
@@ -89,9 +83,8 @@ void CBossBullet::AnimatorUpdate()
 void CBossBullet::MoveCircle()
 {
 	
-
-
-	int totalPoint, xPoint, yPoint;
+	int totalPoint;
+	float xPoint, yPoint;
 	// 사각 원 충돌 : 사각형을 중심으로 원이 어느 영역에 있느냐에 따라 다르게 처리
 	/*	totalPoint (xPoint, yPoint)
 
@@ -104,61 +97,79 @@ void CBossBullet::MoveCircle()
 if (m_vecPos.x < BOSSPOS.x - GAME->GetBossScale().x * 0.5f)
 	xPoint = -1;
 else if (m_vecPos.x > BOSSPOS.x + GAME->GetBossScale().x * 0.5f)
-xPoint = 1;
+	xPoint = 1;
 else
-xPoint = 0;
+	xPoint = 0;
 
 if (m_vecPos.y < BOSSPOS.y - GAME->GetBossScale().y * 0.5f)
 	yPoint = -1;
 else if (m_vecPos.y > BOSSPOS.y + GAME->GetBossScale().y * 0.5f)
-yPoint = 1;
+	yPoint = 1;
 else
-yPoint = 0;
+	yPoint = 0;
 
 totalPoint = 3 * yPoint + xPoint;
+Vector dir;
+if (29.f > (BOSSPOS - m_vecPos).Magnitude() &&
+	(BOSSPOS - m_vecPos).Magnitude() <31.f)
+{
+	dir= (BOSSPOS - m_vecPos).Normalized();
+	//dir= Vector(0,0);
+}
 
 switch (totalPoint)
 	{
 	// 사각형 안에 원이 있을 경우 : 항상 충돌
 	case 0:
-		m_vecDir = Vector(0,0);
+		m_vecDir = Vector(0,0)+dir;
 		break;
 	// 좌우에 원이 있을 경우 : 사각형의 가로 크기 + 원의 반지름이 둘사이의 거리보다 작은경우 충돌
 	case -1:
-		m_vecDir = Vector(0,-1);
+		m_vecDir = Vector(0,-1)+dir;
 		break;
 	case +1:
 		
-		m_vecDir = Vector(0,1);
+		m_vecDir = Vector(0,1)+dir;
 		break;
 	// 상하에 원이 있을 경우 : 사각형의 세로 크기 + 원의 반지름이 둘사이의 거리보다 작은경우 충돌
 	case -3:
 
-		m_vecDir = Vector(1,0);
+		m_vecDir = Vector(1,0)+dir;
 		break;
 	case +3:
 		
-		m_vecDir = Vector(-1,0);
+		m_vecDir = Vector(-1,0)+dir;
 		break;
 	// 사각형의 대각선에 원이 있을 경우 : 사각형의 코너가 원 안에 있을 경우 충돌
 	case -4:
-		m_vecDir = Vector(1,-1);
+		m_vecDir = Vector(1,-1)+dir;
 		break;
 	case -2:
-		m_vecDir = Vector(1,1);
+		m_vecDir = Vector(1,1) + dir;
 		break;
 	case +2:
-		m_vecDir = Vector(-1,-1);
+		m_vecDir = Vector(-1,-1) + dir;
 		break;
 	case +4:
 	{
-		m_vecDir = Vector(-1,1);
+		m_vecDir = Vector(-1,1) + dir;
 		
 		break;
 	}
 	}
 
 	
+	
+	
+	//Vector a = (BOSSPOS - m_vecPos).Magnitude();
+	//xPoint = //(3600.f * (1 - (sin(10 * DT) * sin(10 * DT)) - (cos(10 * DT) * cos(10 * DT))) - (BOSSPOS.x * BOSSPOS.x) - (BOSSPOS.y * BOSSPOS.y) + 120.f * cos(10 * DT)) /-2*BOSSPOS.x ;
+	//	(BOSSPOS.x - 30) * cos(10 * DT);
+	//yPoint = //(3600.f * (1 - (sin(10 * DT) * sin(10 * DT)) -(cos(10 * DT) * cos(10 * DT))) - (BOSSPOS.x * BOSSPOS.x) - (BOSSPOS.y * BOSSPOS.y) + 120.f * sin(10 * DT)) / -2 * BOSSPOS.y;
+	//	(BOSSPOS.y - 30) * sin(10 * DT);
+
+	////m_vecDir = Vector(xPoint, yPoint).Normalized();
+	//m_vecPos = Vector(xPoint, yPoint);
+
 }
 
 void CBossBullet::OnCollisionEnter(CCollider* pOtherCollider)

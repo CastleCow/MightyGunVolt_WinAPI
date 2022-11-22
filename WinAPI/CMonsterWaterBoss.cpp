@@ -19,7 +19,7 @@ CMonsterWaterBoss::CMonsterWaterBoss()
 	m_bIsCrBul = false;
 	m_fIsAttacked;
 	bulletCount = 0.f;
-	m_fHP=50;
+	m_fHP=30;
 	patNum = 0;
 	m_fPatternTimer = 4.f;
 	m_fEntryTimer = 0.f;
@@ -43,11 +43,11 @@ void CMonsterWaterBoss::Init()
 	m_MonImg = RESOURCE->LoadImg(L"No.2Cyro",L"Image\\Monster\\BOSS_MWATER.png");
 
 	m_pAnimator = new CAnimator;
-	m_pAnimator->CreateAnimation(L"EntryRight", m_MonImg, Vector(0.f, 0.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f,2);
-	m_pAnimator->CreateAnimation(L"EntryLeft", m_MonImg, Vector(0.f, 150.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f,2);
+	m_pAnimator->CreateAnimation(L"EntryRight", m_MonImg, Vector(0.f, 0.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.5f,2);
+	m_pAnimator->CreateAnimation(L"EntryLeft", m_MonImg, Vector(0.f, 150.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.5f,2);
 	
-	m_pAnimator->CreateAnimation(L"IdleRight", m_MonImg, Vector(300.f, 0.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f, 3);
-	m_pAnimator->CreateAnimation(L"IdleLeft", m_MonImg,  Vector(300.f, 150.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f, 3);
+	m_pAnimator->CreateAnimation(L"IdleRight", m_MonImg, Vector(300.f, 0.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.4f, 3);
+	m_pAnimator->CreateAnimation(L"IdleLeft", m_MonImg,  Vector(300.f, 150.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.4f, 3);
 
 	m_pAnimator->CreateAnimation(L"JumpRight", m_MonImg, Vector(750.f, 0.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f, 2  ,false);
 	m_pAnimator->CreateAnimation(L"JumpLeft", m_MonImg,  Vector(750.f, 150.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f, 2,false);
@@ -78,7 +78,7 @@ void CMonsterWaterBoss::Init()
 
 	AddComponent(m_pAnimator);
 	m_pAnimator->Play(L"EntryLeft", false);
-	AddCollider(ColliderType::Rect, Vector(50, 50), Vector(0, 0),2.f);
+	AddCollider(ColliderType::Rect, Vector(45, 45), Vector(0, 0),2.f);
 	
 	
 }
@@ -192,10 +192,10 @@ void CMonsterWaterBoss::Update()
 			{
 				Logger::Debug(L"패턴3");
 				State = BossState::Pattern3;
-				m_fPatternTimer = 3.f;
+				m_fPatternTimer = 2.f;
 				m_bIsPatterning = true;
 			}
-			else if (patNum == 3 && m_fHP < 20.f)
+			else if (patNum == 3 && m_fHP < 10.f)
 			{
 				Logger::Debug(L"패턴4");
 				State = BossState::Pattern4;
@@ -345,17 +345,18 @@ void CMonsterWaterBoss::AnimatorUpdate()
 		break;
 		case BossState::Pattern2:
 		{
+			if(m_fPatternTimer<=3.f)
 			str += L"Batting";
 		}
 		break;
 		case BossState::Pattern3:
 		{
-			if (2.f <= m_fPatternTimer && m_fPatternTimer <= 3.f)
+			if (1.f <= m_fPatternTimer && m_fPatternTimer <= 2.f)
 			{
 				str += L"HammerJump";
 			}
 			//조금 앞으로 해머링
-			if (m_fPatternTimer < 2.f)
+			if (m_fPatternTimer < 1.f)
 			{
 				str += L"HammerFall";
 			}
@@ -388,32 +389,32 @@ void CMonsterWaterBoss::CreateBullet()
 	m_bIsCrBul = true;
 
 	Bul1 = new CBossBullet;
-	Bul1->SetPos(Vector(m_vecPos.x-20,m_vecPos.y));
+	Bul1->SetPos(Vector(m_vecPos.x-60,m_vecPos.y));
 	ADDOBJECT(Bul1);
 	
 	
 	Bul2 = new CBossBullet;
-	Bul2->SetPos(Vector(m_vecPos.x-20,m_vecPos.y-20));
+	Bul2->SetPos(Vector(m_vecPos.x-50,m_vecPos.y-50));
 	ADDOBJECT(Bul2);
 	
 	
 	Bul3 = new CBossBullet;
-	Bul3->SetPos(Vector(m_vecPos.x-20,m_vecPos.y+20));
+	Bul3->SetPos(Vector(m_vecPos.x-50,m_vecPos.y+50));
 	ADDOBJECT(Bul3);
 	
 	
 	Bul4 = new CBossBullet;
-	Bul4->SetPos(Vector(m_vecPos.x+20,m_vecPos.y));
+	Bul4->SetPos(Vector(m_vecPos.x+60,m_vecPos.y));
 	ADDOBJECT(Bul4);
 	
 	
 	Bul5 = new CBossBullet;
-	Bul5->SetPos(Vector(m_vecPos.x+20,m_vecPos.y-20));
+	Bul5->SetPos(Vector(m_vecPos.x+50,m_vecPos.y-50));
 	ADDOBJECT(Bul5);
 	
 	
 	Bul6 = new CBossBullet;
-	Bul6->SetPos(Vector(m_vecPos.x+20,m_vecPos.y+20));
+	Bul6->SetPos(Vector(m_vecPos.x+50,m_vecPos.y+50));
 	ADDOBJECT(Bul6);
 	
 	bulletCount = 6;
@@ -495,7 +496,7 @@ void CMonsterWaterBoss::Pattern2()
 			if (Bul1 != nullptr)
 			{
 				Bul1->SetBullet(true);
-				Bul1->SetDir((PLAYERPOS - m_vecPos).Normalized());
+				Bul1->SetDir((PLAYERPOS - Bul1->GetPos()).Normalized());
 				bulletCount--;
 			}
 			break;
@@ -503,35 +504,36 @@ void CMonsterWaterBoss::Pattern2()
 		case 1: {if (Bul2 != nullptr)
 		{
 			Bul2->SetBullet(true);
-			Bul2->SetDir((PLAYERPOS - m_vecPos).Normalized()); bulletCount--;
+			Bul2->SetDir((PLAYERPOS - Bul2->GetPos()).Normalized()); bulletCount--;
 		}
 			  break;
 		}
 		case 2: {if (Bul3 != nullptr)
 		{
 			Bul3->SetBullet(true);
-			Bul3->SetDir((PLAYERPOS - m_vecPos).Normalized()); bulletCount--;
+			Bul3->SetDir((PLAYERPOS - Bul3->GetPos()).Normalized());
+			bulletCount--;
 		}
 			  break;
 		}
 		case 3: {if (Bul4 != nullptr)
 		{
 			Bul4->SetBullet(true);
-			Bul4->SetDir((PLAYERPOS - m_vecPos).Normalized()); bulletCount--;
+			Bul4->SetDir((PLAYERPOS - Bul4->GetPos()).Normalized()); bulletCount--;
 		}
 			  break;
 		}
 		case 4: {if (Bul5 != nullptr)
 		{
 			Bul5->SetBullet(true);
-			Bul5->SetDir((PLAYERPOS - m_vecPos).Normalized()); bulletCount--;
+			Bul5->SetDir((PLAYERPOS - Bul5->GetPos()).Normalized()); bulletCount--;
 		}
 			  break;
 		}
 		case 5: {if (Bul6 != nullptr)
 		{
 			Bul6->SetBullet(true);
-			Bul6->SetDir((PLAYERPOS - m_vecPos).Normalized()); bulletCount--;
+			Bul6->SetDir((PLAYERPOS - Bul6->GetPos()).Normalized()); bulletCount--;
 		}
 			  break;
 		}
@@ -546,17 +548,17 @@ void CMonsterWaterBoss::Pattern2()
 void CMonsterWaterBoss::Pattern3()
 {
 	//높이 날아올라서
-	if(2.f<m_fPatternTimer &&m_fPatternTimer<3.f)
+	if(1.f<m_fPatternTimer &&m_fPatternTimer<2.f)
 	{
 		m_vecPos.y -= 300 * DT;
 		m_vecPos.x += (PLAYERPOS - m_vecPos).Normalized().x * 200 * DT;
 	}
 	//조금 앞으로 해머링
-	
-	if(1.f<m_fPatternTimer &&m_fPatternTimer<2.f)
+	if(m_fPatternTimer<1.f)
 	{
 		m_vecPos.y += 300 * DT;
 		m_vecPos.x += (PLAYERPOS - m_vecPos).Normalized().x * 20 * DT;
+		
 	}
 	//패턴종료
 }
@@ -564,13 +566,16 @@ void CMonsterWaterBoss::Pattern4()
 {
 	//탄환 없으면 패턴 1
 	if (bulletCount < 6)
-		State = BossState::Pattern1;
+		m_fPatternTimer = 0.f;
 	//맵중앙으로 날아오름
+	//if(m_fPatternTimer>2.5f)
 	if (m_vecPos.x != WINSIZEX * 0.5f && m_vecPos.y != WINSIZEY * 0.5f)
 	{
-		m_vecPos += Vector(WINSIZEX * 0.5f - m_vecPos.x, WINSIZEY * 0.5f - m_vecPos.y).Normalized()*50.f * DT;
-
+		m_vecPos = Vector(WINSIZEX * 0.5f , WINSIZEY * 0.5f );
 	}
 	//빙글빙글 하면서 1초당 미사일 하나씩을 빔으로 바꿔서 주인공을 향해 쏨
+	if(m_fPatternTimer<2.f)
+	{
 
+	}
 }

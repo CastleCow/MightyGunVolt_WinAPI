@@ -69,7 +69,7 @@ void CCore::Render()
 	//// 우상단에 현재 게임FPS 출력 (60프레임 이상을 목표로 최적화 해야함)
 	Vector framePos = CAMERA->ScreenToWorldPoint(Vector(WINSIZEX - 50, 20));
 	wstring frame = to_wstring(FPS);
-	RENDER->Text(frame, framePos.x - 50, framePos.y - 10, framePos.x + 50, framePos.y + 10, Color(0, 0, 0, 1.f), 15);
+	RENDER->Text(frame, framePos.x - 50, framePos.y - 10, framePos.x + 50, framePos.y + 10, Color(255, 0, 0, 1.f), 15);
 
 	RENDER->EndDraw();
 }
