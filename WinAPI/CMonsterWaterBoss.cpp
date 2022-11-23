@@ -57,8 +57,8 @@ void CMonsterWaterBoss::Init()
 	m_pAnimator->CreateAnimation(L"SummonRight", m_MonImg, Vector(1200.f, 0.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f, 4);
 	m_pAnimator->CreateAnimation(L"SummonLeft", m_MonImg,  Vector(1200.f, 150.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f, 4);
 
-	m_pAnimator->CreateAnimation(L"BattingRight", m_MonImg, Vector(0.f, 250.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f, 5);
-	m_pAnimator->CreateAnimation(L"BattingLeft", m_MonImg,  Vector(0.f, 400.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f, 5);
+	m_pAnimator->CreateAnimation(L"BattingRight", m_MonImg, Vector(0.f, 250.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.2f, 5);
+	m_pAnimator->CreateAnimation(L"BattingLeft", m_MonImg,  Vector(0.f, 400.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.2f, 5);
 
 	m_pAnimator->CreateAnimation(L"HammerJumpRight", m_MonImg, Vector(750.f, 250.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f, 2,false);
 	m_pAnimator->CreateAnimation(L"HammerJumpLeft", m_MonImg,  Vector(750.f, 400.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.1f, 2,false);
@@ -345,7 +345,7 @@ void CMonsterWaterBoss::AnimatorUpdate()
 		break;
 		case BossState::Pattern2:
 		{
-			if(m_fPatternTimer<=3.f)
+			
 			str += L"Batting";
 		}
 		break;
@@ -476,19 +476,24 @@ void CMonsterWaterBoss::Pattern2()
 	}//플레이어 위치 판단해 스테이지 중간기준 맞은편으로 이동함
 	else
 	{
-		if (PLAYERPOS.x > WINSIZEX * 0.5f)
-		{
-			if (m_vecPos.x > WINSIZEX * 0.2f)
-				m_vecPos.x -= 200 * DT;
-		}
-		else if (PLAYERPOS.x < WINSIZEX * 0.5f)
-		{
-			if (m_vecPos.x < WINSIZEX * 0.8f)
-				m_vecPos.x += 200 * DT;
-		}
-		//2-3회 탄환을 아이싱으로 바꾸고 플레이어 향해 사출 
-		m_fTimer += DT;
-		int ran = rand() % 6;
+		
+			int ran;
+		
+			if (PLAYERPOS.x > WINSIZEX * 0.5f)
+			{
+				if (m_vecPos.x > WINSIZEX * 0.2f)
+					m_vecPos.x -= 200 * DT;
+			}
+			else if (PLAYERPOS.x < WINSIZEX * 0.5f)
+			{
+				if (m_vecPos.x < WINSIZEX * 0.8f)
+					m_vecPos.x += 200 * DT;
+			}
+			//2-3회 탄환을 아이싱으로 바꾸고 플레이어 향해 사출 
+			m_fTimer += DT;
+			ran = rand() % 6;
+
+		
 
 		switch (ran)
 		{
@@ -541,7 +546,7 @@ void CMonsterWaterBoss::Pattern2()
 		default:
 			break;
 		}
-
+	
 	}
 	//패턴 종료
 }

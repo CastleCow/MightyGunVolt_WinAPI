@@ -45,15 +45,17 @@ void CBossBullet::Update()
 		
 		//if(59.f<(BOSSPOS - m_vecPos).Magnitude() &&(BOSSPOS-m_vecPos).Magnitude()<61.f)
 		MoveCircle();
-		
+		//m_vecPos = BOSSPOS + Vector(60.f * cos(1.f + 10.f * DT), 60.f * sin(1.f + 10.f * DT)) + m_vecDir *10.f* DT;
+		//m_vecPos += BOSSPOS-m_vecPos + Vector(60.f * cos(1.f+10.f * DT), 60.f * sin(1.f+10.f * DT));
+		m_vecPos += m_vecDir * m_fVelocity * DT;
 		this->SetLayer(Layer::BossBullet);
 	}
 	else
 	{
 		this->SetLayer(Layer::MonsterBullet);
+		m_vecPos += m_vecDir * m_fVelocity * DT;
 	}
 	
-	m_vecPos += m_vecDir * m_fVelocity * DT;
 	
 
 
