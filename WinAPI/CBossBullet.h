@@ -22,6 +22,7 @@ private:
 	
 	bool bulenhace;
 	bool m_bIsDel;
+	float angle;
 private:
 	void Init() override;
 	void Update() override;
@@ -35,6 +36,7 @@ private:
 public:
 	void SetDir(Vector dir);
 	void SetVelocity(float velocity);
+	void SetAngle(float a) { angle = a; }
 	void SetDelete(bool a) { m_bIsDel = a; }
 	void SetBullet(bool a) { bulenhace = a; }
 	void MoveCircle();

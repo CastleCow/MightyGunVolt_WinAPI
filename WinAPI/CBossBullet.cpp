@@ -16,6 +16,7 @@ CBossBullet::CBossBullet()
 	m_Image = nullptr;
 	m_bIsDel = false;
 
+	angle = 0.f;
 }
 
 CBossBullet::~CBossBullet()
@@ -43,11 +44,11 @@ void CBossBullet::Update()
 	if (bulenhace == false)
 	{
 		
-		//if(59.f<(BOSSPOS - m_vecPos).Magnitude() &&(BOSSPOS-m_vecPos).Magnitude()<61.f)
-		MoveCircle();
-		//m_vecPos = BOSSPOS + Vector(60.f * cos(1.f + 10.f * DT), 60.f * sin(1.f + 10.f * DT)) + m_vecDir *10.f* DT;
-		//m_vecPos += BOSSPOS-m_vecPos + Vector(60.f * cos(1.f+10.f * DT), 60.f * sin(1.f+10.f * DT));
-		m_vecPos += m_vecDir * m_fVelocity * DT;
+		//MoveCircle();
+		angle += 10.f * DT;
+		
+		m_vecPos = BOSSPOS  + Vector(60.f * cos((angle) / 180.f), 60.f * sin((angle)/180.f));
+		//m_vecPos += m_vecDir * m_fVelocity * DT;
 		this->SetLayer(Layer::BossBullet);
 	}
 	else

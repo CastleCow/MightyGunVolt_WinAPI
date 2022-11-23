@@ -66,7 +66,7 @@ void CSceneStage02::Init()
 	AddGameObject(nextMaps);
 
 
-	CGotoNextArea* goNext = new CGotoNextArea();
+	goNext = new CGotoNextArea();
 	goNext->SetPos(map->GetIamge()->GetWidth()*0.9f, map->GetIamge()->GetHeight()*0.9f );
 	goNext->SetScale(500, 30);
 	goNext->SetScene(GroupScene::Stage03);
@@ -79,6 +79,7 @@ void CSceneStage02::Init()
 void CSceneStage02::Enter()
 {
 	CAMERA->FadeIn(0.25f);
+	if(PLAYERHP!=0)
 	pPlayer->SetHP(PLAYERHP);
 	pPlayer->SetPos(70, 188);
 	LoadTileMapPos(GETPATH + L"Tile\\Stage02.tile", Vector(0, WINSIZEY * 0.5f));
