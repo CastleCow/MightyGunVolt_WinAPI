@@ -23,6 +23,7 @@ private:
 	bool bulenhace;
 	bool m_bIsDel;
 	float angle;
+	float radius;
 private:
 	void Init() override;
 	void Update() override;
@@ -36,6 +37,7 @@ private:
 public:
 	void SetDir(Vector dir);
 	void SetVelocity(float velocity);
+	void SetRadius(float a=60.f) { radius = a; };
 	void SetAngle(float a) { angle = a; }
 	void SetDelete(bool a) { m_bIsDel = a; }
 	void SetBullet(bool a) { bulenhace = a; }

@@ -39,6 +39,7 @@ private:
 
 
 	BossState State;
+	BossState PrevState;
 	BossGround gState;
 
 	bool m_bIsHit;

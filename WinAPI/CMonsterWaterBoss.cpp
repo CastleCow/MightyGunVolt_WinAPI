@@ -24,6 +24,7 @@ CMonsterWaterBoss::CMonsterWaterBoss()
 	m_fPatternTimer = 4.f;
 	m_fEntryTimer = 0.f;
 	gState = BossGround::Air;
+	PrevState = BossState::Idle;
 	Bul1=nullptr;
 	Bul2=nullptr;
 	Bul3=nullptr;
@@ -156,6 +157,7 @@ void CMonsterWaterBoss::Update()
 			else
 			{
 				m_bIsPatterning = false;
+				PrevState = State;
 				State = BossState::Idle;
 
 			}
@@ -164,7 +166,7 @@ void CMonsterWaterBoss::Update()
 		else//패턴 선택
 		{
 			patNum = rand() % 4;
-			if (patNum == 0)
+			if (patNum == 0&&PrevState!=BossState::Pattern1)
 			{
 				Logger::Debug(L"패턴1");
 				State = BossState::Pattern1;
@@ -181,21 +183,21 @@ void CMonsterWaterBoss::Update()
 					Bul6->SetDelete(true);
 				}
 			}
-			else if (patNum == 1)
+			else if (patNum == 1 && PrevState != BossState::Pattern2)
 			{
 				Logger::Debug(L"패턴2");
 				State = BossState::Pattern2;
 				m_fPatternTimer = 3.f;
 				m_bIsPatterning = true;
 			}
-			else if (patNum == 2)
+			else if (patNum == 2 && PrevState != BossState::Pattern3)
 			{
 				Logger::Debug(L"패턴3");
 				State = BossState::Pattern3;
 				m_fPatternTimer = 2.f;
 				m_bIsPatterning = true;
 			}
-			else if (patNum == 3 && m_fHP < 10.f)
+			else if (patNum == 3 && m_fHP < 10.f && PrevState != BossState::Pattern4)
 			{
 				Logger::Debug(L"패턴4");
 				State = BossState::Pattern4;
@@ -204,21 +206,17 @@ void CMonsterWaterBoss::Update()
 			}
 			else
 			{
-				Logger::Debug(L"아이들링");
-				State = BossState::Idle;
-				m_fPatternTimer = 3.f;
-				m_bIsPatterning = true;
+				if(PrevState != BossState::Idle)
+				{
+					Logger::Debug(L"아이들링");
+					State = BossState::Idle;
+					m_fPatternTimer = 3.f;
+					m_bIsPatterning = true;
+				}
 			}
 
 		}
 	}
-
-	
-
-
-
-	
-	
 
 	/*if (m_fIsAttacked > 0)
 	{
@@ -243,7 +241,6 @@ void CMonsterWaterBoss::Update()
 	m_vecPos -=metoP.Normalized() * 100 * DT;
 */
 
-	
 	if (m_fHP <= 0)
 		DELETEOBJECT(this);
 	AnimatorUpdate();
@@ -391,36 +388,42 @@ void CMonsterWaterBoss::CreateBullet()
 	Bul1 = new CBossBullet;
 	Bul1->SetPos(Vector(m_vecPos.x-60,m_vecPos.y));
 	Bul1->SetAngle(0.f);
+	Bul1->SetRadius();
 	ADDOBJECT(Bul1);
 	
 	
 	Bul2 = new CBossBullet;
 	Bul2->SetPos(Vector(m_vecPos.x-50,m_vecPos.y-50));
 	Bul2->SetAngle(200.f);
+	Bul2->SetRadius();
 	ADDOBJECT(Bul2);
 	
 	
 	Bul3 = new CBossBullet;
 	Bul3->SetPos(Vector(m_vecPos.x-50,m_vecPos.y+50));
 	Bul3->SetAngle(-200.f);
+	Bul3->SetRadius();
 	ADDOBJECT(Bul3);
 	
 	
 	Bul4 = new CBossBullet;
 	Bul4->SetPos(Vector(m_vecPos.x+60,m_vecPos.y));
 	Bul4->SetAngle(800.f);
+	Bul4->SetRadius();
 	ADDOBJECT(Bul4);
 	
 	
 	Bul5 = new CBossBullet;
 	Bul5->SetPos(Vector(m_vecPos.x+50,m_vecPos.y-50));
 	Bul5->SetAngle(400.f);
+	Bul5->SetRadius();
 	ADDOBJECT(Bul5);
 	
 	
 	Bul6 = new CBossBullet;
 	Bul6->SetPos(Vector(m_vecPos.x+50,m_vecPos.y+50));
 	Bul6->SetAngle(600.f);
+	Bul6->SetRadius();
 	ADDOBJECT(Bul6);
 	
 	bulletCount = 6;
