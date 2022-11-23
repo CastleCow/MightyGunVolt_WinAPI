@@ -1,6 +1,7 @@
 #pragma once
 #include "CScene.h"
 class CPlayer;
+class CSound;
 class CMaps;
 class CImage;
 class CScreenUI;
@@ -15,6 +16,7 @@ public:
 
 private:
 	CPlayer* pPlayer;
+	CSound* pSound;
 	CMaps* map;
 	CImage* mapimg;
 	CScreenUI* SideUI;

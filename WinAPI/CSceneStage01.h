@@ -4,6 +4,7 @@
 class CPlayer;
 class CMaps;
 class CImage;
+class CSound;
 class CScreenUI;
 class CGotoNextArea;
 
@@ -16,6 +17,7 @@ public:
 	
 private:
 	CPlayer* pPlayer;
+	CSound* pSound;
 	CMaps* map;
 	CScreenUI* SideUI;
 	CGotoNextArea* goNext;

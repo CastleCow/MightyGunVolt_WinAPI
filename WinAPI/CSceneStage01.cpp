@@ -22,6 +22,7 @@ CSceneStage01::CSceneStage01()
 	map = nullptr;
 	SideUI = nullptr;
 	goNext = nullptr;
+	pSound = nullptr;
 }
 
 CSceneStage01::~CSceneStage01()
@@ -74,6 +75,9 @@ void CSceneStage01::Init()
 	goNext->SetScale(30,500);
 	goNext->SetScene(GroupScene::Stage02);
    	AddGameObject(goNext);
+
+	pSound= RESOURCE->LoadSound(L"BGM", L"Sound\\Mighty Gunvolt Burst OST   Title Theme.mp3");;
+
 }
 
 void CSceneStage01::Enter()
@@ -81,8 +85,8 @@ void CSceneStage01::Enter()
 	CAMERA->FadeIn(0.25f);
 	
 	LoadTile(GETPATH + L"Tile\\Stage01.tile");
-	
 
+	SOUND->Play(pSound,1.5f);
 	
 }
 

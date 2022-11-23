@@ -158,9 +158,9 @@ void CPlayer::Update()
 			if (skillOn != nullptr &&
 				skillOn->GetSkillSel() == SkillSel::SparkCaliber &&
 				Mp > 1) {
-				/*CSound* atkSound = nullptr;
-				atkSound->Load(L"Sound\\Gunvolt's SFX\\GROUP_PL_GV (10).wav");
-				SOUND->Play(atkSound);*/
+				CSound* atkSound =  RESOURCE->LoadSound(L"Atk", L"Sound\\Gunvolt's SFX\\GROUP_PL_GV (10).wav");;
+				
+				SOUND->Play(atkSound,0.7f);
 				SparkCaliber();
 			}
 			if (JumpTimer > .5f)
@@ -205,9 +205,9 @@ void CPlayer::Update()
 				
 				m_bIsJump = true;
 				JumpTimer = 0;
-				/*CSound* jumpSound=nullptr;
-				jumpSound->Load(L"Sound\\Gunvolt's SFX\\GROUP_PL_GV (3).wav");
-				SOUND->Play(jumpSound);*/
+				CSound* jumpSound= RESOURCE->LoadSound(L"Atk", L"Sound\\Gunvolt's SFX\\GROUP_PL_GV (3).wav");;
+				
+				SOUND->Play(jumpSound,0.7f);
 			}
 			
 			if (BUTTONSTAY(VK_UP))
@@ -227,9 +227,9 @@ void CPlayer::Update()
 			if (BUTTONDOWN('Z'))//АјАн
 			{
 				Attack();
-				/*CSound* atkSound = nullptr;
-				atkSound->Load(L"Sound\\Gunvolt's SFX\\GROUP_PL_GV (2).wav");
-				SOUND->Play(atkSound);*/
+				CSound* atkSound = RESOURCE->LoadSound(L"Atk", L"Sound\\Gunvolt's SFX\\GROUP_PL_GV (2).wav");
+				
+				SOUND->Play(atkSound,0.7f);
 			}
 			if (BUTTONDOWN('C'))
 			{

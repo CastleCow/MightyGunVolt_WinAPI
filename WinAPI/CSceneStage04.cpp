@@ -18,6 +18,7 @@ CSceneStage04::CSceneStage04()
 {
 	pPlayer = nullptr;
 	map = nullptr;
+	pSound = nullptr;
 }
 
 CSceneStage04::~CSceneStage04()
@@ -50,8 +51,8 @@ void CSceneStage04::Init()
 	map = new CMaps();
 	map->SetImage(RESOURCE->LoadImg(L"map_part3_Boss", L"Image\\MAP\\Map_part3_Boss_2x.png"));
 	AddGameObject(map);
-
-
+	pSound = RESOURCE->LoadSound(L"BGM", L"Sound\\Mighty Gunvolt Burst OST  Boss Battle.mp3");;
+	
 
 }
 
@@ -62,6 +63,7 @@ void CSceneStage04::Enter()
 	pPlayer->SetHP(PLAYERHP);
 	//pPlayer->SetPos(70, 188);
 	LoadTile(GETPATH + L"Tile\\Stage04.tile");
+	SOUND->Play(pSound,1.5f);
 }
 
 void CSceneStage04::Update()
