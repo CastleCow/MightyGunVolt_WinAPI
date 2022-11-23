@@ -396,31 +396,31 @@ void CMonsterWaterBoss::CreateBullet()
 	
 	Bul2 = new CBossBullet;
 	Bul2->SetPos(Vector(m_vecPos.x-50,m_vecPos.y-50));
-	Bul2->SetAngle(45.f);
+	Bul2->SetAngle(200.f);
 	ADDOBJECT(Bul2);
 	
 	
 	Bul3 = new CBossBullet;
 	Bul3->SetPos(Vector(m_vecPos.x-50,m_vecPos.y+50));
-	Bul3->SetAngle(-45.f);
+	Bul3->SetAngle(-200.f);
 	ADDOBJECT(Bul3);
 	
 	
 	Bul4 = new CBossBullet;
 	Bul4->SetPos(Vector(m_vecPos.x+60,m_vecPos.y));
-	Bul4->SetAngle(180.f);
+	Bul4->SetAngle(800.f);
 	ADDOBJECT(Bul4);
 	
 	
 	Bul5 = new CBossBullet;
 	Bul5->SetPos(Vector(m_vecPos.x+50,m_vecPos.y-50));
-	Bul5->SetAngle(135.f);
+	Bul5->SetAngle(400.f);
 	ADDOBJECT(Bul5);
 	
 	
 	Bul6 = new CBossBullet;
 	Bul6->SetPos(Vector(m_vecPos.x+50,m_vecPos.y+50));
-	Bul6->SetAngle(225.f);
+	Bul6->SetAngle(600.f);
 	ADDOBJECT(Bul6);
 	
 	bulletCount = 6;

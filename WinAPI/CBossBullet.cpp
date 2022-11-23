@@ -45,7 +45,7 @@ void CBossBullet::Update()
 	{
 		
 		//MoveCircle();
-		angle += 10.f * DT;
+		angle += 500.f * DT;
 		
 		m_vecPos = BOSSPOS  + Vector(60.f * cos((angle) / 180.f), 60.f * sin((angle)/180.f));
 		//m_vecPos += m_vecDir * m_fVelocity * DT;
