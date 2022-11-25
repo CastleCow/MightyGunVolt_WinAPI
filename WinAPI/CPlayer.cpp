@@ -153,13 +153,17 @@ void CPlayer::Update()
 				Mp++;
 			if(skillOn!=nullptr&&
 				skillOn->GetSkillSel()== SkillSel::LightningSphere&&
-				Mp>0)
+				Mp > 0)
+				{
+				CSound* atkSound = RESOURCE->LoadSound(L"LS", L"Sound\\Gunvolt's SFX\\LightningSphere.mp3");;
+
+				SOUND->Play(atkSound, 0.7f);
 				LightningSphere();
+			}
 			if (skillOn != nullptr &&
 				skillOn->GetSkillSel() == SkillSel::SparkCaliber &&
 				Mp > 1) {
-				CSound* atkSound =  RESOURCE->LoadSound(L"Atk", L"Sound\\Gunvolt's SFX\\GROUP_PL_GV (10).wav");;
-				
+				CSound* atkSound =  RESOURCE->LoadSound(L"SC", L"Sound\\Gunvolt's SFX\\SparkCaliber.mp3");;
 				SOUND->Play(atkSound,0.7f);
 				SparkCaliber();
 			}
@@ -379,6 +383,8 @@ void CPlayer::SkillTurnOn()
 	skillOn->SetPos(m_vecPos);
 	
 	ADDOBJECT(skillOn);
+	CSound* atkSound = RESOURCE->LoadSound(L"haat", L"Sound\\Gunvolt's SFX\\haat.mp3");;
+	SOUND->Play(atkSound, 0.7f);
 }
 
 void CPlayer::OnCollisionEnter(CCollider* pOtherCollider)
@@ -393,6 +399,10 @@ void CPlayer::OnCollisionEnter(CCollider* pOtherCollider)
 			if (m_HP <= 0)
 			{
 				State = PlayerState::Dead;
+				CSound* deadSound = RESOURCE->LoadSound(L"dead", L"Sound\\Gunvolt's SFX\\dead.mp3");
+
+				SOUND->Play(deadSound, 0.7f);
+				RemoveCollider();
 			}
 			m_HP -= pOtherCollider->GetDamage();
 			Attacked();
@@ -402,6 +412,10 @@ void CPlayer::OnCollisionEnter(CCollider* pOtherCollider)
 			if (m_HP <= 0)
 			{
 				State = PlayerState::Dead;
+				CSound* deadSound = RESOURCE->LoadSound(L"dead", L"Sound\\Gunvolt's SFX\\dead.mp3");
+
+				SOUND->Play(deadSound, 0.7f);
+				RemoveCollider();
 			}
 			m_HP -= pOtherCollider->GetDamage();
 			Attacked();
@@ -549,6 +563,9 @@ void CPlayer::Attacked()
 	m_bIsAttacked = true;
 
 	HitTimer = 0.3f;
+	CSound* hitSound = RESOURCE->LoadSound(L"dead", L"Sound\\Gunvolt's SFX\\kuat.mp3");
+
+	SOUND->Play(hitSound, 0.7f);
 }
 
 void CPlayer::Skill()

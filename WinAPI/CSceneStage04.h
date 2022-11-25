@@ -2,6 +2,7 @@
 #include "CScene.h"
 
 class CPlayer;
+class CMonsterWaterBoss;
 class CSound;
 class CMaps;
 class CImage;
@@ -17,6 +18,7 @@ public:
 
 private:
 	CPlayer* pPlayer;
+	CMonsterWaterBoss* cyro;
 	CSound* pSound;
 	CMaps* map;
 	CScreenUI* SideUI;

@@ -68,7 +68,7 @@ void CSceneStage03::Enter()
 	pPlayer->SetHP(PLAYERHP);
 	pPlayer->SetPos(70, 188);
 	LoadTile(GETPATH + L"Tile\\Stage03.tile");
-	SOUND->Play(pSound,1.5f);
+	SOUND->Play(pSound,1.5f,true);
 }
 
 void CSceneStage03::Update()

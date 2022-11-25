@@ -86,7 +86,7 @@ void CSceneStage01::Enter()
 	
 	LoadTile(GETPATH + L"Tile\\Stage01.tile");
 
-	SOUND->Play(pSound,1.5f);
+	SOUND->Play(pSound,1.5f,true);
 	
 }
 

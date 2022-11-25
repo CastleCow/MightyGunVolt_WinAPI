@@ -84,7 +84,7 @@ void CSceneStage02::Enter()
 	pPlayer->SetPos(70, 188);
 	LoadTileMapPos(GETPATH + L"Tile\\Stage02.tile", Vector(0, WINSIZEY * 0.5f));
 
-	SOUND->Play(pSound,1.5f);
+	SOUND->Play(pSound, 1.5f, true);
 }
 
 void CSceneStage02::Update()

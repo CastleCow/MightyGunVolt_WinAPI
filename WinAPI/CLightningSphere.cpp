@@ -34,6 +34,7 @@ void CLightningSphere::Init()
 	AddComponent(m_pAnimator);
 
 	AddCollider(ColliderType::Circle, Vector(60, 60), Vector(0, 0),5.f);
+	
 }
 
 void CLightningSphere::Update()

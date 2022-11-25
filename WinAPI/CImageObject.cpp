@@ -8,6 +8,8 @@
 CImageObject::CImageObject()
 {
 	m_pImage = nullptr;
+	m_vecScale = Vector(1, 1);
+	m_vecPos = Vector(0, 0);
 }
 
 CImageObject::~CImageObject()
@@ -38,10 +40,10 @@ void CImageObject::Render()
 	{
 		RENDER->Image(
 			m_pImage,
-			0,
-			0,
-			(float)m_pImage->GetWidth(),
-			(float)m_pImage->GetHeight()
+			m_vecPos.x,
+			m_vecPos.y,
+			m_vecPos.x+(float)m_pImage->GetWidth() * 1 * m_vecScale.x,
+			m_vecPos.y+(float)m_pImage->GetHeight() * 1 * m_vecScale.y
 		);
 	}
 }

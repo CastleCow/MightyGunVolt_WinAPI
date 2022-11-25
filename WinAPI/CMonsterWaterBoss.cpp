@@ -17,6 +17,7 @@ CMonsterWaterBoss::CMonsterWaterBoss()
 	m_bIsHit = false;
 	m_bIsPatterning = false;
 	m_bIsCrBul = false;
+	m_bIsPrevP2 = false;
 	m_fIsAttacked;
 	bulletCount = 0.f;
 	m_fHP=30;
@@ -166,13 +167,16 @@ void CMonsterWaterBoss::Update()
 		else//패턴 선택
 		{
 			patNum = rand() % 4;
-			if (patNum == 0&&PrevState!=BossState::Pattern1)
+			if (PrevState != BossState::Idle)
+				patNum = 4;
+			if (patNum == 0|| m_bIsPrevP2)
 			{
 				Logger::Debug(L"패턴1");
 				State = BossState::Pattern1;
 				m_fPatternTimer = 3.f;
 				m_bIsPatterning = true;
 				m_bIsCrBul = false;
+				m_bIsPrevP2 = false;
 				if(Bul1!=nullptr)
 				{
 					Bul1->SetDelete(true);
@@ -183,21 +187,22 @@ void CMonsterWaterBoss::Update()
 					Bul6->SetDelete(true);
 				}
 			}
-			else if (patNum == 1 && PrevState != BossState::Pattern2)
+			else if (patNum == 1 )
 			{
 				Logger::Debug(L"패턴2");
 				State = BossState::Pattern2;
-				m_fPatternTimer = 3.f;
+				m_fPatternTimer = (float)(rand() % 3 + 2);
+				m_fP2Time = m_fPatternTimer;
 				m_bIsPatterning = true;
 			}
-			else if (patNum == 2 && PrevState != BossState::Pattern3)
+			else if (patNum == 2 )
 			{
 				Logger::Debug(L"패턴3");
 				State = BossState::Pattern3;
 				m_fPatternTimer = 2.f;
 				m_bIsPatterning = true;
 			}
-			else if (patNum == 3 && m_fHP < 10.f && PrevState != BossState::Pattern4)
+			else if (patNum == 3 && m_fHP < 10.f )
 			{
 				Logger::Debug(L"패턴4");
 				State = BossState::Pattern4;
@@ -449,7 +454,9 @@ void CMonsterWaterBoss::CountBullet()
 
 void CMonsterWaterBoss::Pattern1()
 {
-
+	/*if (bulletCount > 2)
+		m_fPatternTimer = 0.f;
+	else*/
 	{
 
 		//높게 점프 후
@@ -481,81 +488,86 @@ void CMonsterWaterBoss::Pattern2()
 	//탄환이 2개 미만일경우 패턴 1실행
 	if (bulletCount < 2)
 	{
+		m_bIsPrevP2 = true;
 		m_fPatternTimer = 0.f;
+
 	}//플레이어 위치 판단해 스테이지 중간기준 맞은편으로 이동함
 	else
 	{
 		
 			int ran;
-		
-			if (PLAYERPOS.x > WINSIZEX * 0.5f)
-			{
-				if (m_vecPos.x > WINSIZEX * 0.2f)
-					m_vecPos.x -= 200 * DT;
-			}
-			else if (PLAYERPOS.x < WINSIZEX * 0.5f)
-			{
-				if (m_vecPos.x < WINSIZEX * 0.8f)
-					m_vecPos.x += 200 * DT;
+			if (m_fPatternTimer > m_fP2Time-1.f) {
+				if (PLAYERPOS.x > WINSIZEX * 0.5f)
+				{
+					if (m_vecPos.x > WINSIZEX * 0.2f)
+						m_vecPos.x -= 200 * DT;
+				}
+				else if (PLAYERPOS.x < WINSIZEX * 0.5f)
+				{
+					if (m_vecPos.x < WINSIZEX * 0.8f)
+						m_vecPos.x += 200 * DT;
+				}
 			}
 			//2-3회 탄환을 아이싱으로 바꾸고 플레이어 향해 사출 
-			m_fTimer += DT;
-			ran = rand() % 6;
+			else {
+				m_fTimer += DT;
+				ran = rand() % 6;
 
-		
+				if (m_fTimer > 1.f) {
+					switch (ran)
+					{
+					case 0: {
+						if (Bul1 != nullptr)
+						{
+							Bul1->SetBullet(true);
+							Bul1->SetDir((PLAYERPOS - Bul1->GetPos()).Normalized());
+							bulletCount--;
+						}
+						break;
+					}
+					case 1: {if (Bul2 != nullptr)
+					{
+						Bul2->SetBullet(true);
+						Bul2->SetDir((PLAYERPOS - Bul2->GetPos()).Normalized()); bulletCount--;
+					}
+						  break;
+					}
+					case 2: {if (Bul3 != nullptr)
+					{
+						Bul3->SetBullet(true);
+						Bul3->SetDir((PLAYERPOS - Bul3->GetPos()).Normalized());
+						bulletCount--;
+					}
+						  break;
+					}
+					case 3: {if (Bul4 != nullptr)
+					{
+						Bul4->SetBullet(true);
+						Bul4->SetDir((PLAYERPOS - Bul4->GetPos()).Normalized()); bulletCount--;
+					}
+						  break;
+					}
+					case 4: {if (Bul5 != nullptr)
+					{
+						Bul5->SetBullet(true);
+						Bul5->SetDir((PLAYERPOS - Bul5->GetPos()).Normalized()); bulletCount--;
+					}
+						  break;
+					}
+					case 5: {if (Bul6 != nullptr)
+					{
+						Bul6->SetBullet(true);
+						Bul6->SetDir((PLAYERPOS - Bul6->GetPos()).Normalized()); bulletCount--;
+					}
+						  break;
+					}
 
-		switch (ran)
-		{
-		case 0: {
-			if (Bul1 != nullptr)
-			{
-				Bul1->SetBullet(true);
-				Bul1->SetDir((PLAYERPOS - Bul1->GetPos()).Normalized());
-				bulletCount--;
+					default:
+						break;
+					}
+					m_fTimer = 0.f;
+				}
 			}
-			break;
-		}
-		case 1: {if (Bul2 != nullptr)
-		{
-			Bul2->SetBullet(true);
-			Bul2->SetDir((PLAYERPOS - Bul2->GetPos()).Normalized()); bulletCount--;
-		}
-			  break;
-		}
-		case 2: {if (Bul3 != nullptr)
-		{
-			Bul3->SetBullet(true);
-			Bul3->SetDir((PLAYERPOS - Bul3->GetPos()).Normalized());
-			bulletCount--;
-		}
-			  break;
-		}
-		case 3: {if (Bul4 != nullptr)
-		{
-			Bul4->SetBullet(true);
-			Bul4->SetDir((PLAYERPOS - Bul4->GetPos()).Normalized()); bulletCount--;
-		}
-			  break;
-		}
-		case 4: {if (Bul5 != nullptr)
-		{
-			Bul5->SetBullet(true);
-			Bul5->SetDir((PLAYERPOS - Bul5->GetPos()).Normalized()); bulletCount--;
-		}
-			  break;
-		}
-		case 5: {if (Bul6 != nullptr)
-		{
-			Bul6->SetBullet(true);
-			Bul6->SetDir((PLAYERPOS - Bul6->GetPos()).Normalized()); bulletCount--;
-		}
-			  break;
-		}
-
-		default:
-			break;
-		}
-	
 	}
 	//패턴 종료
 }
@@ -582,14 +594,22 @@ void CMonsterWaterBoss::Pattern4()
 	if (bulletCount < 6)
 		m_fPatternTimer = 0.f;
 	//맵중앙으로 날아오름
-	//if(m_fPatternTimer>2.5f)
+	if(m_fPatternTimer>2.5f)
 	if (m_vecPos.x != WINSIZEX * 0.5f && m_vecPos.y != WINSIZEY * 0.5f)
 	{
-		m_vecPos = Vector(WINSIZEX * 0.5f , WINSIZEY * 0.5f );
+		m_vecPos += Vector(WINSIZEX * 0.5f -m_vecPos.x, WINSIZEY * 0.5f-m_vecPos.y )*50.f*DT;
 	}
 	//빙글빙글 하면서 1초당 미사일 하나씩을 빔으로 바꿔서 주인공을 향해 쏨
 	if(m_fPatternTimer<2.f)
 	{
+		Bul6->SetRadius(90.f);
+		Bul5->SetRadius(90.f);
+		Bul4->SetRadius(90.f);
+		Bul3->SetRadius(90.f);
+		Bul2->SetRadius(90.f);
+		Bul1->SetRadius(90.f);
+
+
 
 	}
 }

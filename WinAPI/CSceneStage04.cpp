@@ -13,6 +13,7 @@
 #include "CButton.h"
 #include "CPanel.h"
 #include "CScreenUI.h"
+#include "CImageObject.h"
 
 CSceneStage04::CSceneStage04()
 {
@@ -33,7 +34,7 @@ void CSceneStage04::Init()
 	AddGameObject(pPlayer);
 
 
-	CMonsterWaterBoss* cyro = new CMonsterWaterBoss;
+	cyro = new CMonsterWaterBoss;
 	cyro->SetPos(WINSIZEX*0.8f, 350);
 	AddGameObject(cyro);
 
@@ -51,9 +52,14 @@ void CSceneStage04::Init()
 	map = new CMaps();
 	map->SetImage(RESOURCE->LoadImg(L"map_part3_Boss", L"Image\\MAP\\Map_part3_Boss_2x.png"));
 	AddGameObject(map);
-	pSound = RESOURCE->LoadSound(L"BGM", L"Sound\\Mighty Gunvolt Burst OST  Boss Battle.mp3");;
+	pSound = RESOURCE->LoadSound(L"BossBGM", L"Sound\\Mighty Gunvolt Burst OST  Boss Battle.mp3");;
 	
-
+	CImageObject* BossHp = new CImageObject();
+	BossHp->SetImage(RESOURCE->LoadImg(L"BossHpBar", L"Image\\UI\\UI_BossHpbar.png"));
+	BossHp->SetLayer(Layer::Map);
+	BossHp->SetPos(Vector(WINSIZEX * 0.6f, WINSIZEY * 0.9f));
+	BossHp->SetScale(Vector(2.f,2.f));
+	AddGameObject(BossHp);
 }
 
 void CSceneStage04::Enter()
@@ -63,7 +69,7 @@ void CSceneStage04::Enter()
 	pPlayer->SetHP(PLAYERHP);
 	//pPlayer->SetPos(70, 188);
 	LoadTile(GETPATH + L"Tile\\Stage04.tile");
-	SOUND->Play(pSound,1.5f);
+	SOUND->Play(pSound,1.5f,true);
 }
 
 void CSceneStage04::Update()
@@ -83,6 +89,7 @@ void CSceneStage04::Update()
 
 void CSceneStage04::Render()
 {
+	//RENDER->FillRect(WINSIZEX*0.5f,WINSIZEY*0.8f,WINSIZEX*0.5f+30-cyro->GetBHP()*10,WINSIZEY*0.8f+10.f,Color(0,0,0,1));
 }
 
 void CSceneStage04::Exit()

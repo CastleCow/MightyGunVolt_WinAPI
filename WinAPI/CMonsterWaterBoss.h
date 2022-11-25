@@ -25,7 +25,7 @@ class CMonsterWaterBoss : public CGameObject
 public:
 	CMonsterWaterBoss();
 	virtual ~CMonsterWaterBoss();
-
+	float GetBHP() { return m_fHP; }
 private:
 	CImage* m_MonImg;
 	CAnimator* m_pAnimator;
@@ -45,6 +45,7 @@ private:
 	bool m_bIsHit;
 	bool m_bIsPatterning;
 	bool m_bIsCrBul;
+	bool m_bIsPrevP2;
 	float m_fIsAttacked;
 	float m_fHP;
 	float m_fTimer;
@@ -53,6 +54,7 @@ private:
 	
 	float bulletCount;
 	float m_fPatternTimer;
+	float m_fP2Time;
 	int patNum;
 private:
 
