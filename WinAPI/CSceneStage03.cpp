@@ -27,7 +27,7 @@ CSceneStage03::~CSceneStage03()
 void CSceneStage03::Init()
 {
 	pPlayer = new CPlayer();
-	pPlayer->SetPos(100, 350);
+	pPlayer->SetPos(200, 350);
 	pPlayer->SetScale(pPlayer->GetScale() * 2);
 	AddGameObject(pPlayer);
 
@@ -58,7 +58,7 @@ void CSceneStage03::Init()
 	goNext->SetScale(30, 200);
 	goNext->SetScene(GroupScene::Stage02);
 	AddGameObject(goNext);
-	pSound = RESOURCE->LoadSound(L"BGM", L"Sound\\Mighty Gunvolt Burst OST   Title Theme.mp3");;
+	pSound = RESOURCE->LoadSound(L"BGM", L"Sound\\Mighty_Gunvolt_Burst_OST_TitleTheme.mp3");;
 
 }
 

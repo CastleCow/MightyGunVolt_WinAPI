@@ -72,7 +72,7 @@ void CSceneStage02::Init()
 	goNext->SetScene(GroupScene::Stage03);
 	AddGameObject(goNext);
 
-	pSound = RESOURCE->LoadSound(L"BGM", L"Sound\\Mighty Gunvolt Burst OST   Title Theme.mp3");;
+	pSound = RESOURCE->LoadSound(L"BGM", L"Sound\\Mighty_Gunvolt_Burst_OST_TitleTheme.mp3");;
 
 }
 
