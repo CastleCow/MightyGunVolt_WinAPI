@@ -40,16 +40,55 @@ void CSceneStage02::Init()
 	pMonster->SetPos(1000, WINSIZEY * 0.5f);
 	AddGameObject(pMonster);
 	//±¼··¼èm_vecPos	{x=430.901184 y=212 }	Vector
+	CMonsterWheel* pMonster2 = new CMonsterWheel();
+	pMonster2->SetPos(430.901184, 212);
+	AddGameObject(pMonster2);
 	//ÅÍ·¿m_vecPos	{x=178.778824 y=756 }	Vector
+	CMonsterTurret* pMonster3 = new CMonsterTurret();
+	pMonster3->SetPos(178.778824, 756);
+	AddGameObject(pMonster3);
 	//¹Ì»çÀÏº¿ m_vecPos	{x=302.648193 y=1140.00000 }	Vector
+	CMonsterMissileBot* pMonster4 = new CMonsterMissileBot();
+	pMonster4->SetPos(302.648193,1140);
+	AddGameObject(pMonster4);
+
+	
+	
 	//ÅÍ·¿ m_vecPos	{x=146.118622 y=1364.00000 }	Vector
+	CMonsterTurret* pMonster10 = new CMonsterTurret();
+	pMonster10->SetPos(146.118622,1364);
+	AddGameObject(pMonster10);
 	//±¼··¼è m_vecPos	{x=558.874390 y=1844.00000 }	Vector
+	CMonsterWheel* pMonster8 = new CMonsterWheel();
+	pMonster8->SetPos(430.901184, 212);
+	AddGameObject(pMonster8);
 	//³¯ÆÄ¸® m_vecPos	{x=843.119934 y=1607.57898 }	Vector
+	CMonster* pMonster7 = new CMonster();
+	pMonster7->SetPos(843.119934, 1607.57898);
+	AddGameObject(pMonster7);
 	//ÅÍ·¿ +		m_vecPos	{x=1630.31372 y=1748.00000 }	Vector
+	CMonsterTurret* pMonster11 = new CMonsterTurret();
+	pMonster11->SetPos(1630.31372,1748);
+	AddGameObject(pMonster11);
 	//±¼··¼è +		m_vecPos	{x=1392.38245 y=1684.00000 }	Vector 
+	CMonsterWheel* pMonster13 = new CMonsterWheel();
+	pMonster13->SetPos(1392.38245,1684);
+	AddGameObject(pMonster13);
 	//³¯ÆÄ¸® +		m_vecPos	{x=2319.97656 y=1606.08130 }	Vector
+	CMonster* pMonster14 = new CMonster();
+	pMonster14->SetPos(2319.97656 , 1606.08130);
+	AddGameObject(pMonster14);
 	// ÅÍ·¿+		m_vecPos	{x=2240.14795 y=1844.00000 }	Vector
+	CMonsterTurret* pMonster12 = new CMonsterTurret();
+	pMonster12->SetPos(2240.14795,1844);
+	AddGameObject(pMonster12);
 	// ¹Ì»çÀÏº¿+		m_vecPos	{x=2471.73340 y=2324.00000 }	Vector
+	CMonsterMissileBot* pMonster5 = new CMonsterMissileBot();
+	pMonster5->SetPos(2471.73340, 2324);
+	AddGameObject(pMonster5);
+	CMonsterMissileBot* pMonster6 = new CMonsterMissileBot();
+	pMonster6->SetPos(2573.8f, 372.f);
+	AddGameObject(pMonster6);
 	// 
 	//
 

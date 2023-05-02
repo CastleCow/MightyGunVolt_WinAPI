@@ -27,7 +27,7 @@ CSceneStage03::~CSceneStage03()
 void CSceneStage03::Init()
 {
 	pPlayer = new CPlayer();
-	pPlayer->SetPos(100, 350);
+	pPlayer->SetPos(500, 350);
 	pPlayer->SetScale(pPlayer->GetScale() * 2);
 	AddGameObject(pPlayer);
 
