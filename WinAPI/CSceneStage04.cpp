@@ -89,7 +89,7 @@ void CSceneStage04::Update()
 
 void CSceneStage04::Render()
 {
-	//RENDER->FillRect(WINSIZEX*0.5f,WINSIZEY*0.8f,WINSIZEX*0.5f+30-cyro->GetBHP()*10,WINSIZEY*0.8f+10.f,Color(0,0,0,1));
+	RENDER->FillRect(WINSIZEX*0.8f,WINSIZEY*0.95f,WINSIZEX*0.8f+(30-cyro->GetBHP())*10,WINSIZEY*0.96f+10.f,Color(0,0,0,1));
 }
 
 void CSceneStage04::Exit()

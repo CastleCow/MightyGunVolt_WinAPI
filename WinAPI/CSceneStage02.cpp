@@ -39,6 +39,19 @@ void CSceneStage02::Init()
 	CMonster* pMonster = new CMonster();
 	pMonster->SetPos(1000, WINSIZEY * 0.5f);
 	AddGameObject(pMonster);
+	//±¼··¼èm_vecPos	{x=430.901184 y=212 }	Vector
+	//ÅÍ·¿m_vecPos	{x=178.778824 y=756 }	Vector
+	//¹Ì»çÀÏº¿ m_vecPos	{x=302.648193 y=1140.00000 }	Vector
+	//ÅÍ·¿ m_vecPos	{x=146.118622 y=1364.00000 }	Vector
+	//±¼··¼è m_vecPos	{x=558.874390 y=1844.00000 }	Vector
+	//³¯ÆÄ¸® m_vecPos	{x=843.119934 y=1607.57898 }	Vector
+	//ÅÍ·¿ +		m_vecPos	{x=1630.31372 y=1748.00000 }	Vector
+	//±¼··¼è +		m_vecPos	{x=1392.38245 y=1684.00000 }	Vector 
+	//³¯ÆÄ¸® +		m_vecPos	{x=2319.97656 y=1606.08130 }	Vector
+	// ÅÍ·¿+		m_vecPos	{x=2240.14795 y=1844.00000 }	Vector
+	// ¹Ì»çÀÏº¿+		m_vecPos	{x=2471.73340 y=2324.00000 }	Vector
+	// 
+	//
 
 	CCameraController* pCamController = new CCameraController;
 	CAMERA->SetTargetPos(pPlayer->GetPos());

@@ -56,7 +56,7 @@ void CSceneStage03::Init()
 	goNext = new CGotoNextArea();
 	goNext->SetPos(map->GetIamge()->GetWidth()-100, map->GetIamge()->GetHeight() * 0.2f);
 	goNext->SetScale(30, 200);
-	goNext->SetScene(GroupScene::Stage02);
+	goNext->SetScene(GroupScene::Stage04);
 	AddGameObject(goNext);
 	pSound = RESOURCE->LoadSound(L"BGM", L"Sound\\Mighty Gunvolt Burst OST   Title Theme.mp3");;
 

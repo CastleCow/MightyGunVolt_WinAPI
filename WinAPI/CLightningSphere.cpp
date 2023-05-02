@@ -15,6 +15,7 @@ CLightningSphere::CLightningSphere()
 	m_pAnimator = nullptr;
 	m_vecPos = Vector(0, 0);
 	m_LiSph = nullptr;
+	angle = 0.f;
 }
 
 CLightningSphere::~CLightningSphere()
@@ -23,13 +24,15 @@ CLightningSphere::~CLightningSphere()
 
 void CLightningSphere::Init()
 {
-	m_LiSph = RESOURCE->LoadImg(L"LiSp", L"Image\\Player\\LightSphereAniRo.png");
+	//m_LiSph = RESOURCE->LoadImg(L"LiSp", L"Image\\Player\\LightSphereAniRo.png");
+	m_LiSph = RESOURCE->LoadImg(L"LiSp", L"Image\\Player\\Sphere2.png");
 	m_Blank = RESOURCE->LoadImg(L"Blank", L"Image\\Player\\BlancBox.png");
 
 	m_pAnimator = new CAnimator;
 
 	m_pAnimator->CreateAnimation(L"Idle", m_Blank, Vector(0.f, 0.f), Vector(100.f, 100.f), Vector(0.f, 0.f), 0.1f, 1);
-	m_pAnimator->CreateAnimation(L"LightnigSphere", m_LiSph, Vector(0.f, 0.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.3f, 8);
+	//m_pAnimator->CreateAnimation(L"LightnigSphere", m_LiSph, Vector(0.f, 0.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.3f, 8);
+	m_pAnimator->CreateAnimation(L"LightnigSphere", m_LiSph, Vector(0.f, 0.f), Vector(36.f, 34.f), Vector(36.f, 0.f), 0.3f, 2);
 	m_pAnimator->Play(L"Idle", false);
 	AddComponent(m_pAnimator);
 
@@ -40,9 +43,10 @@ void CLightningSphere::Init()
 void CLightningSphere::Update()
 {
 	Timer += DT;
-	if (Timer > 2.0f)
+	if (Timer > 3.0f)
 		DELETEOBJECT(this);
-
+	angle += 500.f * DT;
+	m_vecPos = PLAYERPOS + Vector(60.f * cos((angle) / 180.f), 60.f * sin((angle) / 180.f));
 	AnimatorUpdate();
 }
 

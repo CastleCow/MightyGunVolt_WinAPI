@@ -256,10 +256,10 @@ void CPlayer::Update()
 	if (skillOn != nullptr)
 		skillOn->SetPos(m_vecPos);
 
-	if (LiSp != nullptr)
+	/*if (LiSp != nullptr)
 	{
 		LiSp->SetPos(m_vecPos);
-	}
+	}*/
 	AnimatorUpdate();
 }
 
@@ -369,9 +369,19 @@ void CPlayer::LightningSphere()
 
 	//CLightningSphere* LiSp = new CLightningSphere();
 	LiSp = new CLightningSphere();
-	LiSp->SetPos(m_vecPos);
+	LiSp->SetPos(Vector(m_vecPos.x , m_vecPos.y-50));
+	LiSp->SetAngle(0);
+	LiSp1 = new CLightningSphere();
+	LiSp1->SetPos(Vector(m_vecPos.x + 50, m_vecPos.y));
+	LiSp1->SetAngle(350);
+	LiSp2 = new CLightningSphere();
+	LiSp2->SetPos(Vector(m_vecPos.x - 50, m_vecPos.y));
+	LiSp2->SetAngle(700);
+
 
 	ADDOBJECT(LiSp);
+	ADDOBJECT(LiSp1);
+	ADDOBJECT(LiSp2);
 
 	Mp--;
 }

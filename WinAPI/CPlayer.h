@@ -37,6 +37,8 @@ private:
 
 	CPlayerSkill* skillOn;
 	CLightningSphere* LiSp;
+	CLightningSphere* LiSp1;
+	CLightningSphere* LiSp2;
 	CSparkCaliver* SpCal;
 
 	Vector m_vecReset;

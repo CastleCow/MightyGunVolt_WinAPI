@@ -7,7 +7,7 @@ public:
     CLightningSphere();
     virtual ~CLightningSphere();
 
-
+    void SetAngle(float a) { angle = a; }
 private:
     CImage* m_LiSph;
     CImage* m_Blank;
@@ -20,6 +20,7 @@ private:
     
 
     float Timer = 0;
+    float angle;
 
     void Init() override;
     void Update() override;
@@ -27,6 +28,7 @@ private:
     void Release() override;
 
     void AnimatorUpdate();
+    
 
     void OnCollisionEnter(CCollider* pOtherCollider) override;
     void OnCollisionStay(CCollider* pOtherCollider) override;
