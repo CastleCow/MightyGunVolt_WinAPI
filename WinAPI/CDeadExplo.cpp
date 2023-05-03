@@ -9,8 +9,8 @@ CDeadExplo::CDeadExplo()
 	m_vecScale = Vector(10, 10);
 
 	Dir[0] = { 0 };
-	m_layer = Layer::BossBullet;
-	m_strName = L"보스미사일";
+	m_layer = Layer::MonsterBullet;
+	m_strName = L"죽음";
 	m_Image = nullptr;
 
 }
@@ -24,7 +24,7 @@ void CDeadExplo::Init()
 	
 	m_Image = RESOURCE->LoadImg(L"Explosion", L"Image\\Monster\\Explosion Effect.png");
 	m_pAnimator = new CAnimator();
-	m_pAnimator->CreateAnimation(L"Explode", m_Image, Vector(1.f ,71.f), Vector(58.f, 56.f), Vector(61.f, 0.f), 0.5f, 10);//59,127
+	m_pAnimator->CreateAnimation(L"Explode", m_Image, Vector(1.f ,71.f), Vector(58.f, 56.f), Vector(61.f, 0.f), 0.1f, 10);//59,127
 	//m_pAnimator->CreateAnimation(L"Icing", m_Image, Vector(150.f * 13.f, 0.f), Vector(100.f, 100.f), Vector(150.f, 0.f), 0.0f, 1);
 
 	m_pAnimator->Play(L"Explode", false);
@@ -50,13 +50,7 @@ void CDeadExplo::Release()
 void CDeadExplo::AnimatorUpdate()
 {
 
-	//m_pAnimator->Play(str, false);
+	//m_pAnimator->Play(, false);
 }
 
-
-void CDeadExplo::OnCollisionEnter(CCollider* pOtherCollider)
-{
-	Logger::Debug(L"미사일이 충돌체와 부딪혀 사라집니다.");
-	DELETEOBJECT(this);
-}
 

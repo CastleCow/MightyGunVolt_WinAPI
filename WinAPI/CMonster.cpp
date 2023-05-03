@@ -5,7 +5,7 @@
 #include "CCollider.h"
 #include "CImage.h"
 #include "CAnimator.h"
-
+#include "CDeadExplo.h"
 
 CMonster::CMonster()
 {
@@ -64,8 +64,12 @@ void CMonster::Update()
 	m_vecPos -=metoP.Normalized() * 100 * DT;
 
 
-	if (m_fHP <= 0)
+	if (m_fHP <= 0) {
+		CDeadExplo* dead = new CDeadExplo();
+		dead->SetPos(m_vecPos);
+		ADDOBJECT(dead);
 		DELETEOBJECT(this);
+	}
 	AnimatorUpdate();
 }
 

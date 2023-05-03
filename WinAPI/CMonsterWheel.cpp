@@ -5,6 +5,7 @@
 #include "CCollider.h"
 #include "CImage.h"
 #include "CAnimator.h"
+#include "CDeadExplo.h"
 
 
 CMonsterWheel::CMonsterWheel()
@@ -65,8 +66,12 @@ void CMonsterWheel::Update()
 		m_vecPos.x -= m_vecDir.Normalized().x * 100 * DT;
 
 
-	if (m_fHP <= 0)
-		DELETEOBJECT(this);
+		if (m_fHP <= 0) {
+			CDeadExplo* dead = new CDeadExplo();
+			dead->SetPos(m_vecPos);
+			ADDOBJECT(dead);
+			DELETEOBJECT(this);
+		}
 	AnimatorUpdate();
 	if(m_bOnGround==false)
 		Fall();

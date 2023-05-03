@@ -68,16 +68,16 @@ void CMonsterTurret::Update()
 	Vector metoP =PLAYERPOS-m_vecPos;
 	if (abs(metoP.x < 300) &&
 		abs(metoP.y < 300) &&
-		m_fTimer>1.f)
+		m_fTimer>1.5f)
 		CreateMissile();
 	
 
 	if (m_fHP <= 0)
 	{
-		CDeadExplo* expl = new CDeadExplo;
-		expl->SetPos(m_vecPos);
-		if (expl == nullptr)
-			DELETEOBJECT(this);
+		CDeadExplo* dead = new CDeadExplo();
+		dead->SetPos(m_vecPos);
+		ADDOBJECT(dead);
+		DELETEOBJECT(this);
 	}
 		
 

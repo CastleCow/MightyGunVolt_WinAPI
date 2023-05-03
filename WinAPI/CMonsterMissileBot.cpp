@@ -5,7 +5,7 @@
 #include "CCollider.h"
 #include "CImage.h"
 #include "CAnimator.h"
-
+#include "CDeadExplo.h"
 #include"CMonsterMissileBotMissile.h"
 
 CMonsterMissileBot::CMonsterMissileBot()
@@ -76,8 +76,12 @@ void CMonsterMissileBot::Update()
 	}
 
 
-	if (m_fHP <= 0)
+	if (m_fHP <= 0) {
+		CDeadExplo* dead = new CDeadExplo();
+		dead->SetPos(m_vecPos);
+		ADDOBJECT(dead);
 		DELETEOBJECT(this);
+	}
 	AnimatorUpdate();
 }
 

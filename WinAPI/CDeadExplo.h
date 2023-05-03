@@ -31,8 +31,8 @@ private:
 
 	void AnimatorUpdate();
 
-	void OnCollisionEnter(CCollider* pOtherCollider) override;
+	
 
 public:
-
+	
 };
