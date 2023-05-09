@@ -27,12 +27,12 @@ CSceneStage03::~CSceneStage03()
 void CSceneStage03::Init()
 {
 	pPlayer = new CPlayer();
-	pPlayer->SetPos(500, 350);
+	pPlayer->SetPos(750, 350);
 	pPlayer->SetScale(pPlayer->GetScale() * 2);
 	AddGameObject(pPlayer);
 
 	CMonster* pMonster = new CMonster();
-	pMonster->SetPos(1000, WINSIZEY * 0.5f);
+	pMonster->SetPos(1500, WINSIZEY * 0.5f);
 	AddGameObject(pMonster);
 
 	CCameraController* pCamController = new CCameraController;
@@ -47,9 +47,12 @@ void CSceneStage03::Init()
 	AddGameObject(SideUI);
 
 	map = new CMaps();
-	map->SetImage(RESOURCE->LoadImg(L"map_part3", L"Image\\MAP\\Map_part3_2x.png"));
+	map->SetImage(RESOURCE->LoadImg(L"map_part3", L"Image\\MAP\\Map_part3_fix_2x.png"));
 	AddGameObject(map);
-
+	
+	/*CMaps* back = new CMaps();
+	back->SetImage(RESOURCE->LoadImg(L"map_part3_Back", L"Image\\MAP\\Map_part3_BG_2x.png"));
+	AddGameObject(back);*/
 
 
 
@@ -66,7 +69,7 @@ void CSceneStage03::Enter()
 {
 	CAMERA->FadeIn(0.25f);
 	pPlayer->SetHP(PLAYERHP);
-	pPlayer->SetPos(70, 188);
+	//pPlayer->SetPos(70, 188);
 	LoadTile(GETPATH + L"Tile\\Stage03.tile");
 	SOUND->Play(pSound,1.5f,true);
 }
@@ -88,6 +91,7 @@ void CSceneStage03::Update()
 
 void CSceneStage03::Render()
 {
+	//RENDER->Image(RESOURCE->LoadImg(L"LOGO", L"Image\\Map_part3_BG_2x.png",));
 }
 
 void CSceneStage03::Exit()
