@@ -27,6 +27,10 @@ void CGameManager::Update()
 	{
 		SCENE->ChangeScene(GroupScene::Stage04);
 	}
+	if (BUTTONDOWN(VK_F6))
+	{
+		SCENE->ChangeScene(GroupScene::Stage03);
+	}
 	UpTime += DT;
 	if (UpTime >= 60)
 	{

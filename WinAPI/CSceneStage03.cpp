@@ -47,17 +47,19 @@ void CSceneStage03::Init()
 	AddGameObject(SideUI);
 
 	map = new CMaps();
-	map->SetImage(RESOURCE->LoadImg(L"map_part3", L"Image\\MAP\\Map_part3_fix_2x.png"));
-	AddGameObject(map);
+	map->SetImage(RESOURCE->LoadImg(L"map_part3_front", L"Image\\MAP\\Map_part3_fix_2x.png"));
 	
-	/*CMaps* back = new CMaps();
+	CMaps* back = new CMaps();
 	back->SetImage(RESOURCE->LoadImg(L"map_part3_Back", L"Image\\MAP\\Map_part3_BG_2x.png"));
-	AddGameObject(back);*/
+	back->SetVecPos(map->GetVecPos());
+	AddGameObject(back);
+
+	AddGameObject(map);
 
 
 
 	goNext = new CGotoNextArea();
-	goNext->SetPos(map->GetIamge()->GetWidth()-100, map->GetIamge()->GetHeight() * 0.2f);
+	goNext->SetPos(map->GetIamge()->GetWidth()-100, map->GetIamge()->GetHeight());
 	goNext->SetScale(30, 200);
 	goNext->SetScene(GroupScene::Stage04);
 	AddGameObject(goNext);
