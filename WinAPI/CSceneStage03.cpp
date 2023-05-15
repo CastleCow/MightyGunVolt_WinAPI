@@ -49,10 +49,16 @@ void CSceneStage03::Init()
 	map = new CMaps();
 	map->SetImage(RESOURCE->LoadImg(L"map_part3_front", L"Image\\MAP\\Map_part3_fix_2x.png"));
 	
-	CMaps* back = new CMaps();
-	back->SetImage(RESOURCE->LoadImg(L"map_part3_Back", L"Image\\MAP\\Map_part3_BG_2x.png"));
-	back->SetVecPos(map->GetVecPos());
-	AddGameObject(back);
+	back1 = new CMaps();
+	back1->SetImage(RESOURCE->LoadImg(L"map_part3_Back1", L"Image\\MAP\\Map_part3_BG_2x.png"));
+	back1->SetVecPos(map->GetVecPos());
+	back1->SetVecPos(Vector(back1->GetVecPos().x, back1->GetVecPos().y+27));
+
+	AddGameObject(back1);
+	back2 = new CMaps();
+	back2->SetImage(RESOURCE->LoadImg(L"map_part3_Back2", L"Image\\MAP\\Map_part3_BG_2x.png"));
+	back2->SetVecPos(Vector(back1->GetVecPos().x+3000, back1->GetVecPos().y));
+	AddGameObject(back2);
 
 	AddGameObject(map);
 
@@ -89,6 +95,12 @@ void CSceneStage03::Update()
 	CAMERA->SetTargetPos(pPlayer->GetPos(), 0.5f);
 	CAMERA->ZoomInOut(camScale);
 	Logger::Debug(L"플레이어 현재체력:" + to_wstring(pPlayer->GetHP()));
+	back1->SetVecPos(Vector(back1->GetVecPos().x-100*DT, back1->GetVecPos().y));
+	if (back1->GetVecPos().x < pPlayer->GetPos().x -5000)
+		back1->SetVecPos(Vector(pPlayer->GetPos().x, 0));
+	back2->SetVecPos(Vector(back2->GetVecPos().x - 100 * DT, back2->GetVecPos().y));
+	if (back2->GetVecPos().x < pPlayer->GetPos().x -5000)
+		back2->SetVecPos(Vector(pPlayer->GetPos().x, 0));
 }
 
 void CSceneStage03::Render()

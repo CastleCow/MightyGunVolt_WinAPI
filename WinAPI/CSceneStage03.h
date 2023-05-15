@@ -19,6 +19,8 @@ private:
 	CPlayer* pPlayer;
 	CSound* pSound;
 	CMaps* map;
+	CMaps* back1;
+	CMaps* back2;
 	CScreenUI* SideUI;
 	CGotoNextArea* goNext;
 	float camScale = 1;
