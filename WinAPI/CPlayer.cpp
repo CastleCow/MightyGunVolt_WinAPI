@@ -412,10 +412,12 @@ void CPlayer::OnCollisionEnter(CCollider* pOtherCollider)
 				CSound* deadSound = RESOURCE->LoadSound(L"dead", L"Sound\\Gunvolt's SFX\\dead.mp3");
 
 				SOUND->Play(deadSound, 0.7f);
-				RemoveCollider();
+				//RemoveCollider();
 			}
-			m_HP -= pOtherCollider->GetDamage();
-			Attacked();
+			else if (m_HP > 0) {
+				m_HP -= pOtherCollider->GetDamage();
+				Attacked();
+			}
 		}
 		if (pOtherCollider->GetObjName() == L"몬스터미사일")
 		{
@@ -425,10 +427,12 @@ void CPlayer::OnCollisionEnter(CCollider* pOtherCollider)
 				CSound* deadSound = RESOURCE->LoadSound(L"dead", L"Sound\\Gunvolt's SFX\\dead.mp3");
 
 				SOUND->Play(deadSound, 0.7f);
-				RemoveCollider();
+				//RemoveCollider();
 			}
-			m_HP -= pOtherCollider->GetDamage();
-			Attacked();
+			else if (m_HP > 0) {
+				m_HP -= pOtherCollider->GetDamage();
+				Attacked();
+			}
 		}
 	}
 
