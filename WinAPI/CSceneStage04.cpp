@@ -79,6 +79,10 @@ void CSceneStage04::Update()
 		CAMERA->FadeOut(0.25f);
 		DELAYCHANGESCENE(GroupScene::Title, 0.25f);
 	}
+	if (cyro == nullptr)
+	{
+		//DELAYCHANGESCENE(GroupScene::Title, 0.25f);
+	}
 	SideUI->SetHp(20 - pPlayer->GetHP());
 	SideUI->SetMp(pPlayer->GetMp());
 	//goNext->SetPHP(pPlayer->GetHP());
